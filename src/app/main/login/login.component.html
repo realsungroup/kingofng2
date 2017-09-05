@@ -1,0 +1,25 @@
+<div class="page">
+  <div nz-row>
+    <div nz-col [nzSpan]="4">
+      account
+    </div>
+    <div nz-col [nzSpan]="20">
+      <nz-input [(ngModel)]="loginM.account"  type="text" [nzPlaceHolder]="'default size'" [nzPlaceHolder]="'default size'">
+      </nz-input>
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col [nzSpan]="4">
+      password
+    </div>
+    <div nz-col [nzSpan]="20">
+      <nz-input [(ngModel)]="loginM.passWord"  type="text" [nzPlaceHolder]="'default size'" [nzPlaceHolder]="'default size'">
+      </nz-input>
+    </div>
+  </div>
+
+  <button (click)="loginClick()" nz-button [nzType]="'primary'">
+      <span>login</span>
+    </button>
+</div>

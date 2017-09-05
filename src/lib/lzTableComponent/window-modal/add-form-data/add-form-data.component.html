@@ -1,0 +1,21 @@
+<form nz-form>
+  <!-- <div nz-form-item nz-row *ngFor="let title of tab?.titleArray;let j = index">
+    <div nz-form-label nz-col [nzSpan]="7">
+      <label>{{title?.ColDispName}}</label>
+    </div>
+    <div nz-form-control nz-col [nzSpan]="12" [nzHasFeedback]="'true'">
+      <nz-input [(ngModel)]="" [nzPlaceHolder]="''"></nz-input>
+    </div>
+  </div> -->
+
+  <ng-container *ngIf="!isCustomPosition">
+    <div nz-form-item nz-row *ngFor="let title of tab?.titleArray;let j = index">
+      <div nz-form-label nz-col [nzSpan]="7">
+        <label>{{title?.ColDispName}}</label>
+      </div>
+      <app-form-item-dynamic [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicNoti($event)">
+      </app-form-item-dynamic>
+    </div>
+  </ng-container>
+
+</form>

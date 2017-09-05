@@ -1,0 +1,32 @@
+.window-model-container{
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    // right: 0;
+    // bottom: 0;
+    background-color: white;
+}
+
+.form-readonly-container{
+    div{
+        padding: 0 10px;
+        height: 30px;
+
+        label{
+           line-height: 30px;
+        }
+    }
+
+    .form-item-row{
+        margin: 10px 0;
+    }
+
+    .title-right{
+        text-align: right;
+    }
+
+    .val-div{
+        border: 1px solid lightgray;
+        border-radius: 4px;
+    }
+}

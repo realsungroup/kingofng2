@@ -1,0 +1,23 @@
+<div class="window-model-container">
+  <button nz-button [nzType]="'default'" (click)="close()"><span>back</span></button>
+
+  <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'">
+    <nz-tab *ngFor="let tab of tabs;let tabIndex = index">
+      <ng-template #nzTabHeading>
+        {{tab?.formName}}
+      </ng-template>
+
+      <div class="form-readonly-container" nz-row>
+        <div class="form-item-row" *ngFor="let title of tab?.titleArray;">
+          <div class="title-right" nz-col [nzSm]="6">
+            <label>{{title?.ColDispName}}</label>
+          </div>
+          <div class="val-div" nz-col [nzSm]="14">
+             <label>{{data[title?.ColName]}}</label> 
+          </div>
+        </div>
+      </div>
+
+    </nz-tab>
+  </nz-tabset>
+</div>
