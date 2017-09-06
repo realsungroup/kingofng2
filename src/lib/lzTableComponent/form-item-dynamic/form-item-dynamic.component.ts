@@ -48,6 +48,7 @@ export class FormItemDynamicComponent implements OnInit {
     let m = this.data[this.title['ColName']];
     if (this.selectTypeEM == FormItemTypeEM.Date || this.selectTypeEM == FormItemTypeEM.Time) {
       this.obj = new Date(m);
+      if(!this.ut.isValiateDate(this.obj)) this.obj = '';
     } else if (this.selectTypeEM == FormItemTypeEM.Checkbox) {
       this.obj = m == 'Y' ? true : false;
     } else {

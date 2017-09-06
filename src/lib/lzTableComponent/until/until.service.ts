@@ -10,7 +10,7 @@ export class LZUntilService {
 
     //时间格式转换
     transformDateToString(date: Date, format: string): string {
-        if(!(date instanceof Date)) return '';
+        if (!(date instanceof Date)) return '';
         var o = {
             "M+": date.getMonth() + 1, //month
             "d+": date.getDate(),    //day
@@ -27,6 +27,23 @@ export class LZUntilService {
                 RegExp.$1.length == 1 ? o[k] :
                     ("00" + o[k]).substr(("" + o[k]).length));
         return format;
+    }
+
+    //
+    isValiateDate(date): boolean {
+        if (Object.prototype.toString.call(date) === "[object Date]") {
+            // it is a date
+            if (isNaN(date.getTime())) {  // d.valueOf() could also work
+                // date is not valid
+                return false;
+            }else {
+                // date is valid
+                return true;
+            }
+        }else {
+            // not a date
+            return false;
+        }
     }
 
     //自定义定位

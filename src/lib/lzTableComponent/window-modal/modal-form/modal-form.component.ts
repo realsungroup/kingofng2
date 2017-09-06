@@ -40,12 +40,7 @@ export class ModalFormComponent implements OnInit {
 
   //获取窗体的数据
   getKeysData(tab: LZTab) {
-    let urlStr: string = this.path.baseUrl + this.path.getFormDefine;
-    let params: any = {
-      "resid": this.resid,//id
-      "formname": tab.formName//窗体名
-    }
-    this.httpSev.baseRequest("GET", urlStr, params, -1).subscribe(
+    this.getData(tab.formName).subscribe(
       data => {
         if (data && data.data && data.data.columns) {
           //筛选出字段类型数据
@@ -60,9 +55,20 @@ export class ModalFormComponent implements OnInit {
     )
   }
 
+  getData(formName:string){
+    let urlStr: string = this.path.baseUrl + this.path.getFormDefine;
+    let params: any = {
+      "resid": this.resid,//id
+      "formname": formName//窗体名
+    }
+    return this.httpSev.baseRequest("GET", urlStr, params, -1);
+  }
+
   //返回点击事件
   goBack() {
     this.eventNoti.emit({ name: "close" });
+
+
   }
 
   submitForm() {

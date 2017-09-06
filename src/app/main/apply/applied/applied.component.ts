@@ -40,6 +40,8 @@ export class AppliedComponent implements OnInit {
       formName:"default"
     },{
       formName:"yy"
+    },{
+      formName:"add"
     }]
    }
 

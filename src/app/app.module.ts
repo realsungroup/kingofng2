@@ -6,6 +6,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { AppRouterModule } from './app-router/app-router.module';
 import { MainModule } from './main/main.module';
 import { LoginModule } from './main/login/login.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { BaseComponent } from './base-component/base.component';
@@ -26,7 +27,8 @@ import { AppService } from './app.service';
     NgZorroAntdModule.forRoot(),
     AppRouterModule,
     MainModule,
-    LoginModule
+    LoginModule,
+    BrowserAnimationsModule
   ],
   providers: [BaseHttpService,AppService],
   bootstrap: [AppComponent]
