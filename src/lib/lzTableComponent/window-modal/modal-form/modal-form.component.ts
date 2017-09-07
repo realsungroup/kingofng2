@@ -12,19 +12,14 @@ import { FormItemElementEM } from '../../enum/form-item.enum';
   styleUrls: ['./modal-form.component.scss']
 })
 export class ModalFormComponent implements OnInit {
-  // validateForm: FormGroup;
-
   _theMainModal:boolean = true;//是否打开formresource组件（false为打开）
   path: any;//appConfig中路径
   advDictionaryListData:any;//传递给formresource组件的数据
-  isCustomPosition:boolean = true;//是否组件自定义定位
 
+  @Input() isCustomPosition:boolean = false;//是否组件自定义定位
   @Input() tabs: Array<LZTab> = [];//标签数据，获取标题数据后添加进去
-
   @Input() data: any = {};//单个data数据
-
   @Input() resid: string = '';//主表ID
-
   @Output() eventNoti = new EventEmitter();//与lzcommontable组件通信
 
   constructor(protected httpSev: BaseHttpService, protected ut: LZUntilService) {
@@ -50,7 +45,7 @@ export class ModalFormComponent implements OnInit {
         }
       },
       err => {
-        console.error(JSON.stringify(err));
+        // console.error(JSON.stringify(err));
       }
     )
   }
@@ -67,12 +62,6 @@ export class ModalFormComponent implements OnInit {
   //返回点击事件
   goBack() {
     this.eventNoti.emit({ name: "close" });
-
-
-  }
-
-  submitForm() {
-
   }
 
   //提交事件
@@ -98,7 +87,6 @@ export class ModalFormComponent implements OnInit {
     //打开formitemresource 组件
     let title = note['title'];
     this._theMainModal = false;
-
     this.advDictionaryListData = title.AdvDictionaryListData; 
   }
 
@@ -110,7 +98,7 @@ export class ModalFormComponent implements OnInit {
       title = title.filter(item => item.CDZ2_TYPE == 0)//过滤字段，为1的不能匹配
       title.forEach(element => {
         this.data[element.CDZ2_COL1] = data[element.CDZ2_COL2];
-        console.info("字段" + element.CDZ2_COL2 + "匹配到" + element.CDZ2_COL1);
+        // console.info("字段" + element.CDZ2_COL2 + "匹配到" + element.CDZ2_COL1);
       });
       this._theMainModal = true;
     }

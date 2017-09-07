@@ -1,11 +1,19 @@
 <div [class.hidden]="!_theMainModal" [@flyInOut]="'in'">
-  <button nz-button (click)="goBack()" [nzType]="'default'">
-      <span>返回</span>
-</button>
 
-  <button nz-button (click)="submitClick()" [nzType]="'primary'">
-    <span>提交</span>
-</button>
+  <div class="components-table-demo-control-bar">
+    <form nz-form [nzLayout]="'inline'">
+      <div nz-row nz-form-item>
+        <button nz-button (click)="goBack()" [nzType]="'default'">
+          <span>返回</span>
+        </button>
+      </div>
+      <div nz-row nz-form-item>
+        <button nz-button (click)="submitClick()" [nzType]="'primary'">
+          <span>提交</span>
+        </button>
+      </div>
+    </form>
+  </div>
 
   <form class="form-scroll" nz-form>
     <div nz-form-item nz-row *ngFor="let title of titleArray;let j = index">
@@ -16,6 +24,7 @@
       </app-form-item-dynamic>
     </div>
   </form>
+
 </div>
 
 <ng-container *ngIf="!_theMainModal">

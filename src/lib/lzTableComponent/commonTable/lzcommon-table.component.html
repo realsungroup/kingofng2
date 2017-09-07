@@ -1,4 +1,4 @@
-<div [class.hidden]="_theModalName != 'main'" [@modelNameState]="_theModalName">
+<div [class.hidden]="_theModalName != 'main'">
 
   <div class="components-table-demo-control-bar">
     <form nz-form [nzLayout]="'inline'">
@@ -51,9 +51,9 @@
 </ng-container>
 
 <ng-container *ngIf="_theModalName == 'form'">
-  <app-modal-form [tabs]="tabs" [resid]="resid" [data]="_selectData" (eventNoti)="modalFormNoti($event)"></app-modal-form>
+  <app-modal-form [tabs]="tabs" [resid]="resid" [data]="_selectData" [isCustomPosition]="isCustomPosition" (eventNoti)="modalFormNoti($event)"></app-modal-form>
 </ng-container>
 
- <ng-container *ngIf="_theModalName == 'addDataForm'"> 
-  <app-add-form-data [addFormName]="addFormName"  [resid]="resid" (eventNoti)="modalFormNoti($event)"></app-add-form-data>
- </ng-container> 
+<ng-container *ngIf="_theModalName == 'addDataForm'">
+  <app-add-form-data [addFormName]="addFormName" [resid]="resid" (eventNoti)="modalFormNoti($event)"></app-add-form-data>
+</ng-container>

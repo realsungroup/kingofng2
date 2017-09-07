@@ -1,22 +1,24 @@
-<p>
-  <button nz-button [nzType]="'default'" (click)="goBack()"><span>返回</span></button>
+<div class="components-table-demo-control-bar">
+  <form nz-form [nzLayout]="'inline'">
+    <div nz-row nz-form-item>
+      <button nz-button [nzType]="'default'" (click)="goBack()"><span>返回</span></button>
+    </div>
+  </form>
+</div>
 
-  
 
-  <nz-table class="common-table" #rTable [nzAjaxData]="_dataSet" [nzLoading]="_loading"
-    [nzShowSizeChanger]="true" [nzTotal]="_total" [(nzPageIndex)]="current" (nzPageIndexChange)="_refreshData()" [(nzPageSize)]="pageSize"
-    (nzPageSizeChange)="_refreshData()">
-    <thead nz-thead>
-      <tr>
-        <!-- 标题 -->
-        <th nz-th *ngFor="let titleH of _matchAndReferenceCols"><span>{{titleH?.CD_DISPNAME}}</span></th>
-      </tr>
-    </thead>
-    <tbody nz-tbody>
-      <tr #dataTr nz-tbody-tr *ngFor="let data of rTable.data;let dataIndex = index">
-         <td nz-td *ngFor="let title of _matchAndReferenceCols">{{data[title?.CDZ2_COL2]}}</td> 
-         <button nz-button [nzType]="'primary'" (click)="tdSelect(data)"><span>选择</span></button>
-      </tr>
-    </tbody>
-  </nz-table>
-</p>
+<nz-table class="common-table" #rTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzShowSizeChanger]="true" [nzTotal]="_total"
+  [(nzPageIndex)]="current" (nzPageIndexChange)="_refreshData()" [(nzPageSize)]="pageSize" (nzPageSizeChange)="_refreshData()">
+  <thead nz-thead>
+    <tr>
+      <!-- 标题 -->
+      <th nz-th *ngFor="let titleH of _matchAndReferenceCols"><span>{{titleH?.CD_DISPNAME}}</span></th>
+    </tr>
+  </thead>
+  <tbody nz-tbody>
+    <tr #dataTr nz-tbody-tr *ngFor="let data of rTable.data;let dataIndex = index">
+      <td nz-td *ngFor="let title of _matchAndReferenceCols">{{data[title?.CDZ2_COL2]}}</td>
+      <button nz-button [nzType]="'primary'" (click)="tdSelect(data)"><span>选择</span></button>
+    </tr>
+  </tbody>
+</nz-table>

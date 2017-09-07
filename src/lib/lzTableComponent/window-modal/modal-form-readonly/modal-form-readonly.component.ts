@@ -41,6 +41,7 @@ export class WindowModalFormReadonlyComponent implements OnInit {
         }
       },
       err => {
+        alert("获取数据失败");
         // alert("key data fail " + JSON.stringify(err));
       }
     )

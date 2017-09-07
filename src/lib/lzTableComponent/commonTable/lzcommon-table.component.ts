@@ -5,7 +5,6 @@
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, OnChanges } from '@angular/core';
 import { BaseHttpService } from '../../../app/base-http-service/base-http.service';
 import { Observable } from 'rxjs';
-import { dataType } from '../../../app/enum/http.enum';
 import { LZTab } from '../interface/tab.interface';
 
 @Component({
@@ -21,25 +20,26 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _selectData: any;//操作，详情选择的某个数据
   searchValue: string = '';//搜索框数据
 
-
+  //公共参数
   @Input() isAutoData: boolean = false;//是否自动获取数据
   @Input() operationButton: Array<any>;//自定义按钮对象
-  @Output() operationBtnNoti = new EventEmitter();//自定义按钮回调方法
   @Input() operationOrginButton: Array<boolean> = [false, false, false];//详情 操作 删除 按钮显示 
   @Input() tabs: Array<LZTab>;//窗体名称
-  @Input() addFormName: string;//新增数据的窗体名称
+  @Input() addFormName: string = 'default';//新增数据的窗体名称
+  @Input() isCustomPosition:boolean = false;//是否自定义定位
+  @Output() operationBtnNoti = new EventEmitter();//自定义按钮回调方法
 
-  // 自动获取数据
+  // 自动获取数据(所需参数)
   @Input() requestType: string = "GET";//获取数据的http请求方式
   @Input() requestUrl: string = '';//获取数据的url
   @Input() requestParams: any = {};//获取数据的参数(包含主表resid，cmswhere等参数)
   @Input() requestDataType: any = -1;//枚举dataType中某一个
 
-  // 传入数据
+  // 传入数据(所需参数)
   @Input() resid: string;//主表ID
   @Input() current;//当前页数
   @Input() pageSize;//一页pageSize条数据
-  @Output() commonNotification = new EventEmitter();//回调事件（自定义按钮事件）
+  @Output() commonNotification = new EventEmitter();//更新回调事件
 
   _total = 1;//数据总数
   _dataSet = [];//获取的数据数组
@@ -51,7 +51,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
 
   //监听输入数据的变化（自动获取数据状态下取出current，pageSize，resid数据）
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['requestParams']) {
+    if (changes['requestParams'] && this.isAutoData) {
       this.current = this.requestParams['pageIndex'] + 1;
       this.pageSize = this.requestParams['pageSize'];
       this.resid = this.requestParams.resid;
@@ -77,6 +77,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
           this._total = data['total'];
         },
         error => {
+          alert("获取数据失败")
         },
         () => {
           this._loading = false;
@@ -84,18 +85,15 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       )
 
     } else {
-
       this._loading = true;
       this.commonNotification.emit({//更新current，pageSize到外部，再获取数据从外部传入
         "current": this.current,
         "pageSize": this.pageSize,
         "fun": (data: any) => {
-
           this._loading = false;
           this.titleArr = data['cmscolumninfo'];
           this._dataSet = data['data'];
           this._total = data['total'];
-
         }
       });
     }
@@ -134,7 +132,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       'data': data
     }
     this._loading = true;
-    this._httpSev.baseRequest("POST", url, params, dataType.DeleteOneDataEM).subscribe(
+    this._httpSev.baseRequest("POST", url, params,this._httpSev.dataT.DeleteOneDataEM).subscribe(
       data => {
         this._refreshData();
       },
@@ -150,14 +148,6 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   btnClick(event, i) {
     let name = this._menuRecordStr + i;
     this.operationBtnNoti.emit(i);
-
-    debugger
-    setTimeout(() => {
-      this.operationButton[i].loading = true;
-      setTimeout(() => {
-        this.operationButton[i].loading = false;
-      }, 2000);
-    }, 2000);
   }
 
   /***********窗体通知事件**************/
@@ -174,7 +164,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     } else if (notiObj && notiObj.name == 'update') {
       this.windowModalNoti();
       this._refreshData();
-      alert("formEditNoti refresh data")
+      // alert("formEditNoti refresh data")
     } else if (notiObj && notiObj.name == 'update' && notiObj.data && notiObj.data.idx >= 0) {
     }
   }

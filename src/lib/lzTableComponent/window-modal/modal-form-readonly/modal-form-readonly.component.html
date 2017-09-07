@@ -1,5 +1,11 @@
 <div class="window-model-container">
-  <button nz-button [nzType]="'default'" (click)="close()"><span>back</span></button>
+  <div class="components-table-demo-control-bar">
+    <form nz-form [nzLayout]="'inline'">
+      <div nz-row nz-form-item>
+        <button nz-button [nzType]="'default'" (click)="close()"><span>back</span></button>
+      </div>
+    </form>
+  </div>
 
   <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'">
     <nz-tab *ngFor="let tab of tabs;let tabIndex = index">
@@ -13,7 +19,7 @@
             <label>{{title?.ColDispName}}</label>
           </div>
           <div class="val-div" nz-col [nzSm]="14">
-             <label>{{data[title?.ColName]}}</label> 
+            <label>{{data[title?.ColName]}}</label>
           </div>
         </div>
       </div>

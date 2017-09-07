@@ -1,6 +1,14 @@
 <div [class.hidden]="!_theMainModal" class="window-model-container">
-  <button nz-button [nzType]="'default'" (click)="goBack()"><span>back</span></button>
-  <button nz-button [nzType]="'default'" (click)="submitClick()"><span>submit</span></button>
+  <div class="components-table-demo-control-bar">
+    <form nz-form [nzLayout]="'inline'">
+      <div nz-row nz-form-item>
+        <button nz-button [nzType]="'default'" (click)="goBack()"><span>back</span></button>
+      </div>
+      <div nz-row nz-form-item>
+        <button nz-button [nzType]="'default'" (click)="submitClick()"><span>submit</span></button>
+      </div>
+    </form>
+  </div>
 
   <!-- [formGroup]="validateForm"  (ngSubmit)="submitForm($event,validateForm.value)"-->
   <form nz-form>
@@ -24,7 +32,7 @@
 
           <!--自定义布局  -->
           <ng-container *ngIf="isCustomPosition">
-            <div  *ngFor="let titleEle of tab?.titleElementArray">
+            <div *ngFor="let titleEle of tab?.titleElementArray">
               <label class="position-a" [ngStyle]="customStyle(titleEle)">{{titleEle?.FrmText}}</label>
             </div>
             <ng-container *ngFor="let title of tab?.titleArray;let j = index">

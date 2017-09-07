@@ -3,13 +3,7 @@
  */
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalFormComponent } from '../modal-form/modal-form.component';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { trigger,state,style,animate,transition } from '@angular/animations';
 
 @Component({
   selector: 'app-add-form-data',
@@ -19,22 +13,12 @@ import {
     trigger('flyInOut', [
       state('in', style({ transform: 'translateX(0)' })),
       transition(':enter', [
-        style({ transform: 'translateX(-100%)' }),
+        style({ transform: 'translateX(100%)' }),
         animate(500)
       ]),
-      // transition(':leave', [
-      //   animate(500, style({transform: 'translateX(0)'}))
-      // ])
-
-             transition('* => void', [
-          style({transform: 'translateY(0)', opacity: 1}),
-          animate('500ms', style({transform: 'translateY(100%)', opacity: 0}))
-        ])
-
-      // transition('* => void', [
-      //   style({ height: '*' }),
-      //   animate(250, style({ height: 0 }))
-      // ])
+      transition(':leave', [
+        animate(500, style({transform: 'translateX(0)'}))
+      ])
     ])
   ]
 })
@@ -52,7 +36,7 @@ export class AddFormDataComponent extends ModalFormComponent implements OnInit {
         this.titleArray = data.data.columns.filter(item => item.ColName && item.ColName.length);
       },
       err => {
-
+        alert("获取数据失败");
       },
       () => {
 
@@ -61,8 +45,6 @@ export class AddFormDataComponent extends ModalFormComponent implements OnInit {
   }
 
   submitClick() {
-    console.info(this.data, JSON.stringify(this.data));
-
     let path = this.httpSev.appConfig.path;
     let urlStr = path.baseUrl + path.saveData;
     let params = {
@@ -72,22 +54,15 @@ export class AddFormDataComponent extends ModalFormComponent implements OnInit {
     }
     this.httpSev.baseRequest("POST", urlStr, params, this.httpSev.dataT.AddOneDataEM).subscribe(
       data => {
-        alert("add success " + JSON.stringify(data));
         this.eventNoti.emit({ name: "update", data: this.data });//通知父组件更新数据
       },
       err => {
-        alert("add fail " + JSON.stringify(err));
+        alert("添加失败");
       },
       () => {
 
       }
     )
   }
-
-  //   //返回点击事件
-  // goBack() {
-  //   super.goBack();
-  //   @flyInOut
-  // }
 
 }

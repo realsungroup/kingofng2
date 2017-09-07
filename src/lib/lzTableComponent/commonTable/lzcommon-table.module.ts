@@ -13,7 +13,6 @@ import { FormItemResourceComponent } from '../window-modal/form-item-resource/fo
 import { ExtendTableComponent } from '../../../app/extend-table/extend-table.component';
 import { FormItemDynamicPComponent } from '../form-item-dynamic-p/form-item-dynamic-p.component';
 import { AddFormDataComponent } from '../window-modal/add-form-data/add-form-data.component';
-import { HeroListAutoComponent } from '../../testanimate/hero-list-auto.component';
 
 import { MergePipe } from '../pipe/merge.pipe';
 
@@ -36,8 +35,7 @@ import { LZUntilService } from '../until/until.service';
     ExtendTableComponent,
     MergePipe,
     FormItemDynamicPComponent,
-    AddFormDataComponent,
-    HeroListAutoComponent],
+    AddFormDataComponent],
   providers: [LZUntilService],
   exports: [LZcommonTableComponent,
     WindowModalFormReadonlyComponent,
@@ -46,7 +44,6 @@ import { LZUntilService } from '../until/until.service';
     FormItemResourceComponent,
     ExtendTableComponent,
     FormItemDynamicPComponent,
-    AddFormDataComponent,
-    HeroListAutoComponent]
+    AddFormDataComponent]
 })
 export class LzcommonTableModule { }

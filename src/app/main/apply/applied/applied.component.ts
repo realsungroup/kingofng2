@@ -32,7 +32,7 @@ export class AppliedComponent implements OnInit {
     }
     this.dataT = dataType.HostTableDataEM;
 
-    this.operationButtonTitle = [{title:'btn1',type:'primary',loading:true},
+    this.operationButtonTitle = [{title:'btn1',type:'primary',loading:false},
                                  {title:'btn2',type:'default',loading:false},
                                  {title:'btn3',type:'danger',loading:false}];
 
