@@ -5,5 +5,6 @@ export enum dataType {
     AttachTableDataEM,
     FixOneDataEM,
     FixMoreDataEM,
-    DeleteOneDataEM
+    DeleteOneDataEM,
+    AddMoreAndFixMore
 };

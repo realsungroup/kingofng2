@@ -1,11 +1,8 @@
-<div [class.hidden]="!_theMainModal" class="window-model-container">
+<div [class.hidden]="!_theMainModal" class="window-model-container" >
   <div class="components-table-demo-control-bar">
     <form nz-form [nzLayout]="'inline'">
       <div nz-row nz-form-item>
         <button nz-button [nzType]="'default'" (click)="goBack()"><span>back</span></button>
-      </div>
-      <div nz-row nz-form-item>
-        <button nz-button [nzType]="'default'" (click)="submitClick()"><span>submit</span></button>
       </div>
     </form>
   </div>
@@ -13,39 +10,122 @@
   <!-- [formGroup]="validateForm"  (ngSubmit)="submitForm($event,validateForm.value)"-->
   <form nz-form>
     <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'">
-      <nz-tab *ngFor="let tab of tabs;let tabIndex = index">
-        <ng-template #nzTabHeading>
-          {{tab.formName}}
-        </ng-template>
 
-        <div class="position-r form-scroll">
+      <ng-container *ngIf="isMainData">
+        <nz-tab *ngFor="let tab of tabs;let tabIndex = index">
+          <ng-template #nzTabHeading>
+            {{tab.formName}}
+          </ng-template>
+
+          <div class="components-table-demo-control-bar">
+            <form nz-form [nzLayout]="'inline'">
+              <div nz-row nz-form-item>
+                <button nz-button [nzType]="'default'" (click)="submitClick()">
+                    <span>提交</span>
+                  </button>
+              </div>
+            </form>
+          </div>
+
+
           <!--默认布局  -->
           <ng-container *ngIf="!isCustomPosition">
-            <div nz-form-item nz-row *ngFor="let title of tab?.titleArray;let j = index">
-              <div nz-form-label nz-col [nzSpan]="7">
-                <label>{{title?.ColDispName}}</label>
+            <div class="position-r form-scroll">
+              <div nz-form-item nz-row *ngFor="let title of tab?.titleArray;let j = index">
+                <div nz-form-label nz-col [nzSpan]="7">
+                  <label>{{title?.ColDispName}}</label>
+                </div>
+                <app-form-item-dynamic [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicClick($event)">
+                </app-form-item-dynamic>
               </div>
-              <app-form-item-dynamic [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicNoti($event)">
-              </app-form-item-dynamic>
             </div>
           </ng-container>
 
-          <!--自定义布局  -->
           <ng-container *ngIf="isCustomPosition">
-            <div *ngFor="let titleEle of tab?.titleElementArray">
-              <label class="position-a" [ngStyle]="customStyle(titleEle)">{{titleEle?.FrmText}}</label>
-            </div>
-            <ng-container *ngFor="let title of tab?.titleArray;let j = index">
-              <app-form-item-dynamic-p [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicNoti($event)">
-              </app-form-item-dynamic-p>
-            </ng-container>
-          </ng-container>
-        </div>
+            <div class="position-r form-scroll" [style.height.px]="tab.formHeight">
+              <!--自定义布局  -->
+              <div *ngFor="let titleEle of tab?.titleElementArray">
+                <label class="position-a" [ngStyle]="customStyle(titleEle)">{{titleEle?.FrmText}}</label>
+              </div>
+              <ng-container *ngFor="let title of tab?.titleArray;let j = index">
+                <app-form-item-dynamic-p [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicClick($event)">
+                </app-form-item-dynamic-p>
+              </ng-container>
 
-      </nz-tab>
+            </div>
+          </ng-container>
+
+
+
+        </nz-tab>
+      </ng-container>
+
+      <ng-container *ngIf="!isMainData">
+        <nz-tab *ngFor="let tab of tabs;let tabIndex = index">
+          <ng-template #nzTabHeading>
+            {{tab.formName}}
+          </ng-template>
+
+          <div class="components-table-demo-control-bar">
+            <form nz-form [nzLayout]="'inline'">
+              <div nz-row nz-form-item>
+                <button nz-button [nzType]="'default'" (click)="attachTableSubmitClick(tab)"><span>提交</span></button>
+              </div>
+            </form>
+          </div>
+
+          <!-- 附表 -->
+          <div class="form-scroll">
+
+            <ng-container *ngFor="let subData of tab?.dataArray">
+              <button nz-button [nzLoading]="subData.loading" (click)="removeField($event,tab,subData)" [nzType]="'danger'" [nzShape]="'circle'" title="删除">
+                 <i class="anticon anticon-delete"></i>
+              </button>
+
+              <form nz-form class="position-r" [style.height.px]="tab.formHeight" [@flyInOut]="'in'">
+
+                <!--默认布局  -->
+                <ng-container *ngIf="!isCustomPosition">
+                  <div nz-form-item nz-row *ngFor="let title of tab?.titleArray;let j = index">
+                    <div nz-form-label nz-col [nzSpan]="7">
+                      <label>{{title?.ColDispName}}</label>
+                    </div>
+                    <app-form-item-dynamic [index]="j" [data]="subData" [title]="title" (clickNotiEvent)="formItemDynamicClick($event)">
+                    </app-form-item-dynamic>
+                  </div>
+                </ng-container>
+
+                <!--自定义布局  -->
+                <ng-container *ngIf="isCustomPosition">
+                  <div *ngFor="let titleEle of tab?.titleElementArray">
+                    <label class="position-a" [ngStyle]="customStyle(titleEle)">{{titleEle?.FrmText}}</label>
+                  </div>
+                  <ng-container *ngFor="let title of tab?.titleArray;let j = index">
+                    <app-form-item-dynamic-p [index]="j" [data]="subData" [title]="title" (clickNotiEvent)="formItemDynamicClick($event)">
+                    </app-form-item-dynamic-p>
+                  </ng-container>
+                </ng-container>
+
+              </form>
+            </ng-container>
+
+            <div nz-form-item nz-row>
+              <div nz-form-control nz-col [nzSpan]="20" [nzOffset]="4">
+                <button nz-button [nzType]="'dashed'" [nzSize]="'large'" style="width:60%" (click)="addField($event,tab)">
+                  <i class="anticon anticon-plus"></i>
+                    <span>添加form</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </nz-tab>
+      </ng-container>
+
     </nz-tabset>
   </form>
 </div>
+
 
 <ng-container *ngIf="!_theMainModal">
   <app-form-item-resource [advDictionaryListData]="advDictionaryListData" [data]="data" (formItemResourceNoti)="formItemResourceNoti($event)"></app-form-item-resource>

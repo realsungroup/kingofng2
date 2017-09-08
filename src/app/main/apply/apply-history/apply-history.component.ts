@@ -27,8 +27,10 @@ export class ApplyHistoryComponent implements OnInit {
   ngOnInit() {
 
     this.tabsArr = [{
+      isSubForm:false,
       formName:"default"
     },{
+      isSubForm:false,
       formName:"yy"
     }]
   }

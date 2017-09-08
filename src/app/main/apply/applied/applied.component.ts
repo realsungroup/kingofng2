@@ -17,7 +17,6 @@ export class AppliedComponent implements OnInit {
 
   operationButtonTitle:Array<any>;
 
-
   constructor(private appSev:AppService) {
     let path = this.appSev.getAppConfig()['path'];
     this.url = path['baseUrl'] +  path['getData'];
@@ -37,11 +36,19 @@ export class AppliedComponent implements OnInit {
                                  {title:'btn3',type:'danger',loading:false}];
 
     this.tabsArr = [{
-      formName:"default"
+      isSubForm:false, 
+      formName:"default",
     },{
+      isSubForm:false,
       formName:"yy"
     },{
+      isSubForm:false,
       formName:"add"
+    },{
+      isSubForm:true,
+      formName:"default",
+      subFormResid:"558206277343",
+      subFormLayout:"form" 
     }]
    }
 

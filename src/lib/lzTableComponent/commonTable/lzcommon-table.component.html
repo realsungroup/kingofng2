@@ -50,10 +50,10 @@
   <app-window-modal [tabs]="tabs" [resid]="resid" [data]="_selectData" (closeNoti)="windowModalNoti($event)"></app-window-modal>
 </ng-container>
 
-<ng-container *ngIf="_theModalName == 'form'">
-  <app-modal-form [tabs]="tabs" [resid]="resid" [data]="_selectData" [isCustomPosition]="isCustomPosition" (eventNoti)="modalFormNoti($event)"></app-modal-form>
+<ng-container *ngIf="_theModalName == 'form'" >
+  <app-modal-form  [@scaleInOut]="'in'" [tabs]="tabs" [resid]="resid" [data]="_selectData" [isCustomPosition]="isEditCustomPosition" (eventNoti)="modalFormNoti($event)"></app-modal-form>
 </ng-container>
 
 <ng-container *ngIf="_theModalName == 'addDataForm'">
-  <app-add-form-data [addFormName]="addFormName" [resid]="resid" (eventNoti)="modalFormNoti($event)"></app-add-form-data>
+  <app-add-form-data [addFormName]="addFormName" [resid]="resid" [isCustomPosition]="isAddCustomPosition" (eventNoti)="modalFormNoti($event)"></app-add-form-data>
 </ng-container>

@@ -58,7 +58,7 @@
     <!-- 高级字典 -->
     <div *ngSwitchCase="formItemEM.AdvDictionary" nz-col [nzSpan]="12" nz-form-control>
       <nz-input-group [nzSize]="'large'" [nzCompact]="true">
-        <input [(ngModel)]="obj" style="width: 50%;" nz-input>
+         <input [(ngModel)]="obj" (ngModelChange)="modelChange($event,formItemEM.AdvDictionary)" style="width: 50%;" nz-input> 
         <button nz-button [nzType]="'primary'" (click)="searchDataClick($event,formItemEM.AdvDictionary)" [nzShape]="'circle'">
         <i class="anticon anticon-search"></i>
       </button>

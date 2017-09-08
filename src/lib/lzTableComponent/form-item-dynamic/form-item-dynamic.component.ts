@@ -1,7 +1,7 @@
 /**
  * name：编辑表单中item
  */
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { FormItemStructEM, FormItemTypeEM } from '../enum/form-item.enum';
 import { LZUntilService } from '../until/until.service';
 
@@ -11,7 +11,7 @@ import { LZUntilService } from '../until/until.service';
   styleUrls: ['./form-item-dynamic.component.scss']
 })
 
-export class FormItemDynamicComponent implements OnInit {
+export class FormItemDynamicComponent implements OnInit, OnChanges {
   selectTypeEM: FormItemTypeEM;//合并后的枚举
   formItemEM = FormItemTypeEM;
 
@@ -29,7 +29,17 @@ export class FormItemDynamicComponent implements OnInit {
 
   }
 
+  ngOnChanges(change:SimpleChanges){
+    if(change['data']){
+      this.initData();
+    }
+  }
+
   ngOnInit() {
+    this.initData();
+  }
+
+  initData() {
     this.structType = this.title.ColType;
     this.editType = this.title.ColValType;
 
@@ -38,7 +48,7 @@ export class FormItemDynamicComponent implements OnInit {
       this.selectTypeEM = FormItemTypeEM.Date;
     } else if (this.structType == FormItemStructEM.Time) {
       this.selectTypeEM = FormItemTypeEM.Time;
-    }else if(this.structType == FormItemStructEM.LongText){
+    } else if (this.structType == FormItemStructEM.LongText) {
       this.selectTypeEM = FormItemTypeEM.LongText;
     } else {
       this.selectTypeEM = this.editType;
@@ -48,7 +58,7 @@ export class FormItemDynamicComponent implements OnInit {
     let m = this.data[this.title['ColName']];
     if (this.selectTypeEM == FormItemTypeEM.Date || this.selectTypeEM == FormItemTypeEM.Time) {
       this.obj = new Date(m);
-      if(!this.ut.isValiateDate(this.obj)) this.obj = '';
+      if (!this.ut.isValiateDate(this.obj)) this.obj = '';
     } else if (this.selectTypeEM == FormItemTypeEM.Checkbox) {
       this.obj = m == 'Y' ? true : false;
     } else {
@@ -59,7 +69,7 @@ export class FormItemDynamicComponent implements OnInit {
   //绑定字段变化事件
   modelChange(event, dataT) {
     this.obj = event;
-    // console.info(event, dataT);
+    // console.info(event, dataT, this.title['ColName']);
     let m = this.data[this.title['ColName']];
     if (this.selectTypeEM == FormItemTypeEM.Date || this.selectTypeEM == FormItemTypeEM.Time) {
       m = this.ut.transformDateToString(this.obj, 'yyyy-MM-dd hh:mm:ss');
@@ -79,7 +89,7 @@ export class FormItemDynamicComponent implements OnInit {
   }
 
   //textarea行数
-    textareaRows(obj:any):number{
+  textareaRows(obj: any): number {
     return Math.ceil(obj.FrmHeight / 18);
   }
 }

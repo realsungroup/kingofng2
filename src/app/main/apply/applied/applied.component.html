@@ -9,12 +9,18 @@
 
 <!-- app-extend-table -->
 <div>
-<app-extend-table [isAutoData]="'true'" [tabs]="tabsArr" [operationOrginButton]="[true,true,true]" [requestType]="'GET'" [requestUrl]="url"
+  <app-extend-table
+    [isAutoData]="'true'"
+    [tabs]="tabsArr"
+    [operationOrginButton]="[true,true,true]"
+    [requestType]="'GET'"
+    [requestUrl]="url" 
     [requestParams]="params"
-    [requestDataType]="dataT"
-    [operationButton]="operationButtonTitle"
+    [requestDataType]="dataT" 
+    [operationButton]="operationButtonTitle" 
     [addFormName]="'add'"
-    (operationBtnNoti)="btnClick($event)"
-    [isCustomPosition]="true">
+    (operationBtnNoti)="btnClick($event)" 
+    [isEditCustomPosition]="true" 
+    [isAddCustomPosition]="true">
   </app-extend-table>
 </div>

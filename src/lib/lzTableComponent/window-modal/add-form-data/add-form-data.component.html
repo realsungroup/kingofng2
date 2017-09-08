@@ -1,5 +1,5 @@
-<div [class.hidden]="!_theMainModal" [@flyInOut]="'in'">
-
+<div [class.hidden]="!_theMainModal">
+  <!-- [@flyInOut]="'in'" -->
   <div class="components-table-demo-control-bar">
     <form nz-form [nzLayout]="'inline'">
       <div nz-row nz-form-item>
@@ -15,15 +15,30 @@
     </form>
   </div>
 
-  <form class="form-scroll" nz-form>
-    <div nz-form-item nz-row *ngFor="let title of titleArray;let j = index">
-      <div nz-form-label nz-col [nzSpan]="7">
-        <label>{{title?.ColDispName}}</label>
+  <ng-container *ngIf="!isCustomPosition">
+    <form class="form-scroll" nz-form>
+      <div nz-form-item nz-row *ngFor="let title of titleArray;let j = index">
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label>{{title?.ColDispName}}</label>
+        </div>
+        <app-form-item-dynamic [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicNoti($event)">
+        </app-form-item-dynamic>
       </div>
-      <app-form-item-dynamic [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicNoti($event)">
-      </app-form-item-dynamic>
-    </div>
-  </form>
+    </form>
+  </ng-container>
+
+  <!-- 自定义布局   -->
+  <ng-container *ngIf="isCustomPosition">
+    <form class="form-scroll position-r" nz-form>
+      <div *ngFor="let titleEle of titleElementArray">
+        <label class="position-a" [ngStyle]="customStyle(titleEle)">{{titleEle?.FrmText}}</label>
+      </div>
+      <ng-container *ngFor="let title of titleArray;let j = index">
+        <app-form-item-dynamic-p [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicNoti($event)">
+        </app-form-item-dynamic-p>
+      </ng-container>
+    </form>
+  </ng-container>
 
 </div>
 
