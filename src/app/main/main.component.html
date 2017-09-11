@@ -3,45 +3,48 @@
     <div class="logo">
     </div>
 
-    <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'" >
-      <li nz-submenu *ngFor="let r1 of routerArr" >
-        <span title><i class="anticon anticon-user"></i><span class="nav-text">{{r1.title}}</span></span>
-        <ul>
-          <ng-container *ngFor="let r2 of r1.children">
-            <li nz-menu-item *ngIf="r2?.children?.length <= 0" routerLink="{{r2.link}}">{{r2.title}}</li>
-             <li nz-submenu *ngIf="r2?.children?.length > 0">
-              <span title>{{r2.title}}</span>
-              <ul>
-                <ng-container *ngFor="let r3 of r2?.children">
-                  <li nz-menu-item *ngIf="r3?.children?.length <= 0" routerLink="{{r3.link}}">{{r3.title}}</li>
-                  <li nz-submenu *ngIf="r3?.children?.length > 0" class="padding-24">
-                    <span title>{{r3.title}}</span>
-                    <ul>
-                      <ng-container *ngFor="let r4 of r3?.children">
-                        <li nz-menu-item *ngIf="r4?.children?.length <= 0" routerLink="{{r4.link}}">{{r4.title}}</li>
-                        <li nz-submenu *ngIf="r4?.children?.length > 0" class="padding-24">
-                          <span title>{{r4.title}}</span>
-                          <ul>
-                            <ng-container *ngFor="let r5 of r4?.children">
-                              <li nz-menu-item *ngIf="r5?.children?.length <= 0" routerLink="{{r5.link}}">{{r5.title}}</li>
-                              <li nz-submenu *ngIf="r5?.children?.length > 0" class="padding-24">
-                                <span title>{{r5.title}}</span>
-                                <ul>
+    <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
+      <ng-container *ngFor="let r1 of routerArr">
+        <li nz-menu-item *ngIf="r1.children?.length <= 0" routerLink="{{r1.link}}">{{r1.title}}</li>
+        <li nz-submenu *ngIf="r1.children?.length > 0">
+          <span title><i class="anticon anticon-user"></i><span class="nav-text">{{r1.title}} {{r1.Link}}</span></span>
+          <ul>
+            <ng-container *ngFor="let r2 of r1.children">
+              <li nz-menu-item *ngIf="r2?.children?.length <= 0" routerLink="{{r2.link}}">{{r2.title}}</li>
+              <li nz-submenu *ngIf="r2?.children?.length > 0">
+                <span title>{{r2.title}}</span>
+                <ul>
+                  <ng-container *ngFor="let r3 of r2?.children">
+                    <li nz-menu-item *ngIf="r3?.children?.length <= 0" routerLink="{{r3.link}}">{{r3.title}}</li>
+                    <li nz-submenu *ngIf="r3?.children?.length > 0" class="padding-24">
+                      <span title>{{r3.title}}</span>
+                      <ul>
+                        <ng-container *ngFor="let r4 of r3?.children">
+                          <li nz-menu-item *ngIf="r4?.children?.length <= 0" routerLink="{{r4.link}}">{{r4.title}}</li>
+                          <li nz-submenu *ngIf="r4?.children?.length > 0" class="padding-24">
+                            <span title>{{r4.title}}</span>
+                            <ul>
+                              <ng-container *ngFor="let r5 of r4?.children">
+                                <li nz-menu-item *ngIf="r5?.children?.length <= 0" routerLink="{{r5.link}}">{{r5.title}}</li>
+                                <li nz-submenu *ngIf="r5?.children?.length > 0" class="padding-24">
+                                  <span title>{{r5.title}}</span>
+                                  <ul>
 
-                                </ul>
-                              </li>
-                            </ng-container>
-                          </ul>
-                        </li>
-                      </ng-container>
-                    </ul>
-                  </li>
-                </ng-container>
-              </ul>
-            </li> 
-          </ng-container>
-        </ul>
-      </li>
+                                  </ul>
+                                </li>
+                              </ng-container>
+                            </ul>
+                          </li>
+                        </ng-container>
+                      </ul>
+                    </li>
+                  </ng-container>
+                </ul>
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+      </ng-container>
     </ul>
   </nz-sider>
   <nz-layout>
@@ -53,15 +56,15 @@
       </ul>
     </nz-header>
     <nz-content style="margin:0 16px;">
-      <nz-breadcrumb style="margin:12px 0;">
-        <nz-breadcrumb-item>Main</nz-breadcrumb-item>
-        <!-- <nz-breadcrumb-item>Bill</nz-breadcrumb-item> -->
+       <nz-breadcrumb style="margin:12px 0;">
+        <nz-breadcrumb-item *ngFor="let bread of breadcrumbArr">{{bread?.title}}</nz-breadcrumb-item>
       </nz-breadcrumb>
-      <div class="main-router-container">
 
+       <div class="main-router-container">  
         <router-outlet></router-outlet>
-      </div>
+       </div> 
     </nz-content>
     <nz-footer style="text-align: center;">Time Manager ©2017 Implement By LiZhang</nz-footer>
+    <a routerLink="/main/applyRefuse">main/applyRefuse</a>
   </nz-layout>
 </nz-layout>

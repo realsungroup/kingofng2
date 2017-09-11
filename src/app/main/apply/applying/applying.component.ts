@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplyingService } from './applying.service';
+import { Subject } from 'rxjs/Subject';
+import { MainService } from '../../main.service';
 
 @Component({
   selector: 'app-applying',
@@ -13,7 +15,7 @@ export class ApplyingComponent implements OnInit {
   _dataSet = [];
   _loading = true;
 
-  constructor(private _applyingSev: ApplyingService) {
+  constructor(private _applyingSev: ApplyingService,private mainSev:MainService) {
   }
 
   _refreshData = () => {
@@ -38,6 +40,14 @@ export class ApplyingComponent implements OnInit {
   };
 
   ngOnInit() {
+        this.mainSev.updateBreadArr([
+      {
+        title: "main"
+      }, {
+        title: "applying"
+      }
+    ])
+
     this._refreshData();
   }
 

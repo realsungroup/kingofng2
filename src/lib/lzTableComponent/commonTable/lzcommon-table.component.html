@@ -34,6 +34,9 @@
           <button nz-button [nzType]="'default'" (click)="operationClick($event,data,dataIndex)"><span>操作</span></button>
         </td>
         <td *ngIf="operationOrginButton[2]">
+          <button nz-button [nzType]="'default'" (click)="attachTableClick($event,data,dataIndex)"><span>附表</span></button>
+        </td>
+        <td *ngIf="operationOrginButton[3]">
           <button nz-button [nzType]="'danger'" (click)="deleteClick(data)"><span>删除</span></button>
         </td>
 
@@ -50,8 +53,8 @@
   <app-window-modal [tabs]="tabs" [resid]="resid" [data]="_selectData" (closeNoti)="windowModalNoti($event)"></app-window-modal>
 </ng-container>
 
-<ng-container *ngIf="_theModalName == 'form'" >
-  <app-modal-form  [@scaleInOut]="'in'" [tabs]="tabs" [resid]="resid" [data]="_selectData" [isCustomPosition]="isEditCustomPosition" (eventNoti)="modalFormNoti($event)"></app-modal-form>
+<ng-container *ngIf="_theModalName == 'form'">
+  <app-modal-form [tabs]="tabs" [resid]="resid" [isMainData]="isMainData" [data]="_selectData" [isCustomPosition]="isEditCustomPosition" (eventNoti)="modalFormNoti($event)"></app-modal-form>
 </ng-container>
 
 <ng-container *ngIf="_theModalName == 'addDataForm'">

@@ -214,6 +214,7 @@ export class ModalFormComponent implements OnInit {
     let title = note['title'];
     this._theMainModal = false;
     this.advDictionaryListData = title.AdvDictionaryListData;
+    // alert(JSON.stringify(title.AdvDictionaryListData));
   }
 
   formItemResourceNoti(note: any) {

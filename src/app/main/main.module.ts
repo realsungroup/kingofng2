@@ -16,6 +16,7 @@ import { ApplyHistoryComponent } from '../main/apply/apply-history/apply-history
 
 import { ApplyingService } from '../main/apply/applying/applying.service';
 import { ApplyHistoryService } from '../main/apply/apply-history/apply-history.service';
+import { MainService } from './main.service';
 /**
  * @whatItDoes Represents the results of the URL matching.
  *
@@ -43,7 +44,8 @@ import { ApplyHistoryService } from '../main/apply/apply-history/apply-history.s
   entryComponents: [
   ],
   providers: [ApplyingService,
-    ApplyHistoryService],
+    ApplyHistoryService,
+    MainService],
   exports: [
   ]
 })

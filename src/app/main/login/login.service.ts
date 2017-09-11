@@ -13,13 +13,21 @@ export class LoginService {
     this.path = this.appSve.getAppConfig()["path"];
   }
 
-  public login() {
+  public login(type: string) {
     let userStr: string = '80881';
-    let passWordStr: string = '1234567';
-    let params = { "badgeno": userStr, "Password": passWordStr };
+    let params;
+    let url = this.path.baseUrl + this.path.login;
     this.appSve.addProperty("badgeNo", userStr);
-    var url = this.path.baseUrl + this.path.login;
-    return this.httpService.baseRequest("POST", url, params, dataType.LoginEM);
+
+    if (type == 'badgeno') {
+      let passWordStr: string = '1234567';
+      params = { "badgeno": userStr, "Password": passWordStr };
+      return this.httpService.baseRequest("POST", url, params, dataType.LoginEM);
+    } else if (type == 'badgenodynamic') {
+      let ucode: string = 'GHgfPHoXCQno+l0KaDrIOg==';
+      params = { "badgeno": userStr, "Ucode": ucode };
+      return this.httpService.baseRequest("POST", url, params, dataType.LoginDynamicEM);
+    }
   }
 
   // 获取假期数据
@@ -91,7 +99,7 @@ export class LoginService {
         console.log("获取审批组长类别失败");
         // cmAlert('获取审批组长类别失败');
       });
-  
+
 
   }
 

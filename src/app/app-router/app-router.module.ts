@@ -62,7 +62,7 @@ const childRouts:Array<any> = [
   { path: 'test41', component: TestComponent,link:'/main/test41'},
   { path: 'test42', component: TestComponent,link:'/main/test42'},
   { path: 'test51', component: TestComponent,link:'/main/test51'},
-  { path: 'test52', component: TestComponent,link:'/main/test52'},
+  { path: 'test52', component: TestComponent,link:'/main/test52'}
 ]
 
 const routes: Array<any> = [

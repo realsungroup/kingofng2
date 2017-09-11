@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=9;IE=11;IE=10" />
@@ -9,7 +10,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
+  <script>
+    var userAgent = navigator.userAgent,
+      rMsie = /(msie\s|trident.*rv:)([\w.]+)/,
+      rFirefox = /(firefox)\/([\w.]+)/,
+      rOpera = /(opera).+version\/([\w.]+)/,
+      rChrome = /(chrome)\/([\w.]+)/,
+      rSafari = /version\/([\w.]+).*(safari)/;
+    var browser;
+    var version;
+    var ua = userAgent.toLowerCase();
+    var browserMatch = uaMatch(userAgent.toLowerCase());
+
+    function uaMatch(ua) {
+      var match = rMsie.exec(ua);
+      if (match != null) {
+        return { browser: "IE", version: match[2] || "0" };
+      } else return {};
+    }
+
+    if (browserMatch.browser) {
+      browser = browserMatch.browser;
+      version = browserMatch.version;
+
+      if (version < 9) {
+        alert("IE 9 down");
+      } else alert("IE 9 up");
+    }
+  </script>
   <app-root>Loading...</app-root>
 </body>
+
 </html>

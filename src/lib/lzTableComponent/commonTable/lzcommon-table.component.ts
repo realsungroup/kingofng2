@@ -19,15 +19,16 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   titleArr: any;//cmscolumninfo数据
   _selectData: any;//操作，详情选择的某个数据
   searchValue: string = '';//搜索框数据
+  isMainData: boolean = true;//是否为主表数据
 
   //公共参数
   @Input() isAutoData: boolean = false;//是否自动获取数据
   @Input() operationButton: Array<any>;//自定义按钮对象
-  @Input() operationOrginButton: Array<boolean> = [false, false, false];//详情 操作 删除 按钮显示 
+  @Input() operationOrginButton: Array<boolean> = [false, false, false, false];//详情 操作 删除 按钮显示 
   @Input() tabs: Array<LZTab>;//窗体名称
   @Input() addFormName: string = 'default';//新增数据的窗体名称
-  @Input() isEditCustomPosition:boolean = false;//是否自定义定位
-  @Input() isAddCustomPosition:boolean = false;//是否自定义定位
+  @Input() isEditCustomPosition: boolean = false;//是否自定义定位
+  @Input() isAddCustomPosition: boolean = false;//是否自定义定位
   @Output() operationBtnNoti = new EventEmitter();//自定义按钮回调方法
 
   // 自动获取数据(所需参数)
@@ -107,7 +108,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     this._refreshData();
   }
 
-  //附表事件
+  //新增事件
   addDataClick() {
     this._theModalName = 'addDataForm';
   }
@@ -122,6 +123,14 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   operationClick(event, data, idx) {
     this._theModalName = 'form';
     this._selectData = Object.assign({}, data, { idx: idx });//options : [{label:"label1",value:"value1"},{label:"label2",value:"value2"}]
+    this.isMainData = true;
+  }
+
+  //附表事件
+  attachTableClick(event, data, idx) {
+    this._theModalName = 'form';
+    this._selectData = Object.assign({}, data, { idx: idx });
+    this.isMainData = false;
   }
 
   //删除事件
@@ -133,7 +142,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       'data': data
     }
     this._loading = true;
-    this._httpSev.baseRequest("POST", url, params,this._httpSev.dataT.DeleteOneDataEM).subscribe(
+    this._httpSev.baseRequest("POST", url, params, this._httpSev.dataT.DeleteOneDataEM).subscribe(
       data => {
         this._refreshData();
       },
@@ -162,11 +171,11 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   modalFormNoti(notiObj: any) {
     if (notiObj && notiObj.name == 'close') {
       this.windowModalNoti();
-    } else if (notiObj && notiObj.name == 'update') {
+    } else if (notiObj && notiObj.name == 'update') {//刷新更新
       this.windowModalNoti();
       this._refreshData();
-      // alert("formEditNoti refresh data")
-    } else if (notiObj && notiObj.name == 'update' && notiObj.data && notiObj.data.idx >= 0) {
+    } else if (notiObj && notiObj.name == 'update' && notiObj.data && notiObj.data.idx >= 0) {//本地更新（未用）
+
     }
   }
 

@@ -1,7 +1,9 @@
 <div class="components-table-demo-control-bar">
   <form nz-form [nzLayout]="'inline'">
     <div nz-row nz-form-item>
-      <button nz-button [nzType]="'default'" (click)="goBack()"><span>返回</span></button>
+      <button nz-button [nzType]="'default'" (click)="goBack()">
+        <span>返回</span>
+      </button>
     </div>
   </form>
 </div>
@@ -12,7 +14,9 @@
   <thead nz-thead>
     <tr>
       <!-- 标题 -->
-      <th nz-th *ngFor="let titleH of _matchAndReferenceCols"><span>{{titleH?.CD_DISPNAME}}</span></th>
+      <th nz-th *ngFor="let titleH of _matchAndReferenceCols">
+        <span>{{titleH?.CD_DISPNAME}}</span>
+      </th>
     </tr>
   </thead>
   <tbody nz-tbody>

@@ -16,7 +16,7 @@ export class FormItemResourceComponent implements OnInit {
   _loading = true;
   current = 0;
   pageSize = 10;
-  _matchAndReferenceCols: Array<any>;
+  _matchAndReferenceCols: Array<any> = [];
 
   @Input() advDictionaryListData: any;
   @Input() data: any = {};
@@ -27,7 +27,10 @@ export class FormItemResourceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._matchAndReferenceCols = this.advDictionaryListData["0"].MatchAndReferenceCols;
+    let obj = this.advDictionaryListData["0"];
+    if(obj && obj.MatchAndReferenceCols && Array.isArray(obj.MatchAndReferenceCols)) {
+      this._matchAndReferenceCols = obj.MatchAndReferenceCols;
+    }
   }
 
   //获取数据
@@ -35,19 +38,25 @@ export class FormItemResourceComponent implements OnInit {
     let url = this.path.baseUrl + this.path.getData;
     let cmswhere = '';
 
-    this.advDictionaryListData["0"].DictionaryFilterCol.forEach(element => {
+    this._matchAndReferenceCols.forEach(element => {
       if (cmswhere.length) cmswhere = cmswhere + "AND";
       cmswhere = cmswhere + element.Column2 + "='" + this.data[element.Column1] + "'";
     });
 
+    let resid2 = '';
+    if(this.advDictionaryListData && this.advDictionaryListData["0"] && this.advDictionaryListData["0"].ResID2){
+      resid2 = this.advDictionaryListData["0"].ResID2;
+    }
     let params = {
-      resid: this.advDictionaryListData["0"].ResID2,
+      resid: resid2,
       cmswhere: cmswhere
     }
     this._loading = true;
     this.httpSev.baseRequest("GET", url, params, this.httpSev.dataT.HostTableDataEM).subscribe(
       data => {
-        this._dataSet = data['data'];
+        if(data && data['data'] && Array.isArray(data['data'])){
+          this._dataSet = data['data'];
+        }
       },
       err => {
         alert("获取高级字典数据失败，错误信息：" + JSON.stringify(err));

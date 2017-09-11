@@ -23,6 +23,12 @@ export class BaseHttpService {
 
       }
         break;
+      
+      case dataType.LoginDynamicEM:{
+        data.loginMethod = "badgenodynamic";
+        data.enterprisecode = this.appConfig.enterprisecode;
+      }
+      break;
       case dataType.HostTableDataEM: {
         data.uiver = 200;
         data.dynlogin = 1;
@@ -115,16 +121,18 @@ export class BaseHttpService {
     let baseObser: Observable<any>;
     let headers = this.getHeaderWithUrl(url); console.log("header=>" + JSON.stringify(headers));
     let options = new RequestOptions({ headers: headers });
+    params = this.fixDataWithDataType(params, dType);
     switch (type) {
       case "GET": {
-        if (Object.keys(params).length) {
-          let queryStr = '';
-          for (let key in params) {
-            if (!queryStr.length) queryStr = "?" + key + "=" + params[key];
-            else queryStr = queryStr + "&" + key + "=" + params[key];
-          }
-          url += queryStr;
-        }
+        // if (Object.keys(params).length) {
+        //   let queryStr = '';
+        //   for (let key in params) {
+        //     if (!queryStr.length) queryStr = "?" + key + "=" + params[key];
+        //     else queryStr = queryStr + "&" + key + "=" + params[key];
+        //   }
+        //   url += queryStr;
+        // }
+        options.search = params;
         baseObser = this.http.get(url, options)
           .map(rsp => rsp.json())
           .catch(error => Observable.throw(error));
@@ -132,7 +140,6 @@ export class BaseHttpService {
         break;
 
       case "POST": {
-        params = this.fixDataWithDataType(params, dType);
         baseObser = this.http.post(url, params, options)
           .map(rsp => rsp.json())
           .catch(error => Observable.throw(error));
