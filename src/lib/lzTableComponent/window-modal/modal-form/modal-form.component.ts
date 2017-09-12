@@ -83,15 +83,15 @@ export class ModalFormComponent implements OnInit {
   //获取窗体的数据
   getKeysData(tab: LZTab, resid: string) {
     this.getData(tab.formName, resid).subscribe(
-      data => {
+      data => { 
         if (data && data.data && data.data.columns) {
           //筛选出字段类型数据
           tab.titleArray = data.data.columns.filter(item => item.ColName && item.ColName.length);
           //筛选出标题类型数据
           tab.titleElementArray = data.data.columns.filter(item => item.FrmFieldFormType == FormItemElementEM.Label);
           //form高度(absolute定位不会撑起父元素高度)
-          tab.formHeight = data.data.columns.filter(item => item.FrmFieldFormType == FormItemElementEM.FormSelf)[0]["FrmHeight"];
-          // alert(tab.formHeight);
+          let formSelfArr = data.data.columns.filter(item => item.FrmFieldFormType == FormItemElementEM.FormSelf); 
+          if(Array.isArray(formSelfArr) && formSelfArr[0]) tab.formHeight = formSelfArr[0]["FrmHeight"] || 0;
         }
       },
       err => {

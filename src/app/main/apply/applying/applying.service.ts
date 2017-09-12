@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
 import { AppService } from '../../../app.service';
-import { dataType } from '../../../enum/http.enum';
+import { dataType } from '../../../enum/http.enum'; 
 
 @Injectable()
 export class ApplyingService {

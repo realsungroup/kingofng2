@@ -12,47 +12,13 @@ import { AppliedComponent } from '../main/apply/applied/applied.component';
 import { ApplyRefuseComponent } from '../main/apply/apply-refuse/apply-refuse.component';
 import { ApplyHistoryComponent } from '../main/apply/apply-history/apply-history.component';
 
-import { aaaaaaaaaaa } from '../base-interface/custom-route';
-
-
-
-
-
-
-
-// let square = <aaaaaaaaaaa>{};
-// square.link = "10";
-// square.path = "22";
-
-
-
-// const routes1: Route[] = [
-//   // { path: '', redirectTo: 'login', pathMatch: 'full',link:"/main"},
-//   { path: 'login', component: LoginComponent },
-//   // { path: 'main', component: MainComponent ,children:childRouts}
-// ];
-
-// const fourChildRouts:Array<any> = [
-//   { path: 'test33', component: TestComponent,link:'/main/test22/test33'}
-// ]
-
-// const threeChildRouts:Array<any> = [
-//   { path: 'test21', component: TestComponent,link:'/main/test11/test21',children:fourChildRouts},
-//   { path: 'test22', component: Test2Component,link:'/main/test11/test22'},
-// ]
-
-// const childRouts:Array<any> = [
-//   { path: '',redirectTo:'test11',pathMatch:'full'},
-//   { path: 'test11', component: TestComponent,link:'/main/test11',children:threeChildRouts},
-//   { path: 'test12', component: TestComponent,link:'/main/test12'}
-// ]
-
-
-
-
-
 const childRouts:Array<any> = [
   { path: '', redirectTo: 'applying', pathMatch: 'full'},
+  { path: 'applyingtest12', component: ApplyingComponent,link:'/main/applyingtest12'},
+  { path: 'appliedtest12', component: AppliedComponent,link:'/main/appliedtest12'},
+  { path: 'applyRefusetest12', component: ApplyRefuseComponent,link:'/main/applyRefusetest12'},
+  { path: 'applyHistorytest12', component: ApplyHistoryComponent,link:'/main/applyHistorytest12'},
+
   { path: 'applying', component: ApplyingComponent,link:'/main/applying'},
   { path: 'applied', component: AppliedComponent,link:'/main/applied'},
   { path: 'applyRefuse', component: ApplyRefuseComponent,link:'/main/applyRefuse'},

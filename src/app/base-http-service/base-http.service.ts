@@ -3,6 +3,7 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { dataType } from '../enum/http.enum';
 import { AppService } from '../app.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class BaseHttpService {
@@ -10,7 +11,7 @@ export class BaseHttpService {
   public path: any;
   public appConfig: any;
   public dataT = dataType;
-  constructor(private http: Http, private appS: AppService) {
+  constructor(private http: Http, private appS: AppService, private router: Router) {
     this.appConfig = this.appS.getAppConfig();
     this.path = this.appConfig.path;
   }
@@ -23,12 +24,18 @@ export class BaseHttpService {
 
       }
         break;
-      
-      case dataType.LoginDynamicEM:{
+
+      case dataType.LoginDynamicEM: {
         data.loginMethod = "badgenodynamic";
         data.enterprisecode = this.appConfig.enterprisecode;
       }
-      break;
+        break;
+      case dataType.LoginDefaultEM: {
+        data.loginMethod = "default";
+        data.enterprisecode = this.appConfig.enterprisecode;
+      }
+        break;
+
       case dataType.HostTableDataEM: {
         data.uiver = 200;
         data.dynlogin = 1;
@@ -100,14 +107,15 @@ export class BaseHttpService {
   getHeaderWithUrl(str: any) {
     if (str != this.path.baseUrl + this.path.login) {
       if (!this.appConfig.userInfo) {
-        console.error("用户信息错误")
+        console.error("用户信息错误");
+        this.router.navigate(["/login"]);
         return;
       }
 
       let headers = new Headers({
         "userCode": this.appConfig.userInfo.UserCode,
         "accessToken": this.appConfig.userInfo.AccessToken,
-        "loginmethod": "badgeno",
+        "loginmethod": "default",
         "badgeno": this.appConfig.badgeNo,
         "enterprisecode": this.appConfig.enterprisecode,
         "unionid": "11"

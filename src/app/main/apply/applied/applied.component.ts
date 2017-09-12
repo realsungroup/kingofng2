@@ -12,7 +12,6 @@ import { MainService } from '../../main.service';
   styleUrls: ['./applied.component.scss']
 })
 export class AppliedComponent implements OnInit {
-  breadcrumbArr: Array<any> = [];
   url: string;
   params: any;
   dataT: dataType;
@@ -20,13 +19,8 @@ export class AppliedComponent implements OnInit {
   operationButtonTitle: Array<any>;
 
   constructor(private appSev: AppService, protected router: Router,private route:ActivatedRoute,private mainSev:MainService) {
-    this.mainSev.updateBreadArr([{
-      title: "main"
-    }, {
-      title: "applied"
-    }]);
 
-    this.route.toString
+    this.mainSev.setBreadDataWithUrl(this.appSev.getAppConfig()["routesArr"],this.router.url);
 
     let path = this.appSev.getAppConfig()['path'];
     this.url = path['baseUrl'] + path['getData'];
@@ -34,9 +28,9 @@ export class AppliedComponent implements OnInit {
       'subresid': '',
       'cmswhere': '',
       'key': '',
-      'pageSize': 2,
+      'pageSize': 10,
       'pageIndex': 0,
-      'resid': '549561320087',
+      'resid': '535214541525',
       'getcolumninfo': '1'
     }
     this.dataT = dataType.HostTableDataEM;

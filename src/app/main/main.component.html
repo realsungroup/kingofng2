@@ -3,31 +3,33 @@
     <div class="logo">
     </div>
 
-    <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
+    <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'" >
       <ng-container *ngFor="let r1 of routerArr">
-        <li nz-menu-item *ngIf="r1.children?.length <= 0" routerLink="{{r1.link}}">{{r1.title}}</li>
+        <li nz-menu-item *ngIf="r1.children?.length <= 0" routerLink="{{r1.C3_558541978410}}">
+          <span title><i class="anticon anticon-user"></i><span class="nav-text">{{r1?.C3_558541955195}}</span></span>
+        </li>
         <li nz-submenu *ngIf="r1.children?.length > 0">
-          <span title><i class="anticon anticon-user"></i><span class="nav-text">{{r1.title}} {{r1.Link}}</span></span>
+          <span title><i class="anticon anticon-user"></i><span class="nav-text">{{r1?.C3_558541955195}}</span></span>
           <ul>
             <ng-container *ngFor="let r2 of r1.children">
-              <li nz-menu-item *ngIf="r2?.children?.length <= 0" routerLink="{{r2.link}}">{{r2.title}}</li>
+              <li nz-menu-item *ngIf="r2?.children?.length <= 0" routerLink="{{r2.C3_558541978410}}">{{r2?.C3_558541955195}}</li>
               <li nz-submenu *ngIf="r2?.children?.length > 0">
-                <span title>{{r2.title}}</span>
+                <span title>{{r2?.C3_558541955195}}</span>
                 <ul>
                   <ng-container *ngFor="let r3 of r2?.children">
-                    <li nz-menu-item *ngIf="r3?.children?.length <= 0" routerLink="{{r3.link}}">{{r3.title}}</li>
-                    <li nz-submenu *ngIf="r3?.children?.length > 0" class="padding-24">
-                      <span title>{{r3.title}}</span>
+                    <li nz-menu-item *ngIf="r3?.children?.length <= 0" routerLink="{{r3.C3_558541978410}}">{{r3?.C3_558541955195}}</li>
+                    <li nz-submenu *ngIf="r3?.children?.length > 0" [class.padding-24]="!isCollapsed">
+                      <span title>{{r3?.C3_558541955195}}</span>
                       <ul>
                         <ng-container *ngFor="let r4 of r3?.children">
-                          <li nz-menu-item *ngIf="r4?.children?.length <= 0" routerLink="{{r4.link}}">{{r4.title}}</li>
-                          <li nz-submenu *ngIf="r4?.children?.length > 0" class="padding-24">
-                            <span title>{{r4.title}}</span>
+                          <li nz-menu-item *ngIf="r4?.children?.length <= 0" routerLink="{{r4.C3_558541978410}}">{{r4?.C3_558541955195}}</li>
+                          <li nz-submenu *ngIf="r4?.children?.length > 0" [class.padding-24]="!isCollapsed">
+                            <span title>{{r4?.C3_558541955195}}</span>
                             <ul>
                               <ng-container *ngFor="let r5 of r4?.children">
-                                <li nz-menu-item *ngIf="r5?.children?.length <= 0" routerLink="{{r5.link}}">{{r5.title}}</li>
-                                <li nz-submenu *ngIf="r5?.children?.length > 0" class="padding-24">
-                                  <span title>{{r5.title}}</span>
+                                <li nz-menu-item *ngIf="r5?.children?.length <= 0" routerLink="{{r5.C3_558541978410}}">{{r5?.C3_558541955195}}</li>
+                                <li nz-submenu *ngIf="r5?.children?.length > 0" [class.padding-24]="!isCollapsed">
+                                  <span title>{{r5?.C3_558541955195}}</span>
                                   <ul>
 
                                   </ul>
@@ -50,9 +52,6 @@
   <nz-layout>
     <nz-header style="background: #fff; padding:0;">
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
-        <!-- <li nz-menu-item>nav 1</li>
-        <li nz-menu-item>nav 2</li>
-        <li nz-menu-item>nav 3</li> -->
       </ul>
     </nz-header>
     <nz-content style="margin:0 16px;">
@@ -67,4 +66,52 @@
     <nz-footer style="text-align: center;">Time Manager ©2017 Implement By LiZhang</nz-footer>
     <a routerLink="/main/applyRefuse">main/applyRefuse</a>
   </nz-layout>
-</nz-layout>
+</nz-layout>  
+
+
+<!-- <div  style="width: 240px;">
+      <button nz-button [nzType]="'primary'"
+              (click)="toggleCollapsed()"
+              style="margin-bottom: 10px;">
+        <i class="anticon"
+           [class.anticon-menu-unfold]="isCollapsed"
+           [class.anticon-menu-fold]="!isCollapsed">
+        </i>
+      </button>
+      <ul nz-menu [nzMode]="'inline'" nzTheme='dark' [nzInlineCollapsed]="isCollapsed">
+        <li nz-menu-item>
+          <span title>
+            <i class="anticon anticon-mail"></i>
+            <span>Navigation One</span>
+          </span>
+        </li>
+        <li nz-submenu>
+          <span title>
+            <i class="anticon anticon-appstore"></i>
+            <span>Navigation Two</span>
+          </span>
+          <ul>
+            <li nz-menu-item>Option 5</li>
+            <li nz-menu-item>Option 6</li>
+            <li nz-submenu>
+              <span title>Submenu</span>
+              <ul>
+                <li nz-menu-item>Option 7</li>
+                <li nz-menu-item>Option 8</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li nz-submenu>
+          <span title>
+            <i class="anticon anticon-setting"></i>
+            <span>Navigation Three</span>
+          </span>
+          <ul>
+            <li nz-menu-item>Option 9</li>
+            <li nz-menu-item>Option 10</li>
+            <li nz-menu-item>Option 11</li>
+          </ul>
+        </li>
+      </ul>
+    </div> -->

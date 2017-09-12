@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApplyingService } from './applying.service';
 import { Subject } from 'rxjs/Subject';
 import { MainService } from '../../main.service';
+import { Router } from '@angular/router';
+import { AppService } from '../../../app.service';
 
 @Component({
   selector: 'app-applying',
@@ -15,16 +17,12 @@ export class ApplyingComponent implements OnInit {
   _dataSet = [];
   _loading = true;
 
-  constructor(private _applyingSev: ApplyingService,private mainSev:MainService) {
+  constructor(private _applyingSev: ApplyingService,private mainSev:MainService,private router:Router,
+    private appSev:AppService) {
+   
   }
 
   _refreshData = () => {
-    // this._loading = true;
-    // this._randomUser.getUsers(this._current, this._pageSize).subscribe((data: any) => {
-    //   this._loading = false;
-    //   this._total = 200;
-    //   this._dataSet = data.results;
-    // })
     this._loading = true;
     this._applyingSev.getApplyingData("", this._current,this._pageSize).subscribe(
       (data: any) => {
@@ -33,22 +31,15 @@ export class ApplyingComponent implements OnInit {
           this._loading = false;
           this._total = data["total"];
           this._dataSet = dataArr;
-          console.log("getApplyingData" + JSON.stringify(data))
         }
       }
     )
   };
 
   ngOnInit() {
-        this.mainSev.updateBreadArr([
-      {
-        title: "main"
-      }, {
-        title: "applying"
-      }
-    ])
 
     this._refreshData();
+    this.mainSev.setBreadDataWithUrl(this.appSev.getAppConfig()["routesArr"],this.router.url);
   }
 
 }

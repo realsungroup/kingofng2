@@ -44,7 +44,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
           this.isLoginWithToken = true;
 
           this.loginWithToken(badgeno, ucode);
-          // this.navigateWithPath(path);
+          this.navigateWithPath(path);
         }
 
       },
@@ -55,7 +55,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   loginWithToken(badgeno: string, token: string) {
-    this.loginSve.login('badgenodynamic').subscribe(
+    let params = {
+      account:badgeno,//'80881',
+      ucode:token//'GHgfPHoXCQno+l0KaDrIOg=='
+    }
+    this.loginSve.login('badgenodynamic',params).subscribe(
       data => {
         alert("badgenodynamic success" + JSON.stringify(data));
       },
@@ -73,54 +77,50 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getRouteData();
-
+    // this.getRouteData();
   }
 
   getRouteData() {
-    // let routeJson = `[{"class":"0","parent":"","path": "main","title":"主要","link":"/main"},
-    //                   {"class":"1","parent":"main","path": "apply","title":"我的申请","link":""},
-    //                   {"class":"1","parent":"main","path": "test12","title":"测试12","link":"/main/test12"},
-    //                   {"class":"2","parent":"apply","path": "applying","title":"申请中","link":"/main/applying"},
-    //                   {"class":"2","parent":"apply","path": "applied","title":"已审批","link":"/main/applied"},
-    //                   {"class":"2","parent":"apply","path": "applyRefuse","title":"已退回","link":"/main/applyRefuse"},
-    //                   {"class":"2","parent":"apply","path": "applyHistory","title":"历史记录","link":"/main/applyHistory"},
-    //                   {"class":"3","parent":"applyRefuse","path": "test31","title":"测试31","link":"/main/test31"},
-    //                   {"class":"3","parent":"applyRefuse","path": "test31","title":"测试31","link":"/main/test31"},
-    //                   {"class":"3","parent":"test31","path": "test32","title":"测试32","link":"/main/test32"},
-    //                   {"class":"4","parent":"test31","path": "test41","title":"测试41","link":"/main/test41"},
-    //                   {"class":"5","parent":"test41","path": "test51","title":"测试51","link":"/main/test51"},
-    //                   {"class":"5","parent":"test41","path": "test52","title":"测试52","link":"/main/test52"}]`;
 
-    let routeJson = `[{"class":"0","parent":"","path": "main","title":"主要","link":"/main"},
-                      {"class":"1","parent":"main","path": "apply","title":"我的申请","link":""},
-                      {"class":"1","parent":"main","path": "test12","title":"测试12","link":""},
-                      {"class":"2","parent":"apply","path": "applying","title":"申请中","link":"/main/applying"},
-                      {"class":"2","parent":"apply","path": "applied","title":"已审批","link":"/main/applied"},
-                      {"class":"2","parent":"apply","path": "applyRefuse","title":"已退回","link":"/main/applyRefuse"},
-                      {"class":"2","parent":"apply","path": "applyHistory","title":"历史记录","link":"/main/applyHistory"},
-                      {"class":"3","parent":"applyRefuse","path": "test31","title":"测试31","link":"/main/test31"},
-                      {"class":"3","parent":"applyRefuse","path": "test31","title":"测试31","link":"/main/test31"},
-                      {"class":"3","parent":"test31","path": "test32","title":"测试32","link":"/main/test32"},
-                      {"class":"4","parent":"test31","path": "test41","title":"测试41","link":"/main/test41"},
-                      {"class":"5","parent":"test41","path": "test51","title":"测试51","link":"/main/test51"},
-                      {"class":"5","parent":"test41","path": "test52","title":"测试52","link":"/main/test52"},
-                      {"class":"2","parent":"test12","path": "applying","title":"申请中","link":"/main/applying"},
-                      {"class":"2","parent":"test12","path": "applied","title":"已审批","link":"/main/applied"},
-                      {"class":"2","parent":"test12","path": "applyRefuse","title":"已退回","link":"/main/applyRefuse"},
-                      {"class":"2","parent":"test12","path": "applyHistory","title":"历史记录","link":"/main/applyHistory"}]`;
+    let routeJson = `[{"class":"0","parent":"","path": "main","title":"我的申请","link":"/main"},
+                      {"class":"0","parent":"","path": "test12","title":"测试12","link":""},
+                      {"class":"0","parent":"","path": "test22","title":"测试22","link":"/main/test53"},
+
+                      {"class":"1","parent":"main","path": "applying","title":"申请中","link":"/main/applying"},
+                      {"class":"1","parent":"main","path": "applied","title":"已审批","link":"/main/applied"},
+                      {"class":"1","parent":"main","path": "applyRefuse","title":"已退回","link":"/main/applyRefuse"},
+                      {"class":"1","parent":"main","path": "applyHistory","title":"历史记录","link":"/main/applyHistory"},
+
+                      {"class":"1","parent":"test12","path": "applyingtest12","title":"申请中test12","link":"/main/applyingtest12"},
+                      {"class":"1","parent":"test12","path": "appliedtest12","title":"已审批test12","link":"/main/appliedtest12"},
+                      {"class":"1","parent":"test12","path": "applyRefusetest12","title":"已退回test12","link":"/main/applyRefusetest12"},
+                      {"class":"1","parent":"test12","path": "applyHistorytest12","title":"历史记录test12","link":"/main/applyHistorytest12"},
+
+
+                      {"class":"2","parent":"applyRefuse","path": "test31","title":"测试31","link":"/main/test31"},
+                      {"class":"2","parent":"applyRefuse","path": "test32","title":"测试32","link":"/main/test32"},
+
+                      {"class":"3","parent":"test31","path": "test41","title":"测试41","link":"/main/test41"},
+                      {"class":"3","parent":"test31","path": "test42","title":"测试42","link":"/main/test42"},
+
+
+                      {"class":"4","parent":"test41","path": "test51","title":"测试51","link":"/main/test51"},
+                      {"class":"4","parent":"test41","path": "test52","title":"测试52","link":"/main/test52"}]`;
 
     localStorage.setItem("routerJson", routeJson);
 
-    let filterRouteArr = this.filterRoute(this.router.config,JSON.parse(routeJson));
-    this.router.config = filterRouteArr;
-    // console.info("filter Route Arr",filterRouteArr);
+    // let filterRouteArr = this.filterRoute(this.router.config[2].children, JSON.parse(routeJson));
+    // this.router.config[2].children = filterRouteArr;
+    // // console.info("filter Route Arr",filterRouteArr);
 
-    // console.info(this.router.config);
+    // console.info("this.router.config", this.router.config);
   }
 
   loginClick() {
-    this.loginSve.login('badgeno').subscribe(
+    let params = {
+      account:'001'
+    }
+    this.loginSve.login('',params).subscribe(
       data => {
         console.log("login success" + JSON.stringify(data));
 
@@ -128,7 +128,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
         this.appSve.addProperty("userInfo", data);
         this.loginSve.getTeamApprove();
-        Observable.forkJoin(this.loginSve.getVacationCategory(), this.loginSve.getRefuseData()).subscribe(
+
+        // this.loginSve.getVacationCategory(), this.loginSve.getRefuseData(),
+        Observable.forkJoin(this.loginSve.getRouteData()).subscribe(
           data => {
             this.router.navigate(["/main"]);
             console.log("all success" + JSON.stringify(data));
@@ -146,28 +148,5 @@ export class LoginComponent extends BaseComponent implements OnInit {
     )
   }
 
-  filterRoute(routes: Array<any>, routeArr: Array<any>) {
-    return routes.filter((r: any) => {
-      if (r.hasOwnProperty("pathMatch")) return true;
-
-      if (!!!routeArr.filter(val => {
-        if (r.link == val.link) {
-          r.class = val.class;
-          r.parent = val.parent;
-          r.title = val.title;
-          return true;
-        } else return false;
-      }).length) {
-        return false;
-      }
-
-      if (r.children && !!r.children.length) {
-        console.log("child")
-        r.children = this.filterRoute(r.children, routeArr);
-      }
-
-      return true;
-    })
-  }
 
 }
