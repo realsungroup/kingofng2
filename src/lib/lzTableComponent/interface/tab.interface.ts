@@ -2,6 +2,7 @@ export interface LZTab {
     formName:string;
     titleArray?:Array<any>;//字段信息
     titleElementArray?:Array<any>;//标题信息
+    imgElementArr?:Array<any>;//img信息
     
     isSubForm:boolean;//是否子表
     subFormResid?:string;//子表资源ID

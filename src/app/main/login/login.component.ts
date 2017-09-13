@@ -118,6 +118,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   loginClick() {
     let params = {
+      // account:'80881',
       account:'001'
     }
     this.loginSve.login('',params).subscribe(
@@ -129,8 +130,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
         this.appSve.addProperty("userInfo", data);
         this.loginSve.getTeamApprove();
 
-        // this.loginSve.getVacationCategory(), this.loginSve.getRefuseData(),
-        Observable.forkJoin(this.loginSve.getRouteData()).subscribe(
+        // 
+        Observable.forkJoin(this.loginSve.getVacationCategory(), this.loginSve.getRefuseData(),this.loginSve.getRouteData()).subscribe(
           data => {
             this.router.navigate(["/main"]);
             console.log("all success" + JSON.stringify(data));

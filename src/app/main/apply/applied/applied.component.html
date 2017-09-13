@@ -13,15 +13,20 @@
     <app-extend-table
       [isAutoData]="'true'"
       [tabs]="tabsArr"
-      [operationOrginButton]="[true,true,true,true]"
+      [operationOrginButton]="[true,true,false,false]"
       [requestType]="'GET'"
       [requestUrl]="url" 
       [requestParams]="params"
       [requestDataType]="dataT" 
-      [operationButton]="operationButtonTitle" 
-      [addFormName]="'add'"
-      (operationBtnNoti)="btnClick($event)" 
-      [isEditCustomPosition]="true" 
-      [isAddCustomPosition]="true">
+      [isEditCustomPosition]="true"
+      [addFormName]="'default'">
     </app-extend-table>
   </div>
+
+      <!-- [operationButton]="operationButtonTitle" 
+
+      (operationBtnNoti)="btnClick($event)"  
+    
+
+      [isAddCustomPosition]="true"
+-->

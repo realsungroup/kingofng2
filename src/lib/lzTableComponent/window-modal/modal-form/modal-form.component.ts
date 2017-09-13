@@ -4,8 +4,9 @@ import { BaseHttpService } from '../../../../app/base-http-service/base-http.ser
 import { Observable } from 'rxjs';
 import { LZTab } from '../../interface/tab.interface';
 import { LZUntilService } from '../../until/until.service';
-import { FormItemElementEM } from '../../enum/form-item.enum';
-import {trigger,
+import { FormItemElementEM,FormItemTypeEM } from '../../enum/form-item.enum';
+import {
+  trigger,
   state,
   style,
   animate,
@@ -29,12 +30,12 @@ import {trigger,
     ]),
 
 
-  
+
   ]
 
 })
 export class ModalFormComponent implements OnInit {
-  enterOrBack:boolean = true;
+  enterOrBack: boolean = true;
 
   _theMainModal: boolean = true;//是否打开formresource组件（false为打开）
   path: any;//appConfig中路径
@@ -83,15 +84,21 @@ export class ModalFormComponent implements OnInit {
   //获取窗体的数据
   getKeysData(tab: LZTab, resid: string) {
     this.getData(tab.formName, resid).subscribe(
-      data => { 
+      data => {
         if (data && data.data && data.data.columns) {
           //筛选出字段类型数据
-          tab.titleArray = data.data.columns.filter(item => item.ColName && item.ColName.length);
+          tab.titleArray = data.data.columns.filter(item => (item.ColName && item.ColName.length) || (item.FrmFieldFormType == FormItemElementEM.ImageForUrlCol));
           //筛选出标题类型数据
           tab.titleElementArray = data.data.columns.filter(item => item.FrmFieldFormType == FormItemElementEM.Label);
           //form高度(absolute定位不会撑起父元素高度)
-          let formSelfArr = data.data.columns.filter(item => item.FrmFieldFormType == FormItemElementEM.FormSelf); 
-          if(Array.isArray(formSelfArr) && formSelfArr[0]) tab.formHeight = formSelfArr[0]["FrmHeight"] || 0;
+          let formSelfArr = data.data.columns.filter(item => item.FrmFieldFormType == FormItemElementEM.FormSelf);
+          if (Array.isArray(formSelfArr) && formSelfArr[0]) tab.formHeight = formSelfArr[0]["FrmHeight"] || 0;
+
+          //筛选出image类型
+          tab.imgElementArr = data.data.columns.filter(item => item.FrmFieldFormType == FormItemElementEM.ImageForUrlCol);
+          tab.imgElementArr = this.imgElementAddColName(tab.imgElementArr);
+
+          tab.titleArray = this.fixTitleForImgType(tab.titleArray,tab.imgElementArr);
         }
       },
       err => {
@@ -117,6 +124,27 @@ export class ModalFormComponent implements OnInit {
       "hostrecid": recID
     }
     return this.httpSev.baseRequest("GET", urlStr, params, this.httpSev.dataT.AttachTableDataEM);
+  }
+
+  /**********数据处理 */
+  imgElementAddColName(data: Array<any>):Array<any> {
+    data.forEach(item => {
+      let frmColName = item.FrmColName;
+      let index = frmColName.lastIndexOf("__") + 2;
+      item['lzImgUrl'] = '';
+      if (index >= 0) item.lzImgUrl = frmColName.substring(index, frmColName.length);
+    })
+    return data;
+  }
+
+  //处理图片选择控件的type
+  fixTitleForImgType(titleArr: Array<any>, imgElementArr: Array<any>):Array<any>{
+    imgElementArr.forEach(imgEle => {
+      titleArr.forEach(titleItem => {
+        if(titleItem['ColName'] == imgEle.lzImgUrl) titleItem['ColValType'] = FormItemTypeEM.ImageSelect;
+      })
+    })
+    return titleArr;
   }
 
   /**********事件类*** */

@@ -1,4 +1,4 @@
-import { Component, OnInit,Output,EventEmitter,Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { BaseHttpService } from '../../../../app/base-http-service/base-http.service';
 import { LZTab } from '../../interface/tab.interface';
 
@@ -8,19 +8,21 @@ import { LZTab } from '../../interface/tab.interface';
   styleUrls: ['./modal-form-readonly.component.scss']
 })
 export class WindowModalFormReadonlyComponent implements OnInit {
-  path:any;
+  path: any;
 
   @Output() closeNoti = new EventEmitter();
 
-  @Input() tabs:Array<LZTab> = [];
-  @Input() data:any = {};
-  @Input() resid:string = '';
+  @Input() tabs: Array<LZTab> = [];
+  @Input() data: any = {};
+  @Input() resid: string = '';
 
-  constructor(private httpSev:BaseHttpService) {
-    this.path = this.httpSev.path; 
+  constructor(private httpSev: BaseHttpService) {
+    this.path = this.httpSev.path;
   }
 
   ngOnInit() {
+    this.tabs = this.tabs.filter(item => !item.isSubForm)
+
     //获取每个窗体的数据
     this.tabs.forEach(item => {
       this.getKeysData(item);
@@ -28,16 +30,16 @@ export class WindowModalFormReadonlyComponent implements OnInit {
   }
 
   //获取数据
-  getKeysData(tab:LZTab){
-    let urlStr:string = this.path.baseUrl + this.path.getFormDefine;
-    let params:any = {
-      "resid":this.resid,
-      "formname":tab.formName
+  getKeysData(tab: LZTab) {
+    let urlStr: string = this.path.baseUrl + this.path.getFormDefine;
+    let params: any = {
+      "resid": this.resid,
+      "formname": tab.formName
     }
-    this.httpSev.baseRequest("GET",urlStr,params,-1).subscribe(
+    this.httpSev.baseRequest("GET", urlStr, params, -1).subscribe(
       data => {
-        if(data && data.data && data.data.columns){
-            tab.titleArray = data.data.columns.filter(item => item.ColDispName.length);
+        if (data && data.data && data.data.columns) {
+          tab.titleArray = data.data.columns.filter(item => item.ColDispName.length);
         }
       },
       err => {
@@ -48,7 +50,7 @@ export class WindowModalFormReadonlyComponent implements OnInit {
   }
 
   //返回事件
-  close(){
+  close() {
     this.closeNoti.emit();
   }
 }

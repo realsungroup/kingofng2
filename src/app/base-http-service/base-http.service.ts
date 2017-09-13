@@ -132,14 +132,6 @@ export class BaseHttpService {
     params = this.fixDataWithDataType(params, dType);
     switch (type) {
       case "GET": {
-        // if (Object.keys(params).length) {
-        //   let queryStr = '';
-        //   for (let key in params) {
-        //     if (!queryStr.length) queryStr = "?" + key + "=" + params[key];
-        //     else queryStr = queryStr + "&" + key + "=" + params[key];
-        //   }
-        //   url += queryStr;
-        // }
         options.search = params;
         baseObser = this.http.get(url, options)
           .map(rsp => rsp.json())

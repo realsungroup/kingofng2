@@ -2,7 +2,7 @@
 
   <div class="components-table-demo-control-bar">
     <form nz-form [nzLayout]="'inline'">
-      <div nz-row nz-form-item>
+      <div nz-row nz-form-item *ngIf="addFormName">
         <button nz-button (click)="addDataClick()" [nzType]="'primary'">
               <span>添加</span>
           </button>

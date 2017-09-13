@@ -26,7 +26,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   @Input() operationButton: Array<any>;//自定义按钮对象
   @Input() operationOrginButton: Array<boolean> = [false, false, false, false];//详情 操作 删除 按钮显示 
   @Input() tabs: Array<LZTab>;//窗体名称
-  @Input() addFormName: string = 'default';//新增数据的窗体名称
+  @Input() addFormName: string = '';//新增数据的窗体名称
   @Input() isEditCustomPosition: boolean = false;//是否自定义定位
   @Input() isAddCustomPosition: boolean = false;//是否自定义定位
   @Output() operationBtnNoti = new EventEmitter();//自定义按钮回调方法

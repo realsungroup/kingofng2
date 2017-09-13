@@ -22,7 +22,7 @@ export class LoginService {
     this.appSve.addProperty("badgeNo", userStr);
 
     if (type == 'badgeno') {
-      let passWordStr: string = '123456';
+      let passWordStr: string = '1234567';
       params = { "badgeno": userStr, "Password": passWordStr };
       return this.httpService.baseRequest("POST", url, params, dataType.LoginEM);
     } else if (type == 'badgenodynamic') {

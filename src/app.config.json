@@ -6,7 +6,9 @@
         "getSubData": "api/100/table/RetrieveRelTableByHostRecord",
         "saveData": "api/100/table/Save",
         "login": "api/Account/Login",
-        "getFormDefine":"api/100/table/RetrieveFormDefine"
+        "getFormDefine":"api/100/table/RetrieveFormDefine",
+        "uploadFileUrl": "http://kingofdinner.realsun.me:8081/rispweb/rispservice/SvcUploadFile2.aspx",
+        "httppath": "http://kingofdinner.realsun.me:8081/rispweb/upfiles"
     },
     "enterprisecode":"9063"
 }

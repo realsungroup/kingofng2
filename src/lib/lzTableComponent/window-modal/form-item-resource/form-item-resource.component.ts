@@ -17,6 +17,7 @@ export class FormItemResourceComponent implements OnInit {
   current = 0;
   pageSize = 10;
   _matchAndReferenceCols: Array<any> = [];
+  _dictionaryFilterCol: Array<any> = [];
 
   @Input() advDictionaryListData: any;
   @Input() data: any = {};
@@ -31,6 +32,9 @@ export class FormItemResourceComponent implements OnInit {
     if(obj && obj.MatchAndReferenceCols && Array.isArray(obj.MatchAndReferenceCols)) {
       this._matchAndReferenceCols = obj.MatchAndReferenceCols;
     }
+    if(obj && obj.DictionaryFilterCol && Array.isArray(obj.DictionaryFilterCol)){
+      this._dictionaryFilterCol = obj.DictionaryFilterCol;
+    }
   }
 
   //获取数据
@@ -38,8 +42,8 @@ export class FormItemResourceComponent implements OnInit {
     let url = this.path.baseUrl + this.path.getData;
     let cmswhere = '';
 
-    this._matchAndReferenceCols.forEach(element => {
-      if (cmswhere.length) cmswhere = cmswhere + "AND";
+    this._dictionaryFilterCol.forEach(element => {
+      if (cmswhere.length) cmswhere = cmswhere + "AND ";
       cmswhere = cmswhere + element.Column2 + "='" + this.data[element.Column1] + "'";
     });
 

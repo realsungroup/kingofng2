@@ -3,7 +3,7 @@
  */
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalFormComponent } from '../modal-form/modal-form.component';
-import { trigger,state,style,animate,transition } from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormItemElementEM } from '../../enum/form-item.enum';
 
 @Component({
@@ -33,10 +33,15 @@ export class AddFormDataComponent extends ModalFormComponent implements OnInit {
   data: any = {};
 
   ngOnInit() {
-    this.getData(this.addFormName,this.resid).subscribe(
+    this.getData(this.addFormName, this.resid).subscribe(
       data => {
-        this.titleArray = data.data.columns.filter(item => item.ColName && item.ColName.length);
+        this.titleArray = data.data.columns.filter(item => (item.ColName && item.ColName.length) || (item.FrmFieldFormType == FormItemElementEM.ImageForUrlCol));
         this.titleElementArray = data.data.columns.filter(item => item.FrmFieldFormType == FormItemElementEM.Label);
+
+        let imgElementArr = data.data.columns.filter(item => item.FrmFieldFormType == FormItemElementEM.ImageForUrlCol);
+        imgElementArr = this.imgElementAddColName(imgElementArr);
+
+        this.titleArray = this.fixTitleForImgType(this.titleArray, imgElementArr);
       },
       err => {
         alert("获取数据失败");
@@ -57,7 +62,7 @@ export class AddFormDataComponent extends ModalFormComponent implements OnInit {
     }
     this.httpSev.baseRequest("POST", urlStr, params, this.httpSev.dataT.AddOneDataEM).subscribe(
       data => {
-        this.eventNoti.emit({ name: "update", data: this.data });//通知父组件更新数据
+        if(data && data.error == 0)  this.eventNoti.emit({ name: "update", data: this.data });//通知父组件更新数据
       },
       err => {
         alert("添加失败");
@@ -66,6 +71,11 @@ export class AddFormDataComponent extends ModalFormComponent implements OnInit {
 
       }
     )
+  }
+
+  update(note:any){ alert("update")
+    this.data = {};
+    this.data = note['data'];
   }
 
 }
