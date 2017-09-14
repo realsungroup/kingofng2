@@ -12,6 +12,13 @@ import { AppliedComponent } from '../main/apply/applied/applied.component';
 import { ApplyRefuseComponent } from '../main/apply/apply-refuse/apply-refuse.component';
 import { ApplyHistoryComponent } from '../main/apply/apply-history/apply-history.component';
 
+import { ShopCategoryComponent } from '../main/market/shop-category/shop-category.component';
+import { ShopListComponent } from '../main/market/shop-list/shop-list.component'; 
+import { ShopOrderComponent } from '../main/market/shop-order/shop-order-send/shop-order.component';
+import { ShopOrderSendedComponent } from '../main/market/shop-order/shop-order-sended/shop-order-sended.component';
+import { ShopOrderDetailComponent } from '../main/market/shop-order-detail/shop-order-detail.component';
+
+
 const childRouts:Array<any> = [
   { path: '', redirectTo: 'applying', pathMatch: 'full'},
   { path: 'applyingtest12', component: ApplyingComponent,link:'/main/applyingtest12'},
@@ -28,7 +35,13 @@ const childRouts:Array<any> = [
   { path: 'test41', component: TestComponent,link:'/main/test41'},
   { path: 'test42', component: TestComponent,link:'/main/test42'},
   { path: 'test51', component: TestComponent,link:'/main/test51'},
-  { path: 'test52', component: TestComponent,link:'/main/test52'}
+  { path: 'test52', component: TestComponent,link:'/main/test52'},
+
+  { path: 'shopCategory', component: ShopCategoryComponent,link:'/main/shopCategory'},
+  { path: 'shopList', component: ShopListComponent,link:'/main/shopList'},
+  { path: 'shopOrder', component: ShopOrderComponent,link:'/main/shopOrder'},
+  { path: 'shopOrderDetail', component: ShopOrderDetailComponent,link:'/main/shopOrderDetail'},
+  { path: 'shopOrderSended',component:ShopOrderSendedComponent,link:'/main/shopOrderSended'}
 ]
 
 const routes: Array<any> = [

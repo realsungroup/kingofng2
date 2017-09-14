@@ -1,0 +1,6 @@
+<nz-modal [nzVisible]="isVisible" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)"
+  (nzOnOk)="handleOk($event)">
+  <ng-template #modalContent>
+    <p>{{content}}</p>
+  </ng-template>
+</nz-modal>

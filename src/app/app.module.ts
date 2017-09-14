@@ -14,6 +14,8 @@ import { BaseComponent } from './base-component/base.component';
 import { BaseHttpService } from './base-http-service/base-http.service';
 import { AppService } from './app.service';
 
+import { MarketModule } from './main/market/market.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,8 @@ import { AppService } from './app.service';
     AppRouterModule,
     MainModule,
     LoginModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MarketModule
   ],
   providers: [BaseHttpService,AppService],
   bootstrap: [AppComponent]

@@ -4,7 +4,7 @@ import { BaseHttpService } from '../../../../app/base-http-service/base-http.ser
 import { Observable } from 'rxjs';
 import { LZTab } from '../../interface/tab.interface';
 import { LZUntilService } from '../../until/until.service';
-import { FormItemElementEM,FormItemTypeEM } from '../../enum/form-item.enum';
+import { FormItemElementEM, FormItemTypeEM } from '../../enum/form-item.enum';
 import {
   trigger,
   state,
@@ -28,9 +28,6 @@ import {
         animate(300, style({ transform: 'translateX(-100%)' }))
       ])
     ]),
-
-
-
   ]
 
 })
@@ -98,7 +95,7 @@ export class ModalFormComponent implements OnInit {
           tab.imgElementArr = data.data.columns.filter(item => item.FrmFieldFormType == FormItemElementEM.ImageForUrlCol);
           tab.imgElementArr = this.imgElementAddColName(tab.imgElementArr);
 
-          tab.titleArray = this.fixTitleForImgType(tab.titleArray,tab.imgElementArr);
+          tab.titleArray = this.fixTitleForImgType(tab.titleArray, tab.imgElementArr);
         }
       },
       err => {
@@ -127,7 +124,7 @@ export class ModalFormComponent implements OnInit {
   }
 
   /**********数据处理 */
-  imgElementAddColName(data: Array<any>):Array<any> {
+  imgElementAddColName(data: Array<any>): Array<any> {
     data.forEach(item => {
       let frmColName = item.FrmColName;
       let index = frmColName.lastIndexOf("__") + 2;
@@ -138,10 +135,10 @@ export class ModalFormComponent implements OnInit {
   }
 
   //处理图片选择控件的type
-  fixTitleForImgType(titleArr: Array<any>, imgElementArr: Array<any>):Array<any>{
+  fixTitleForImgType(titleArr: Array<any>, imgElementArr: Array<any>): Array<any> {
     imgElementArr.forEach(imgEle => {
       titleArr.forEach(titleItem => {
-        if(titleItem['ColName'] == imgEle.lzImgUrl) titleItem['ColValType'] = FormItemTypeEM.ImageSelect;
+        if (titleItem['ColName'] == imgEle.lzImgUrl) titleItem['ColValType'] = FormItemTypeEM.ImageSelect;
       })
     })
     return titleArr;
@@ -189,7 +186,7 @@ export class ModalFormComponent implements OnInit {
 
     this.httpSev.baseRequest("POST", url, params, this.httpSev.dataT.AddMoreAndFixMore).subscribe(
       data => {
-        // this.eventNoti.emit({ name: "update", data: this.data });//通知父组件更新数据
+        this.eventNoti.emit({ name: "update", data: this.data });//通知父组件更新数据
         // alert("save success" + JSON.stringify(data));
       },
       err => {
@@ -244,6 +241,13 @@ export class ModalFormComponent implements OnInit {
     this.advDictionaryListData = title.AdvDictionaryListData;
     // alert(JSON.stringify(title.AdvDictionaryListData));
   }
+
+  //formItemDynamic刷新数据
+  update(note: any) {
+    let a = Object.assign({}, this.data);
+    this.data = a;
+  }
+
 
   formItemResourceNoti(note: any) {
     if (note['name'] == 'close') this._theMainModal = true;

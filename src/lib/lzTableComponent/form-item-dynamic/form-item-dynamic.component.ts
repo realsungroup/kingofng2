@@ -33,7 +33,7 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(change: SimpleChanges) {
-    if (change['data']) {
+    if (change['data']) { console.log("-------------> data change")
       this.initData();
     }
   }
@@ -120,7 +120,7 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
       xhr.onload =  () => {
         var data = JSON.parse(xhr.response);
         if (xhr.status === 200) {
-          alert("上传成功");
+     //     alert("上传成功");
           var imgUrl = data.httpfilename;
           this.obj = imgUrl;
           this.data[this.title['ColName']] = this.obj;

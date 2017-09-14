@@ -13,7 +13,7 @@ import { AppService } from '../app.service';
 
 export class MainComponent extends BaseComponent implements OnInit, AfterViewInit {
 
-  breadcrumbArr: Array<any>;
+  breadcrumbArr: Array<any> = [];
   isCollapsed = false;
   routerArr: any;
 

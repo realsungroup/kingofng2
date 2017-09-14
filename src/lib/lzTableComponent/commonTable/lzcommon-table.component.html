@@ -1,3 +1,9 @@
+<app-confirm-alert
+[title]="'提示'"
+[content]="'确定删除此条数据？'"
+(clickNotiEvent)="confimSuccess($event)">
+</app-confirm-alert>
+
 <div [class.hidden]="_theModalName != 'main'">
 
   <div class="components-table-demo-control-bar">
@@ -7,6 +13,19 @@
               <span>添加</span>
           </button>
       </div>
+      <div nz-row nz-form-item *ngIf="filterData.length">
+        <nz-dropdown>
+          <a class="ant-dropdown-link" nz-dropdown>
+            {{_filterSelectObj?.title}} <i class="anticon anticon-down"></i>
+          </a>
+          <ul nz-menu>
+            <li nz-menu-item *ngFor="let filterObj of filterData" (click)="filterClick($event,filterObj)">
+              <a target="_blank" rel="noopener noreferrer">{{filterObj.title}}</a>
+            </li>
+          </ul>
+        </nz-dropdown>
+      </div>
+
       <div nz-form-item nz-row>
         <nz-input *ngIf="isAutoData" name="serach" [(ngModel)]="searchValue" [nzPlaceHolder]="'搜索'" (ngModelChange)="searchChange($event)">
         </nz-input>
@@ -54,9 +73,11 @@
 </ng-container>
 
 <ng-container *ngIf="_theModalName == 'form'">
-  <app-modal-form [tabs]="tabs" [resid]="resid" [isMainData]="isMainData" [data]="_selectData" [isCustomPosition]="isEditCustomPosition" (eventNoti)="modalFormNoti($event)"></app-modal-form>
+  <app-modal-form [tabs]="tabs" [resid]="resid" [isMainData]="isMainData" [data]="_selectData" [isCustomPosition]="isEditCustomPosition"
+    (eventNoti)="modalFormNoti($event)"></app-modal-form>
 </ng-container>
 
 <ng-container *ngIf="_theModalName == 'addDataForm'">
   <app-add-form-data [addFormName]="addFormName" [resid]="resid" [isCustomPosition]="isAddCustomPosition" (eventNoti)="modalFormNoti($event)"></app-add-form-data>
 </ng-container>
+

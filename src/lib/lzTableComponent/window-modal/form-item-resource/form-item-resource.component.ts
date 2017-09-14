@@ -58,7 +58,7 @@ export class FormItemResourceComponent implements OnInit {
     this._loading = true;
     this.httpSev.baseRequest("GET", url, params, this.httpSev.dataT.HostTableDataEM).subscribe(
       data => {
-        if(data && data['data'] && Array.isArray(data['data'])){
+        if(data && data.error == 0 && data['data'] && Array.isArray(data['data'])){
           this._dataSet = data['data'];
         }
       },

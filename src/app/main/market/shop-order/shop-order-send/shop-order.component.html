@@ -1,0 +1,14 @@
+
+  <app-lzcommon-table
+    [isAutoData]="true"
+    [operationOrginButton]="[true,false,false,false]"
+    [tabs]="tabs"
+    [isEditCustomPosition]="true"
+    [operationButton]="operationButton"
+    (operationBtnNoti)="operationBtnClick($event)"
+    [requestType]="'GET'"
+    [requestUrl]="url"
+    [requestParams]="requestParams"
+    [requestDataType]="requestDataType">
+  </app-lzcommon-table>
+

@@ -2,10 +2,11 @@
   name:通用表格
   date:2017-9-1
 */
-import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, OnChanges, ViewChild } from '@angular/core';
 import { BaseHttpService } from '../../../app/base-http-service/base-http.service';
 import { Observable } from 'rxjs';
 import { LZTab } from '../interface/tab.interface';
+import { ConfirmAlertComponent } from '../confirm-alert/confirm-alert.component';
 
 @Component({
   selector: 'app-lzcommon-table',
@@ -20,6 +21,11 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _selectData: any;//操作，详情选择的某个数据
   searchValue: string = '';//搜索框数据
   isMainData: boolean = true;//是否为主表数据
+  _filterData: Array<any> = [];//下拉菜单数据
+  _filterSelectObj: any = {};//下拉菜单选择的对象
+
+  @ViewChild(ConfirmAlertComponent)
+  private confimAlert: ConfirmAlertComponent;
 
   //公共参数
   @Input() isAutoData: boolean = false;//是否自动获取数据
@@ -30,6 +36,9 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   @Input() isEditCustomPosition: boolean = false;//是否自定义定位
   @Input() isAddCustomPosition: boolean = false;//是否自定义定位
   @Output() operationBtnNoti = new EventEmitter();//自定义按钮回调方法
+
+  @Input() filterString: string = '';
+  @Input() filterData: Array<any> = [];//下拉菜单数据
 
   // 自动获取数据(所需参数)
   @Input() requestType: string = "GET";//获取数据的http请求方式
@@ -58,6 +67,12 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       this.pageSize = this.requestParams['pageSize'];
       this.resid = this.requestParams.resid;
     }
+
+    if (changes['filterData']) {
+      if (this.filterData.length) {
+        this._filterSelectObj = this.filterData[0];
+      }
+    }
   }
 
   ngOnInit() {
@@ -68,6 +83,9 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _refreshData = () => {
     //自动取数据
     if (this.isAutoData) {
+      if (Object.keys(this._filterSelectObj).length && this.filterString) {
+        this.requestParams.cmswhere = this.filterString + "='" + this._filterSelectObj['value'] + "'";
+      }
       this.requestParams.pageIndex = this.current - 1;
       this.requestParams.pageSize = this.pageSize;
       this.requestParams['key'] = this.searchValue;
@@ -103,6 +121,12 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   };
 
   /***********按钮及输入框触发事件**************/
+  //下拉菜单事件
+  filterClick(event: any, filterObj: any) {
+    this._filterSelectObj = filterObj;
+    this._refreshData();
+  }
+
   //输入框监听事件
   searchChange(val) {
     this._refreshData();
@@ -135,6 +159,18 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
 
   //删除事件
   deleteClick(data) {
+    this.confimAlert.isVisible = true;
+    this.confimAlert.data = data;
+  }
+
+  //自定义按钮事件
+  btnClick(event, i) {
+    // let name = this._menuRecordStr + i;
+    this.operationBtnNoti.emit(i);
+  }
+
+  //confim 确定事件
+  confimSuccess(data) {
     let path: any = this._httpSev.appConfig['path'];
     let url: string = path.baseUrl + path.saveData;
     let params: any = {
@@ -147,17 +183,12 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
         this._refreshData();
       },
       error => {
+        console.error(JSON.stringify(error))
       },
       () => {
         this._loading = false;
       }
     )
-  }
-
-  //自定义按钮事件
-  btnClick(event, i) {
-    let name = this._menuRecordStr + i;
-    this.operationBtnNoti.emit(i);
   }
 
   /***********窗体通知事件**************/

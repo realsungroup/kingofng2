@@ -35,7 +35,9 @@
                 <div nz-form-label nz-col [nzSpan]="7">
                   <label>{{title?.ColDispName}}</label>
                 </div>
-                <app-form-item-dynamic [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicClick($event)">
+                <app-form-item-dynamic [index]="j" [data]="data" [title]="title" 
+                (clickNotiEvent)="formItemDynamicClick($event)"
+                (updateNotiEvent)="update($event)">
                 </app-form-item-dynamic>
               </div>
             </div>
@@ -48,7 +50,9 @@
                 <label class="position-a" [ngStyle]="customStyle(titleEle)">{{titleEle?.FrmText}}</label>
               </div>
               <ng-container *ngFor="let title of tab?.titleArray;let j = index">
-                <app-form-item-dynamic-p [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicClick($event)">
+                <app-form-item-dynamic-p [index]="j" [data]="data" [title]="title"
+                 (clickNotiEvent)="formItemDynamicClick($event)"
+                 (updateNotiEvent)="update($event)">
                 </app-form-item-dynamic-p>
               </ng-container>
 
@@ -90,7 +94,9 @@
                     <div nz-form-label nz-col [nzSpan]="7">
                       <label>{{title?.ColDispName}}</label>
                     </div>
-                    <app-form-item-dynamic [index]="j" [data]="subData" [title]="title" (clickNotiEvent)="formItemDynamicClick($event)">
+                    <app-form-item-dynamic [index]="j" [data]="subData" [title]="title"
+                     (clickNotiEvent)="formItemDynamicClick($event)"
+                     (updateNotiEvent)="update($event)">
                     </app-form-item-dynamic>
                   </div>
                 </ng-container>
@@ -101,7 +107,9 @@
                     <label class="position-a" [ngStyle]="customStyle(titleEle)">{{titleEle?.FrmText}}</label>
                   </div>
                   <ng-container *ngFor="let title of tab?.titleArray;let j = index">
-                    <app-form-item-dynamic-p [index]="j" [data]="subData" [title]="title" (clickNotiEvent)="formItemDynamicClick($event)">
+                    <app-form-item-dynamic-p [index]="j" [data]="subData" [title]="title" 
+                    (clickNotiEvent)="formItemDynamicClick($event)"
+                    (updateNotiEvent)="update($event)">
                     </app-form-item-dynamic-p>
                   </ng-container>
                 </ng-container>
