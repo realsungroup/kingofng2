@@ -61,7 +61,7 @@
 
         <!-- 自定义按钮组 -->
         <td nz-td *ngFor="let btn of operationButton;let i = index">
-          <button nz-button [nzType]="btn.type" [nzLoading]="btn.loading" (click)="btnClick($event,i)"><span>{{btn.title}}</span></button>
+          <button nz-button [nzType]="btn.type" [nzLoading]="btn.loading" (click)="btnClick($event,i,data)"><span>{{btn.title}}</span></button>
         </td>
       </tr>
     </tbody>

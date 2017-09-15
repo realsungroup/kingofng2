@@ -1,7 +1,7 @@
-
+<ng-container *ngIf="!isSendModalShow">
   <app-lzcommon-table
     [isAutoData]="true"
-    [operationOrginButton]="[true,false,false,false]"
+    [operationOrginButton]="[true,false,true,false]"
     [tabs]="tabs"
     [isEditCustomPosition]="true"
     [operationButton]="operationButton"
@@ -11,4 +11,26 @@
     [requestParams]="requestParams"
     [requestDataType]="requestDataType">
   </app-lzcommon-table>
+</ng-container>
 
+  <ng-container *ngIf="isSendModalShow">
+    <app-modal-form 
+      [tabs]="orderTabs" 
+      [resid]="resid"
+      [isMainData]="true" 
+      [data]="_selectData" 
+      [isCustomPosition]="true"
+      (eventNoti)="modalFormNoti($event)">
+
+        <app-lzcommon-table
+          [isAttachDataModal]="true"
+          [isAutoData]="true"
+          [operationOrginButton]="[false,false,false,false]"
+          [requestType]="'GET'"
+          [requestUrl]="attachRequestUrl"
+          [requestParams]="attachParams"
+          [requestDataType]="attachRequestDataType">
+        </app-lzcommon-table>
+
+    </app-modal-form>
+  </ng-container>

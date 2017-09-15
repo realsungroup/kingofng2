@@ -9,6 +9,7 @@ import { LZcommonTableComponent } from '../../../../../lib/lzTableComponent/comm
 })
 export class ShopOrderComponent implements OnInit {
   isOrderRecive: boolean = false;
+  isSendModalShow: boolean = false;
 
   tabs: Array<any> = [];
   operationButton: Array<any> = [];
@@ -16,8 +17,15 @@ export class ShopOrderComponent implements OnInit {
   requestParams: any = {};
   requestDataType: number = -1;
 
-  @ViewChild(LZcommonTableComponent)
-  private lzCommonTable: LZcommonTableComponent;
+  orderTabs: Array<any> = [];
+  resid: string = '';
+  _selectData = {};
+  attachParams = {};
+  attachRequestDataType: number = -1;
+  attachRequestUrl:string = '';
+
+  // @ViewChild(LZcommonTableComponent)
+  // private lzCommonTable: LZcommonTableComponent;
 
   constructor(private httpSev: BaseHttpService) { }
 
@@ -48,9 +56,34 @@ export class ShopOrderComponent implements OnInit {
 
   }
 
-  operationBtnClick() {
-    this.lzCommonTable._theModalName = 'form';
-    this.lzCommonTable.isMainData = true;
+  operationBtnClick(note) {
+    // this.lzCommonTable._theModalName = 'form';
+    // this.lzCommonTable.isMainData = true;
+    if (!note.i) {
+      this.isSendModalShow = true;
+      this.resid = this.requestParams['resid'];
+      console.log("REC_ID" + this.resid)
+      this._selectData = note.data;
+      this.orderTabs = [
+        {
+          isSubForm: false,
+          formName: "send"
+        }
+      ];
+
+      this.attachRequestUrl = this.httpSev.path.baseUrl + this.httpSev.path.getSubData;
+      this.attachParams = Object.assign({}, this.requestParams);
+      this.attachParams['subResid'] = 536149223685;
+      this.attachParams['hostrecid'] = note.data['REC_ID'];
+      delete this.attachParams['getcolumninfo'];
+      this.attachRequestDataType = this.httpSev.dataT.AttachTableDataEM;
+
+
+    }
+  }
+
+  modalFormNoti() {
+    this.isSendModalShow = false;
   }
 
 }

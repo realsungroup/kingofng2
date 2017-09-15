@@ -36,6 +36,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   @Input() isEditCustomPosition: boolean = false;//是否自定义定位
   @Input() isAddCustomPosition: boolean = false;//是否自定义定位
   @Output() operationBtnNoti = new EventEmitter();//自定义按钮回调方法
+  @Input() isAttachDataModal: boolean = false;
 
   @Input() filterString: string = '';
   @Input() filterData: Array<any> = [];//下拉菜单数据
@@ -83,26 +84,72 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _refreshData = () => {
     //自动取数据
     if (this.isAutoData) {
-      if (Object.keys(this._filterSelectObj).length && this.filterString) {
-        this.requestParams.cmswhere = this.filterString + "='" + this._filterSelectObj['value'] + "'";
-      }
-      this.requestParams.pageIndex = this.current - 1;
-      this.requestParams.pageSize = this.pageSize;
-      this.requestParams['key'] = this.searchValue;
-      this._loading = true;
-      this._httpSev.baseRequest(this.requestType, this.requestUrl, this.requestParams, this.requestDataType).subscribe(
-        data => {
-          this.titleArr = data['cmscolumninfo'];
-          this._dataSet = data['data'];
-          this._total = data['total'];
-        },
-        error => {
-          alert("获取数据失败")
-        },
-        () => {
-          this._loading = false;
+        if (Object.keys(this._filterSelectObj).length && this.filterString) {
+          this.requestParams.cmswhere = this.filterString + "='" + this._filterSelectObj['value'] + "'";
         }
-      )
+        this.requestParams.pageIndex = this.current - 1;
+        this.requestParams.pageSize = this.pageSize;
+        this.requestParams['key'] = this.searchValue;
+        this._loading = true;
+      if (this.isAttachDataModal) {
+        this._httpSev.baseRequest(this.requestType, this.requestUrl, this.requestParams, this.requestDataType).subscribe(
+          data => {
+            if (data && Array.isArray(data['data'])) {
+              this._dataSet = data['data'] ;
+              this._total = data['total'];
+            }
+          },
+          error => {
+            alert("获取数据失败")
+          },
+          () => {
+            this._loading = false;
+          }
+        )
+
+        let url = this._httpSev.path.baseUrl + this._httpSev.path.getColumnsDefine;
+        let param = {
+          resid:this.requestParams['subResid']
+        }
+        this._httpSev.baseRequest("GET",url,param,-1).subscribe(
+          data => {
+            console.info(data)
+            if(data && data.Error == 0){
+              let tmpTitleArr = [];
+              let keys = Object.keys(data['data']);
+              for(let i = 0 ; i < keys.length; i ++){
+                let key = keys[i];
+                let element = data['data'][key];
+                tmpTitleArr.push({
+                  id:element['ColName'],
+                  text:element['ColDispName']
+                })
+              }
+              this.titleArr = tmpTitleArr;
+            }
+          },
+          err => {
+
+          }
+        )
+
+      } else {
+        this._httpSev.baseRequest(this.requestType, this.requestUrl, this.requestParams, this.requestDataType).subscribe(
+          data => {
+            if (data && data.error == 0) {
+              this.titleArr = data['cmscolumninfo'];
+              this._dataSet = data['data'] ;
+              this._total = data['total'];
+            }
+          },
+          error => {
+            alert("获取数据失败")
+          },
+          () => {
+            this._loading = false;
+          }
+        )
+      }
 
     } else {
       this._loading = true;
@@ -164,9 +211,12 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   }
 
   //自定义按钮事件
-  btnClick(event, i) {
+  btnClick(event, i: number, data: any) {
     // let name = this._menuRecordStr + i;
-    this.operationBtnNoti.emit(i);
+    this.operationBtnNoti.emit({
+      i: i,
+      data: data
+    });
   }
 
   //confim 确定事件

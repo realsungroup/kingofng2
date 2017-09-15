@@ -49,6 +49,7 @@
               <div *ngFor="let titleEle of tab?.titleElementArray">
                 <label class="position-a" [ngStyle]="customStyle(titleEle)">{{titleEle?.FrmText}}</label>
               </div>
+
               <ng-container *ngFor="let title of tab?.titleArray;let j = index">
                 <app-form-item-dynamic-p [index]="j" [data]="data" [title]="title"
                  (clickNotiEvent)="formItemDynamicClick($event)"
@@ -58,8 +59,6 @@
 
             </div>
           </ng-container>
-
-
 
         </nz-tab>
       </ng-container>
@@ -129,10 +128,11 @@
           </div>
         </nz-tab>
       </ng-container>
-
     </nz-tabset>
   </form>
 </div>
+
+<ng-content></ng-content>
 
 
 <ng-container *ngIf="!_theMainModal">

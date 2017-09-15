@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef,AfterViewInit } from '@angular/core';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
+declare var XLSX:any; 
+declare var saveAs:any; 
 
 @Component({
   selector: 'app-shop-order-detail',
@@ -31,24 +33,24 @@ export class ShopOrderDetailComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit(){
-    console.dir(this.el.nativeElement.querySelector('table'));
+    console.dir();
   }
 
-  exportExcel() {
-    // var wopts = { bookType: 'xlsx', bookSST: false, type: 'binary' };
+  exportExcel() { 
+    var wopts = { bookType: 'xlsx', bookSST: false, type: 'binary' };
 
-    // var worksheet = XLSX.utils.table_to_book($("#dayWorkReport table")[0]);
-    // var wbout = XLSX.write(worksheet, wopts);
+    var worksheet = XLSX.utils.table_to_book(this.el.nativeElement.querySelector('table'));
+    var wbout = XLSX.write(worksheet, wopts);
 
-    // function s2ab(s) {
-    //   var buf = new ArrayBuffer(s.length);
-    //   var view = new Uint8Array(buf);
-    //   for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
-    //   return buf;
-    // }
+    function s2ab(s) {
+      var buf = new ArrayBuffer(s.length);
+      var view = new Uint8Array(buf);
+      for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+      return buf;
+    }
 
-    // /* the saveAs call downloads a file on the local machine */
-    // saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), "考勤日报.xlsx");
+    /* the saveAs call downloads a file on the local machine */
+    saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), "商品详情.xlsx");
   }
 
 }

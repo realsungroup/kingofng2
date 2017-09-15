@@ -21,8 +21,8 @@
         "styles.scss"
       ],
       "scripts": [
-        "./src/lib/xlsx/xlsx.full.min.js",
-        "./src/lib/FileSaver/FileSaver.min.js"
+        "lib/xlsx/xlsx.full.min.js",
+        "lib/FileSaver/FileSaver.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",
