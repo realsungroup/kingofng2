@@ -1,5 +1,10 @@
 import { Component, OnInit, ElementRef,AfterViewInit } from '@angular/core';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
+import { BaseComponent } from '../../../base-component/base.component';
+import { AppService } from '../../../app.service';
+import { Router} from '@angular/router';
+import { MainService } from '../../main.service';
+
 declare var XLSX:any; 
 declare var saveAs:any; 
 
@@ -8,13 +13,14 @@ declare var saveAs:any;
   templateUrl: './shop-order-detail.component.html',
   styleUrls: ['./shop-order-detail.component.scss']
 })
-export class ShopOrderDetailComponent implements OnInit,AfterViewInit {
+export class ShopOrderDetailComponent extends BaseComponent implements OnInit,AfterViewInit {
 
   url: string = '';
   requestParams: any = {};
   requestDataType: number = -1;
 
-  constructor(private httpSev: BaseHttpService, private el:ElementRef) {
+  constructor(private httpSev: BaseHttpService, private el:ElementRef,protected mainSev:MainService,protected appSev: AppService, protected router: Router) {
+    super(mainSev,appSev,router);
 
     let path = this.httpSev.path;
     this.url = path.baseUrl + path.getData;
@@ -29,7 +35,7 @@ export class ShopOrderDetailComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit() {
-
+    super.ngOnInit();
   }
 
   ngAfterViewInit(){

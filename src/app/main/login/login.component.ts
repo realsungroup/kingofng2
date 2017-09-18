@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../base-component/base.component';
 import { Router, RouterModule, Routes, ActivatedRoute, ParamMap } from '@angular/router';
-import { TestComponent } from '../test/test.component';
 import { LoginService } from './login.service';
 import { LoginInterface } from './login.interface';
 import { AppService } from '../../app.service';
 import { Observable } from 'rxjs';
+import { MainService } from '../main.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 interface MyRoute {
   title: string;
@@ -21,17 +22,19 @@ interface MyRoute {
 
 export class LoginComponent extends BaseComponent implements OnInit {
   isLoginWithToken: boolean = false;
-
+  validateForm: FormGroup;
   loginM: LoginInterface = {
     account: "",
     passWord: ""
   };
 
-  constructor(private router: Router,
+  constructor(protected router: Router,
     private loginSve: LoginService,
-    private appSve: AppService,
-    private route: ActivatedRoute) {
-    super();
+    protected appSve: AppService,
+    private route: ActivatedRoute,
+    protected mainSev: MainService,
+    private fb: FormBuilder) {
+    super(mainSev, appSve, router);
 
     this.route.queryParams.subscribe(
       data => {
@@ -56,10 +59,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   loginWithToken(badgeno: string, token: string) {
     let params = {
-      account:badgeno,//'80881',
-      ucode:token//'GHgfPHoXCQno+l0KaDrIOg=='
+      account: badgeno,//'80881',
+      ucode: token//'GHgfPHoXCQno+l0KaDrIOg=='
     }
-    this.loginSve.login('badgenodynamic',params).subscribe(
+    this.loginSve.login('badgenodynamic', params).subscribe(
       data => {
         alert("badgenodynamic success" + JSON.stringify(data));
       },
@@ -77,28 +80,35 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getRouteData();
+    this.validateForm = this.fb.group({
+      userName: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      remember: [true],
+    });
   }
 
   getRouteData() {
+
   }
 
-  loginClick() {
+  _submitForm() {
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
+    }
+
     let params = {
       // account:'80881',
-      account:'001'
+      account: '001'
     }
-    this.loginSve.login('',params).subscribe(
+    this.loginSve.login('', params).subscribe(
       data => {
         console.log("login success" + JSON.stringify(data));
 
         if (data['OpResult'] != 'Y') { alert(data['ErrorMsg']); return }
 
         this.appSve.addProperty("userInfo", data);
-        this.loginSve.getTeamApprove();
 
-        // 
-        Observable.forkJoin(this.loginSve.getVacationCategory(), this.loginSve.getRefuseData(),this.loginSve.getRouteData()).subscribe(
+        this.loginSve.getRouteData().subscribe(
           data => {
             this.router.navigate(["/main"]);
             console.log("all success" + JSON.stringify(data));

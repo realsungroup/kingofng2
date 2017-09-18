@@ -33,13 +33,13 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(change: SimpleChanges) {
-    if (change['data']) { console.log("-------------> data change")
+    if (change['data']) { 
       this.initData();
     }
   }
 
   ngOnInit() {
-
+    console.log("this title title.FrmReadonly" + this.title.FrmReadonly);
   }
 
   initData() {
@@ -76,7 +76,7 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
   }
 
   //绑定字段变化事件
-  modelChange(event, dataT) {
+  modelChange(event, dataT) { 
     this.obj = event;
     // console.info(event, dataT, this.title['ColName']);
     if (this.selectTypeEM == FormItemTypeEM.Date || this.selectTypeEM == FormItemTypeEM.Time) {
@@ -120,28 +120,21 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
       xhr.onload =  () => {
         var data = JSON.parse(xhr.response);
         if (xhr.status === 200) {
-     //     alert("上传成功");
           var imgUrl = data.httpfilename;
           this.obj = imgUrl;
           this.data[this.title['ColName']] = this.obj;
-
-
           this.updateNotiEvent.emit({
             data:this.data
           });
           console.log(imgUrl);
-
           // 上传代码返回结果之后，将图片插入到编辑器中
         } else {
           alert('error==' + data);
         }
       };
 
-
       fd.append("file", file, 'hello.png');//新建formdata提交，png格式
       xhr.send(fd);
-
-      // console.log(src);
     }
   }
 

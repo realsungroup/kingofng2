@@ -16,12 +16,11 @@ export class BaseHttpService {
     this.path = this.appConfig.path;
   }
 
-  fixDataWithDataType(data: any, type: dataType) {
+  private fixDataWithDataType(data: any, type: dataType) {
     switch (type) {
       case dataType.LoginEM: {
         data.loginMethod = "badgeno";//工号
         data.enterprisecode = this.appConfig.enterprisecode;
-
       }
         break;
 
@@ -104,7 +103,7 @@ export class BaseHttpService {
     return data;
   }
 
-  getHeaderWithUrl(str: any) {
+  private getHeaderWithUrl(str: any) {
     if (str != this.path.baseUrl + this.path.login) {
       if (!this.appConfig.userInfo) {
         console.error("用户信息错误");
@@ -125,7 +124,7 @@ export class BaseHttpService {
     } else return new Headers();
   }
 
-  public baseRequest(type: string, url: string, params: any, dType?: dataType) {
+  baseRequest(type: string, url: string, params: any, dType?: dataType) {
     let baseObser: Observable<any>;
     let headers = this.getHeaderWithUrl(url); console.log("header=>" + JSON.stringify(headers));
     let options = new RequestOptions({ headers: headers });

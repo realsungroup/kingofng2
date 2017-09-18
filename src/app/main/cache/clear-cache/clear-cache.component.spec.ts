@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ApplyingComponent } from './applying.component';
+import { ClearCacheComponent } from './clear-cache.component';
 
-describe('ApplyingComponent', () => {
-  let component: ApplyingComponent;
-  let fixture: ComponentFixture<ApplyingComponent>;
+describe('ClearCacheComponent', () => {
+  let component: ClearCacheComponent;
+  let fixture: ComponentFixture<ClearCacheComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApplyingComponent ]
+      declarations: [ ClearCacheComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ApplyingComponent);
+    fixture = TestBed.createComponent(ClearCacheComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

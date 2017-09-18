@@ -11,7 +11,7 @@ import { AppService } from '../app.service';
   styleUrls: ['./main.component.scss']
 })
 
-export class MainComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class MainComponent implements OnInit, AfterViewInit {
 
   breadcrumbArr: Array<any> = [];
   isCollapsed = false;
@@ -21,29 +21,27 @@ export class MainComponent extends BaseComponent implements OnInit, AfterViewIni
     private route: ActivatedRoute,
     private mainSev: MainService,
     private appSev: AppService) {
-    super();
 
   }
 
-  ngOnInit() {
-    let routeArr = this.appSev.getAppConfig()["routesArr"];
-    this.routerArr = this.mainSev.fixRouteData(routeArr, 6);
-
-    this.mainSev.getBreadArr().subscribe(
-      (data: Array<any>) => {
-        this.breadcrumbArr = data;
-      }
-    )
-  }
-
+  ngOnInit() { }
 
   ngAfterViewInit() {
+    let routeArr = this.appSev.getAppConfig()["routesArr"];
     setTimeout(() => {
-    }, 100);
+      this.routerArr = this.mainSev.fixRouteData(routeArr, 6);
+    },200);
+    this.mainSev.getBreadArr().subscribe(
+      (data: Array<any>) => {
+        setTimeout(() => {
+          this.breadcrumbArr = data;
+        });
+      }
+    )
   }
 
   toggleCollapsed() {
     this.isCollapsed = !this.isCollapsed;
   }
-  
+
 }

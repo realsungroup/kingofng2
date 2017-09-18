@@ -1,17 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter,OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BaseHttpService } from '../../../../app/base-http-service/base-http.service';
 import { Observable } from 'rxjs';
 import { LZTab } from '../../interface/tab.interface';
 import { LZUntilService } from '../../until/until.service';
 import { FormItemElementEM, FormItemTypeEM } from '../../enum/form-item.enum';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-modal-form',
@@ -31,7 +25,7 @@ import {
   ]
 
 })
-export class ModalFormComponent implements OnInit {
+export class ModalFormComponent implements OnInit,OnDestroy{
   enterOrBack: boolean = true;
 
   _theMainModal: boolean = true;//是否打开formresource组件（false为打开）
@@ -268,5 +262,9 @@ export class ModalFormComponent implements OnInit {
   //自定义定位
   customStyle(obj: any): any {
     return this.ut.customStyle(obj);
+  }
+
+  ngOnDestroy(){
+    console.log("=>>>>>>modal form destory");
   }
 }

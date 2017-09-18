@@ -8,5 +8,6 @@ export enum dataType {
     FixOneDataEM,
     FixMoreDataEM,
     DeleteOneDataEM,
-    AddMoreAndFixMore
+    AddMoreAndFixMore,
+    UnKnow
 };

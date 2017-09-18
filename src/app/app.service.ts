@@ -6,10 +6,7 @@ import 'rxjs/add/operator/map';
 
 export class AppService {
 
-
-
   private app: any;
-
 
   constructor(private http: Http) {
 
@@ -18,8 +15,6 @@ export class AppService {
   getAppConfig(): any {
     if (this.app) return this.app;
     else {
-      //  alert("数据异常");
-      // return {};
       var a = this.loadAppConfigJsonSync()
       return a;
     }

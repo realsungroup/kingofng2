@@ -12,9 +12,6 @@ export class ExtendTableComponent extends LZcommonTableComponent implements OnIn
   //详情事件
   detailClick(event, data, idx) {
     super.detailClick(event, data, idx);
-    alert("extend detail click");
-    // this._theModalName = 'form-readonly';
-    // this._selectData = Object.assign({},data,{idx:idx});
   }
 
 }

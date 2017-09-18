@@ -1,3 +1,15 @@
-<p>
-  shop-list works!
-</p>
+<div>
+    <app-extend-table
+      [isAutoData]="'true'"
+      [tabs]="tabsArr"
+      [operationOrginButton]="[true,true,false,false]"
+      [requestType]="'GET'"
+      [requestUrl]="url" 
+      [requestParams]="params"
+      [requestDataType]="dataT" 
+      [isEditCustomPosition]="true"
+      [addFormName]="'default'"
+      [filterString]="filterString"
+      [filterData]="filterData">
+    </app-extend-table>
+  </div>

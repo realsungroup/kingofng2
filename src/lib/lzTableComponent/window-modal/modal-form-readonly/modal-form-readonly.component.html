@@ -2,7 +2,7 @@
   <div class="components-table-demo-control-bar">
     <form nz-form [nzLayout]="'inline'">
       <div nz-row nz-form-item>
-        <button nz-button [nzType]="'default'" (click)="close()"><span>back</span></button>
+        <button nz-button [nzType]="'default'" (click)="close()"><span>返回</span></button>
       </div>
     </form>
   </div>
@@ -13,7 +13,7 @@
         {{tab?.formName}}
       </ng-template>
 
-      <div class="form-readonly-container" nz-row>
+      <div class="form-readonly-container form-scroll" nz-row>
         <div class="form-item-row" *ngFor="let title of tab?.titleArray;">
           <div class="title-right" nz-col [nzSm]="6">
             <label>{{title?.ColDispName}}</label>

@@ -6,7 +6,7 @@ import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, OnChange
 import { BaseHttpService } from '../../../app/base-http-service/base-http.service';
 import { Observable } from 'rxjs';
 import { LZTab } from '../interface/tab.interface';
-import { ConfirmAlertComponent } from '../confirm-alert/confirm-alert.component';
+import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-lzcommon-table',
@@ -24,14 +24,11 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _filterData: Array<any> = [];//下拉菜单数据
   _filterSelectObj: any = {};//下拉菜单选择的对象
 
-  @ViewChild(ConfirmAlertComponent)
-  private confimAlert: ConfirmAlertComponent;
-
   //公共参数
   @Input() isAutoData: boolean = false;//是否自动获取数据
   @Input() operationButton: Array<any>;//自定义按钮对象
   @Input() operationOrginButton: Array<boolean> = [false, false, false, false];//详情 操作 删除 按钮显示 
-  @Input() tabs: Array<LZTab>;//窗体名称
+  @Input() tabs: Array<LZTab> = [];//窗体名称
   @Input() addFormName: string = '';//新增数据的窗体名称
   @Input() isEditCustomPosition: boolean = false;//是否自定义定位
   @Input() isAddCustomPosition: boolean = false;//是否自定义定位
@@ -49,15 +46,15 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
 
   // 传入数据(所需参数)
   @Input() resid: string;//主表ID
-  @Input() current;//当前页数
-  @Input() pageSize;//一页pageSize条数据
+  @Input() current = 0;//当前页数
+  @Input() pageSize = 10;//一页pageSize条数据
   @Output() commonNotification = new EventEmitter();//更新回调事件
 
   _total = 1;//数据总数
   _dataSet = [];//获取的数据数组
   _loading = true;//loading加载界面是否显示
 
-  constructor(protected _httpSev: BaseHttpService) {
+  constructor(protected _httpSev: BaseHttpService, private modalSev: NzModalService, private messageSev: NzMessageService) {
 
   }
 
@@ -72,6 +69,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     if (changes['filterData']) {
       if (this.filterData.length) {
         this._filterSelectObj = this.filterData[0];
+        this._refreshData();
       }
     }
   }
@@ -84,23 +82,23 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _refreshData = () => {
     //自动取数据
     if (this.isAutoData) {
-        if (Object.keys(this._filterSelectObj).length && this.filterString) {
-          this.requestParams.cmswhere = this.filterString + "='" + this._filterSelectObj['value'] + "'";
-        }
-        this.requestParams.pageIndex = this.current - 1;
-        this.requestParams.pageSize = this.pageSize;
-        this.requestParams['key'] = this.searchValue;
-        this._loading = true;
+      if (Object.keys(this._filterSelectObj).length && this.filterString) {
+        this.requestParams.cmswhere = this.filterString + "='" + this._filterSelectObj['value'] + "'";
+      }
+      this.requestParams.pageIndex = this.current - 1;
+      this.requestParams.pageSize = this.pageSize;
+      this.requestParams['key'] = this.searchValue;
+      this._loading = true;
       if (this.isAttachDataModal) {
         this._httpSev.baseRequest(this.requestType, this.requestUrl, this.requestParams, this.requestDataType).subscribe(
           data => {
             if (data && Array.isArray(data['data'])) {
-              this._dataSet = data['data'] ;
+              this._dataSet = data['data'];
               this._total = data['total'];
             }
           },
           error => {
-            alert("获取数据失败")
+            this.messageSev.error("获取数据失败");
           },
           () => {
             this._loading = false;
@@ -109,20 +107,20 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
 
         let url = this._httpSev.path.baseUrl + this._httpSev.path.getColumnsDefine;
         let param = {
-          resid:this.requestParams['subResid']
+          resid: this.requestParams['subResid']
         }
-        this._httpSev.baseRequest("GET",url,param,-1).subscribe(
+        this._httpSev.baseRequest("GET", url, param, -1).subscribe(
           data => {
             console.info(data)
-            if(data && data.Error == 0){
+            if (data && data.Error == 0) {
               let tmpTitleArr = [];
               let keys = Object.keys(data['data']);
-              for(let i = 0 ; i < keys.length; i ++){
+              for (let i = 0; i < keys.length; i++) {
                 let key = keys[i];
                 let element = data['data'][key];
                 tmpTitleArr.push({
-                  id:element['ColName'],
-                  text:element['ColDispName']
+                  id: element['ColName'],
+                  text: element['ColDispName']
                 })
               }
               this.titleArr = tmpTitleArr;
@@ -138,7 +136,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
           data => {
             if (data && data.error == 0) {
               this.titleArr = data['cmscolumninfo'];
-              this._dataSet = data['data'] ;
+              this._dataSet = data['data'];
               this._total = data['total'];
             }
           },
@@ -206,8 +204,37 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
 
   //删除事件
   deleteClick(data) {
-    this.confimAlert.isVisible = true;
-    this.confimAlert.data = data;
+    this.modalSev.open({
+      title: "警告",
+      content: "确认删除此条信息",
+      onOk: () => {
+        let path: any = this._httpSev.appConfig['path'];
+        let url: string = path.baseUrl + path.saveData;
+        let params: any = {
+          'resid': this.resid,
+          'data': data
+        }
+        this._loading = true;
+        this._httpSev.baseRequest("POST", url, params, this._httpSev.dataT.DeleteOneDataEM).subscribe(
+          data => {
+            if (data) {
+              if (data['error'] == 0) {
+                this._refreshData();
+              } else {
+                this.messageSev.error(data['message']);
+              }
+            }
+          },
+          error => {
+            console.error(JSON.stringify(error))
+          },
+          () => {
+            this._loading = false;
+          }
+        )
+
+      }
+    })
   }
 
   //自定义按钮事件
@@ -217,28 +244,6 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       i: i,
       data: data
     });
-  }
-
-  //confim 确定事件
-  confimSuccess(data) {
-    let path: any = this._httpSev.appConfig['path'];
-    let url: string = path.baseUrl + path.saveData;
-    let params: any = {
-      'resid': this.resid,
-      'data': data
-    }
-    this._loading = true;
-    this._httpSev.baseRequest("POST", url, params, this._httpSev.dataT.DeleteOneDataEM).subscribe(
-      data => {
-        this._refreshData();
-      },
-      error => {
-        console.error(JSON.stringify(error))
-      },
-      () => {
-        this._loading = false;
-      }
-    )
   }
 
   /***********窗体通知事件**************/

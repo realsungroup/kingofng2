@@ -9,7 +9,8 @@
         "getFormDefine":"api/100/table/RetrieveFormDefine",
         "uploadFileUrl": "http://kingofdinner.realsun.me:8081/rispweb/rispservice/SvcUploadFile2.aspx",
         "httppath": "http://kingofdinner.realsun.me:8081/rispweb/upfiles",
-        "getColumnsDefine":"api/100/table/RetrieveColumnsDefine"
+        "getColumnsDefine":"api/100/table/RetrieveColumnsDefine",
+        "clearCache":"api/100/table/ClearCache"
     },
     "enterprisecode":"9063"
 }
