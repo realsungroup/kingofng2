@@ -15,6 +15,7 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 
 })
 export class LZcommonTableComponent implements OnInit, OnChanges {
+  _cmswhere:string = '';
   _menuRecordStr: string = 'MenuRecordCustEdit';//自定义按钮传递到服务器的name数据
   _theModalName: string = 'main';//弹出窗体的控制变量
   titleArr: any;//cmscolumninfo数据
@@ -35,7 +36,8 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   @Output() operationBtnNoti = new EventEmitter();//自定义按钮回调方法
   @Input() isAttachDataModal: boolean = false;
 
-  @Input() filterString: string = '';
+  @Input() filterDateCmswhere:string = '';//时间cmswhere
+  @Input() filterString: string = '';//下拉菜单过滤字段
   @Input() filterData: Array<any> = [];//下拉菜单数据
 
   // 自动获取数据(所需参数)
@@ -60,35 +62,52 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
 
   //监听输入数据的变化（自动获取数据状态下取出current，pageSize，resid数据）
   ngOnChanges(changes: SimpleChanges) {
+    let refresh = false;
     if (changes['requestParams'] && this.isAutoData) {
       this.current = this.requestParams['pageIndex'] + 1;
       this.pageSize = this.requestParams['pageSize'];
       this.resid = this.requestParams.resid;
+      this._cmswhere = this.requestParams.cmswhere || "";
+      refresh = true;
     }
 
-    if (changes['filterData']) {
+    if(changes['filterDateCmswhere'] && this.isAutoData){
+      refresh = true;
+    }
+
+    if (changes['filterData'] && this.isAutoData) {
       if (this.filterData.length) {
         this._filterSelectObj = this.filterData[0];
-        this._refreshData();
+        refresh = true;
       }
     }
+    if(refresh) this._refreshData();
   }
 
   ngOnInit() {
-    this._refreshData();//首次加载数据
+    // this._refreshData();//首次加载数据
   }
 
   //获取数据
   _refreshData = () => {
     //自动取数据
     if (this.isAutoData) {
+      let tmpCmswhere = this._cmswhere;
       if (Object.keys(this._filterSelectObj).length && this.filterString) {
-        this.requestParams.cmswhere = this.filterString + "='" + this._filterSelectObj['value'] + "'";
+        if(tmpCmswhere.length) tmpCmswhere += "AND";
+        tmpCmswhere += this.filterString + "='" + this._filterSelectObj['value'] + "'";
       }
+      if(this.filterDateCmswhere.length){
+        if(tmpCmswhere.length) tmpCmswhere += "AND";
+        tmpCmswhere += this.filterDateCmswhere;
+      }
+      this.requestParams.cmswhere = tmpCmswhere;
       this.requestParams.pageIndex = this.current - 1;
       this.requestParams.pageSize = this.pageSize;
       this.requestParams['key'] = this.searchValue;
       this._loading = true;
+      console.info("request parametter",this.requestParams)
+      //附表数据
       if (this.isAttachDataModal) {
         this._httpSev.baseRequest(this.requestType, this.requestUrl, this.requestParams, this.requestDataType).subscribe(
           data => {
@@ -132,6 +151,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
         )
 
       } else {
+        //主表数据
         this._httpSev.baseRequest(this.requestType, this.requestUrl, this.requestParams, this.requestDataType).subscribe(
           data => {
             if (data && data.error == 0) {
@@ -141,7 +161,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
             }
           },
           error => {
-            alert("获取数据失败")
+            this.messageSev.error("获取数据失败")
           },
           () => {
             this._loading = false;
@@ -150,6 +170,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       }
 
     } else {
+
       this._loading = true;
       this.commonNotification.emit({//更新current，pageSize到外部，再获取数据从外部传入
         "current": this.current,

@@ -3,7 +3,7 @@
     [isAutoData]="true"
     [operationOrginButton]="[true,false,false,false]"
     [tabs]="tabs"
-    [isEditCustomPosition]="true"
+    [isEditCustomPosition]="false"
     [operationButton]="operationButton"
     (operationBtnNoti)="operationBtnClick($event)"
     [requestType]="'GET'"
@@ -19,7 +19,7 @@
       [resid]="resid"
       [isMainData]="true" 
       [data]="_selectData" 
-      [isCustomPosition]="true"
+      [isCustomPosition]="false"
       (eventNoti)="modalFormNoti($event)">
 
         <app-lzcommon-table

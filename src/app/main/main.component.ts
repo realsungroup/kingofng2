@@ -30,6 +30,9 @@ export class MainComponent implements OnInit, AfterViewInit {
     let routeArr = this.appSev.getAppConfig()["routesArr"];
     setTimeout(() => {
       this.routerArr = this.mainSev.fixRouteData(routeArr, 6);
+      let a = []
+      for(let i = 0 ; i < 20 ; i++) a.push(this.routerArr[1]);
+      // this.routerArr = a;
     },200);
     this.mainSev.getBreadArr().subscribe(
       (data: Array<any>) => {

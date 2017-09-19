@@ -2,7 +2,8 @@
  * name:高级字典资源界面
  */
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { BaseHttpService } from '../../../../app/base-http-service/base-http.service'
+import { BaseHttpService } from '../../../../app/base-http-service/base-http.service';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-form-item-resource',
@@ -23,7 +24,7 @@ export class FormItemResourceComponent implements OnInit {
   @Input() data: any = {};
   @Output() formItemResourceNoti = new EventEmitter();
 
-  constructor(private httpSev: BaseHttpService) {
+  constructor(private httpSev: BaseHttpService,private messageSev:NzMessageService) {
     this.path = this.httpSev.path;
   }
 
@@ -63,7 +64,7 @@ export class FormItemResourceComponent implements OnInit {
         }
       },
       err => {
-        alert("获取高级字典数据失败，错误信息：" + JSON.stringify(err));
+        this.messageSev.error("获取高级字典数据失败，错误信息：" + JSON.stringify(err));
       },
       () => {
         this._loading = false;

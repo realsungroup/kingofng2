@@ -6,6 +6,7 @@ import { LZTab } from '../../interface/tab.interface';
 import { LZUntilService } from '../../until/until.service';
 import { FormItemElementEM, FormItemTypeEM } from '../../enum/form-item.enum';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-modal-form',
@@ -39,7 +40,7 @@ export class ModalFormComponent implements OnInit,OnDestroy{
   @Input() resid: string = '';//主表ID
   @Output() eventNoti = new EventEmitter();//与lzcommontable组件通信
 
-  constructor(protected httpSev: BaseHttpService, protected ut: LZUntilService) {
+  constructor(protected httpSev: BaseHttpService, protected ut: LZUntilService,protected messageSev:NzMessageService) {
     this.path = this.httpSev.path;
   }
 
@@ -61,7 +62,7 @@ export class ModalFormComponent implements OnInit,OnDestroy{
             }
           },
           err => {
-            alert("获取附表数据失败");
+            this.messageSev.error("获取附表数据失败");
           }
         )
       })
@@ -184,7 +185,7 @@ export class ModalFormComponent implements OnInit,OnDestroy{
         // alert("save success" + JSON.stringify(data));
       },
       err => {
-        console.error("save fail " + JSON.stringify(err));
+        this.messageSev.error("保存失败" + JSON.stringify(err));
       }
     )
 
@@ -214,13 +215,13 @@ export class ModalFormComponent implements OnInit,OnDestroy{
     this.httpSev.baseRequest("POST", urlStr, params, this.httpSev.dataT.DeleteOneDataEM).subscribe(
       data => {
         if (data.error == 0) {
-          alert(JSON.stringify(data));
+          this.messageSev.success("删除成功");
           const index = tab.dataArray.indexOf(subData);
           if (index >= 0) tab.dataArray.splice(index, 1);
         }
       },
       err => {
-        alert(JSON.stringify(err));
+        this.messageSev.error("操作错误,错误信息："+JSON.stringify(err));
       },
       () => {
         subData.loading = false;
@@ -233,7 +234,6 @@ export class ModalFormComponent implements OnInit,OnDestroy{
     let title = note['title'];
     this._theMainModal = false;
     this.advDictionaryListData = title.AdvDictionaryListData;
-    // alert(JSON.stringify(title.AdvDictionaryListData));
   }
 
   //formItemDynamic刷新数据

@@ -14,6 +14,7 @@ import { ExtendTableComponent } from '../../../app/extend-table/extend-table.com
 import { FormItemDynamicPComponent } from '../form-item-dynamic-p/form-item-dynamic-p.component';
 import { AddFormDataComponent } from '../window-modal/add-form-data/add-form-data.component';
 import { ConfirmAlertComponent } from '../confirm-alert/confirm-alert.component';
+import { FormTitleDynamicComponent } from '../form-title-dynamic/form-title-dynamic.component';
 
 import { MergePipe } from '../pipe/merge.pipe';
 
@@ -37,7 +38,8 @@ import { LZUntilService } from '../until/until.service';
     MergePipe,
     FormItemDynamicPComponent,
     AddFormDataComponent,
-    ConfirmAlertComponent],
+    ConfirmAlertComponent,
+    FormTitleDynamicComponent],
   providers: [LZUntilService],
   exports: [LZcommonTableComponent,
     WindowModalFormReadonlyComponent,
@@ -47,6 +49,7 @@ import { LZUntilService } from '../until/until.service';
     ExtendTableComponent,
     FormItemDynamicPComponent,
     AddFormDataComponent,
-    ConfirmAlertComponent]
+    ConfirmAlertComponent,
+    FormTitleDynamicComponent]
 })
 export class LzcommonTableModule { }

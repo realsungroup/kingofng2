@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { BaseHttpService } from '../../../../app/base-http-service/base-http.service';
 import { LZTab } from '../../interface/tab.interface';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-window-modal',
@@ -16,7 +17,7 @@ export class WindowModalFormReadonlyComponent implements OnInit {
   @Input() data: any = {};
   @Input() resid: string = '';
 
-  constructor(private httpSev: BaseHttpService) {
+  constructor(private httpSev: BaseHttpService,private messageSev:NzMessageService) {
     this.path = this.httpSev.path;
   }
 
@@ -44,8 +45,7 @@ export class WindowModalFormReadonlyComponent implements OnInit {
         }
       },
       err => {
-        alert("获取数据失败");
-        // alert("key data fail " + JSON.stringify(err));
+        this.messageSev.error("获取数据失败，错误信息："+ JSON.stringify(err));
       }
     )
   }

@@ -3,13 +3,13 @@
     <div class="logo">
     </div>
 
-    <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
+    <ul nz-menu class="menu-ul-top" [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
       <ng-container *ngFor="let r1 of routerArr">
          <li nz-menu-item *ngIf="r1?.children?.length <= 0" [routerLink]="r1.C3_558541978410">
-          <span title><i class="anticon anticon-user"></i><span class="nav-text">{{r1?.C3_558541955195}}</span></span>
+          <span title><i class="anticon anticon-bars"></i><span class="nav-text">{{r1?.C3_558541955195}}</span></span>
         </li> 
         <li nz-submenu *ngIf="r1?.children?.length > 0">
-          <span title><i class="anticon anticon-user"></i><span class="nav-text">{{r1?.C3_558541955195}}</span></span>
+          <span title><i class="anticon anticon-bars"></i><span class="nav-text">{{r1?.C3_558541955195}}</span></span>
           <ul>
             <ng-container *ngFor="let r2 of r1.children">
               <li nz-menu-item *ngIf="r2?.children?.length <= 0" [routerLink]="r2.C3_558541978410">{{r2?.C3_558541955195}}</li>
@@ -54,12 +54,12 @@
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
       </ul>
     </nz-header>
-    <nz-content style="margin:0 16px;">
+    <nz-content class="lz-content">
       <nz-breadcrumb style="margin:12px 0;">
         <nz-breadcrumb-item *ngFor="let bread of breadcrumbArr">{{bread?.title}}</nz-breadcrumb-item>
       </nz-breadcrumb>
 
-      <div class="main-router-container">
+      <div class="lzmain-router-container">
         <router-outlet></router-outlet>
       </div>
     </nz-content>

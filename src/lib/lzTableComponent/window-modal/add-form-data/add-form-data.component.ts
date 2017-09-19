@@ -32,6 +32,7 @@ export class AddFormDataComponent extends ModalFormComponent implements OnInit {
   titleElementArray = [];
   data: any = {};
 
+
   ngOnInit() {
     this.getData(this.addFormName, this.resid).subscribe(
       data => {
@@ -44,7 +45,7 @@ export class AddFormDataComponent extends ModalFormComponent implements OnInit {
         this.titleArray = this.fixTitleForImgType(this.titleArray, imgElementArr);
       },
       err => {
-        alert("获取数据失败");
+        this.messageSev.error("获取数据失败,错误信息:"+ JSON.stringify(err));
       },
       () => {
 
@@ -64,11 +65,11 @@ export class AddFormDataComponent extends ModalFormComponent implements OnInit {
       data => {
         if(data && data.error == 0)  this.eventNoti.emit({ name: "update", data: this.data });//通知父组件更新数据
         else if(data && data.error < 0) {
-          alert(data['message'])
+          this.messageSev.error(data['message'])
         }
       },
       err => {
-        alert("添加失败");
+        this.messageSev.error("添加失败");
       },
       () => {
 
