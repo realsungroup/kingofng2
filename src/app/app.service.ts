@@ -20,7 +20,7 @@ export class AppService {
     }
   }
 
-  addProperty(key:string,val:any){
+  addProperty(key: string, val: any) {
     this.app[key] = val;
   }
 
@@ -31,6 +31,22 @@ export class AppService {
       this.app = JSON.parse(xhr.response)
     }
     xhr.send();
+    this.app = JSON.parse(`{
+    "path": {
+        "baseUrl": "http://kingofdinner.realsun.me:9091/",
+        "loginBaseUrl": "http://192.168.1.113:9091/",
+        "getData": "api/100/table/Retrieve",
+        "getSubData": "api/100/table/RetrieveRelTableByHostRecord",
+        "saveData": "api/100/table/Save",
+        "login": "api/Account/Login",
+        "getFormDefine":"api/100/table/RetrieveFormDefine",
+        "uploadFileUrl": "http://kingofdinner.realsun.me:8081/rispweb/rispservice/SvcUploadFile2.aspx",
+        "httppath": "http://kingofdinner.realsun.me:8081/rispweb/upfiles",
+        "getColumnsDefine":"api/100/table/RetrieveColumnsDefine",
+        "clearCache":"api/100/table/ClearCache"
+    },
+    "enterprisecode":"9063"
+}`)
     return this.app;
   }
 

@@ -13,6 +13,8 @@ import { ShopOrderDetailComponent } from '../main/market/shop-order-detail/shop-
 
 import { ClearCacheComponent } from '../main/cache/clear-cache/clear-cache.component';
 
+import { MenuManageComponent } from '../main/restraunt/menu-manage/menu-manage.component';
+import { MenuPublishComponent } from "../main/restraunt/menu-publish/menu-publish.component";
 
 const childRouts:Array<any> = [
   // { path: '', redirectTo: 'applying', pathMatch: 'full'},
@@ -21,7 +23,10 @@ const childRouts:Array<any> = [
   { path: 'shopOrderSend', component: ShopOrderComponent,link:'/main/shopOrderSend'},
   { path: 'shopOrderDetail', component: ShopOrderDetailComponent,link:'/main/shopOrderDetail'},
   { path: 'shopOrderSended',component:ShopOrderSendedComponent,link:'/main/shopOrderSended'},
-  { path: 'clearCache',component:ClearCacheComponent,link:'/main/clearCache'}
+  { path: 'clearCache',component:ClearCacheComponent,link:'/main/clearCache'},
+
+  { path: 'menuManage',component:MenuManageComponent,link:'/main/menuManage'},
+  { path: 'menuPublish',component:MenuPublishComponent,link:'/main/menuPublish'}
 ]
 
 const routes: Array<any> = [

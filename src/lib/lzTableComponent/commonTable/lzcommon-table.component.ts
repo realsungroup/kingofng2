@@ -56,7 +56,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _dataSet = [];//获取的数据数组
   _loading = true;//loading加载界面是否显示
 
-  constructor(protected _httpSev: BaseHttpService, private modalSev: NzModalService, private messageSev: NzMessageService) {
+  constructor(protected _httpSev: BaseHttpService,protected modalSev: NzModalService,protected messageSev: NzMessageService) {
 
   }
 
@@ -108,7 +108,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       this._loading = true;
       console.info("request parametter",this.requestParams)
       //附表数据
-      if (this.isAttachDataModal) {
+      if (this.isAttachDataModal) { 
         this._httpSev.baseRequest(this.requestType, this.requestUrl, this.requestParams, this.requestDataType).subscribe(
           data => {
             if (data && Array.isArray(data['data'])) {

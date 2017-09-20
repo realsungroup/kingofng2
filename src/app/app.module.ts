@@ -15,6 +15,7 @@ import { BaseHttpService } from './base-http-service/base-http.service';
 import { AppService } from './app.service';
 
 import { MarketModule } from './main/market/market.module';
+import { RestrauntModule } from './main/restraunt/restraunt.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MarketModule } from './main/market/market.module';
     MainModule,
     LoginModule,
     BrowserAnimationsModule,
-    MarketModule
+    MarketModule,
+    RestrauntModule
   ],
   providers: [BaseHttpService,AppService],
   bootstrap: [AppComponent]

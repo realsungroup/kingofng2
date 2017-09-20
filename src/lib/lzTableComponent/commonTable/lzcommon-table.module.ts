@@ -15,6 +15,7 @@ import { FormItemDynamicPComponent } from '../form-item-dynamic-p/form-item-dyna
 import { AddFormDataComponent } from '../window-modal/add-form-data/add-form-data.component';
 import { ConfirmAlertComponent } from '../confirm-alert/confirm-alert.component';
 import { FormTitleDynamicComponent } from '../form-title-dynamic/form-title-dynamic.component';
+import { CommonCardComponent } from '../extendTable/common-card/common-card.component';
 
 import { MergePipe } from '../pipe/merge.pipe';
 
@@ -39,7 +40,8 @@ import { LZUntilService } from '../until/until.service';
     FormItemDynamicPComponent,
     AddFormDataComponent,
     ConfirmAlertComponent,
-    FormTitleDynamicComponent],
+    FormTitleDynamicComponent,
+    CommonCardComponent],
   providers: [LZUntilService],
   exports: [LZcommonTableComponent,
     WindowModalFormReadonlyComponent,
@@ -50,6 +52,7 @@ import { LZUntilService } from '../until/until.service';
     FormItemDynamicPComponent,
     AddFormDataComponent,
     ConfirmAlertComponent,
-    FormTitleDynamicComponent]
+    FormTitleDynamicComponent,
+    CommonCardComponent]
 })
 export class LzcommonTableModule { }
