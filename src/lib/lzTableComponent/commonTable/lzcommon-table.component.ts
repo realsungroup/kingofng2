@@ -27,7 +27,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
 
   //公共参数
   @Input() isAutoData: boolean = false;//是否自动获取数据
-  @Input() operationButton: Array<any>;//自定义按钮对象
+  @Input() operationButton: Array<any>;//自定义按钮对象{title:'',type:'',loading:true}
   @Input() operationOrginButton: Array<boolean> = [false, false, false, false];//详情 操作 删除 按钮显示 
   @Input() tabs: Array<LZTab> = [];//窗体名称
   @Input() addFormName: string = '';//新增数据的窗体名称
@@ -89,7 +89,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   }
 
   //获取数据
-  _refreshData = () => {
+  _refreshData(){
     //自动取数据
     if (this.isAutoData) {
       let tmpCmswhere = this._cmswhere;
@@ -185,6 +185,11 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     }
 
   };
+
+  //请求数据加载完
+  loadDataOver(){
+
+  }
 
   /***********按钮及输入框触发事件**************/
   //下拉菜单事件

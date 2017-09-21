@@ -21,6 +21,12 @@ export class MenuPublishComponent extends BaseComponent implements OnInit {
   _selectStartDate = null;
   _selectEndDate = null;
   _selectDateCmswhere: string = '';
+  _customBtnArr: Array<any> = [];
+
+  _isPublishModalShow = false;
+  _resid:number;
+  _selectData = {};
+  _publishTabs:Array<any> = [];
 
   constructor(private httpSev: BaseHttpService, mainSev: MainService, appSev: AppService, router: Router, private utSev: LZUntilService) {
     super(mainSev, appSev, router);
@@ -42,14 +48,41 @@ export class MenuPublishComponent extends BaseComponent implements OnInit {
       isSubForm: false,
       formName: "default",
     }]
+
+    this._customBtnArr = [
+      { title: '发货', type: 'primary', loading: false },
+      { title: 'btn2', type: 'primary', loading: false },
+      { title: 'btn3', type: 'primary', loading: false },
+      { title: 'btn4', type: 'primary', loading: false },
+      { title: 'btn5', type: 'primary', loading: false },
+    ]
+
   }
 
   dateChange(event, index) {
     if (!index) this.startDateString = this.utSev.transformDateToString(event, "yyyyMMdd") || '';
     else this.endDateString = this.utSev.transformDateToString(event, "yyyyMMdd") || '';
-
-    if (this.startDateString.length && this.endDateString.length) this._selectDateCmswhere = "C3_556468176493 >='" + this.startDateString + "' AND C3_556468176493 <='" + this.endDateString + "'";
+    let selectStr = 'C3_529015275277';
+    if (this.startDateString.length && this.endDateString.length) this._selectDateCmswhere = selectStr + " >='" + this.startDateString + "' AND " + selectStr + " <='" + this.endDateString + "'";
     else this._selectDateCmswhere = "";
+  }
+
+  operationBtnClick(note) {
+    if (!note.i) {
+      this._isPublishModalShow = true;
+      this._resid = this.requestParams['resid'];
+      this._selectData = note.data;
+      this._publishTabs = [
+        {
+          isSubForm: false,
+          formName: "publish"
+        }
+      ];
+    }
+  }
+
+  modalFormNoti() {
+    this._isPublishModalShow = false;
   }
 
 }

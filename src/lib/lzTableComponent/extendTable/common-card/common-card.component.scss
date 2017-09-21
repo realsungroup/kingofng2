@@ -13,3 +13,28 @@
 :host ::ng-deep .ant-card-body {
     padding: 0;
 }
+
+.card{
+    position:absolute;
+    padding: 10px;
+    transition:  .8s ease-out;
+    width: 240px;
+    text-align: center;
+}
+
+#nzCard{
+    position: relative;
+}
+
+.card-pagination{
+    float: right;
+}
+
+nz-spin:after { 
+    clear:both;
+    content:'';
+    display:block;
+    width:0;
+    height:0;
+    visibility:hidden;
+}

@@ -22,7 +22,7 @@
   <!-- 日期附带时间框 -->
   <div *ngSwitchCase="formItemEM.Time" nz-col [nzSpan]="12" nz-form-control>
     <nz-datepicker [nzDisabled]="title.FrmReadonly" [(ngModel)]="obj" (ngModelChange)="modelChange($event,formItemEM.Time)" [nzShowTime]="true" [nzSize]="'large'"
-      [nzFormat]="'YYYY-MM-DD HH:mm:ss'" [nzPlaceHolder]="'Choose your birthday'" style="width: 100%;"></nz-datepicker>
+      [nzFormat]="'YYYY-MM-DD HH:mm:ss'" [nzPlaceHolder]="'请选择时间'" style="width: 100%;"></nz-datepicker>
   </div>
 
   <!-- 下拉菜单 -->

@@ -1,22 +1,36 @@
-<div class="components-table-demo-control-bar">
-    <form nz-form [nzLayout]="'inline'">
-        <div nz-row nz-form-item>
-            <nz-datepicker [(ngModel)]="_selectStartDate" (ngModelChange)="dateChange($event,0)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择开始日期'" ></nz-datepicker>
-        </div>
-        <div nz-row nz-form-item>
-            <nz-datepicker [(ngModel)]="_selectEndDate" (ngModelChange)="dateChange($event,1)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择结束日期'" ></nz-datepicker>
-        </div>
-    </form>
-</div>
 
+<ng-container [class.hidden]="!_isPublishModalShow">
 <app-common-card 
   [isAutoData]="true" 
   [requestType]="'GET'"
   [requestUrl]="url" 
   [requestParams]="requestParams" 
   [requestDataType]="requestDataType"
-  [operationOrginButton]="[true,true,false,true]"
+  [operationOrginButton]="[true,true,true,true]"
+  (operationBtnNoti)="operationBtnClick($event)"
   [tabs]="tabs"
   [addFormName]="'add'"
-  [cardIndexArr]="[13,9,10]">
+  [cardIndexArr]="[13,9,10]"
+  [filterDateCmswhere]="_selectDateCmswhere"
+  [operationButton]="_customBtnArr">
+  <ng-container class="table-menu">
+        <div nz-row nz-form-item>
+            <nz-datepicker [(ngModel)]="_selectStartDate" (ngModelChange)="dateChange($event,0)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择开始日期'" ></nz-datepicker>
+        </div>
+        <div nz-row nz-form-item>
+            <nz-datepicker [(ngModel)]="_selectEndDate" (ngModelChange)="dateChange($event,1)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择结束日期'" ></nz-datepicker>
+        </div>
+  </ng-container>
 </app-common-card>
+</ng-container>
+
+  <ng-container *ngIf="_isPublishModalShow">
+    <app-modal-form 
+      [tabs]="_publishTabs" 
+      [resid]="_resid"
+      [isMainData]="true" 
+      [data]="_selectData" 
+      [isCustomPosition]="false"
+      (eventNoti)="modalFormNoti($event)">
+    </app-modal-form>
+  </ng-container>

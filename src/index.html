@@ -35,9 +35,9 @@
       browser = browserMatch.browser;
       version = browserMatch.version;
 
-      if (version < 9) {
-        alert("IE 9 down");
-      } else alert("IE 9 up");
+      if (version <= 9) {
+        alert("不支持IE9.0版本及以下浏览器，请升级至9.0以上版本");
+      } 
     }
   </script>
   <app-root>加载中...</app-root>

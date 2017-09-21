@@ -1,5 +1,8 @@
-<div class="components-table-demo-control-bar">
-    <form nz-form [nzLayout]="'inline'">
+
+
+
+<app-lzcommon-table [isAutoData]="true" [filterDateCmswhere]="_selectDateCmswhere" [requestType]="'GET'" [requestUrl]="url" [requestParams]="requestParams" [requestDataType]="requestDataType">
+    <ng-container class="table-menu">
         <div nz-row nz-form-item>
             <button nz-button (click)="exportExcel()" [nzType]="'default'">
                 <span>导出</span>
@@ -11,9 +14,5 @@
         <div nz-row nz-form-item>
             <nz-datepicker [(ngModel)]="_selectEndDate" (ngModelChange)="dateChange($event,1)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择结束日期'" ></nz-datepicker>
         </div>
-    </form>
-</div>
-
-
-<app-lzcommon-table [isAutoData]="true" [filterDateCmswhere]="_selectDateCmswhere" [requestType]="'GET'" [requestUrl]="url" [requestParams]="requestParams" [requestDataType]="requestDataType">
+    </ng-container>
 </app-lzcommon-table>

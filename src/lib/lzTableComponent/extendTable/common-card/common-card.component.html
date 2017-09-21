@@ -24,85 +24,68 @@
         <nz-input *ngIf="isAutoData" name="serach" [(ngModel)]="searchValue" [nzPlaceHolder]="'搜索'" (ngModelChange)="searchChange($event)">
         </nz-input>
       </div>
+      
+      <!-- 菜单植入位置 -->
+      <ng-content select=".table-menu"></ng-content>
     </form>
   </div>
 
-  <nz-card id="card"  [nzNoHovering]="true">
-    <ng-template #title>卡片标题</ng-template>
-    <ng-template #body>
-      <!-- nz-card-grid  -->
-      <div *ngFor="let data of nzTable.data;let dataIndex = index" [ngStyle]="gridStyle">
-        <div class="custom-image">
-          <img width="100%" [src]="data[getTitleKey(0)]" />
-        </div>
-        <div class="custom-card">
-          <h3>{{data[getTitleKey(1)]}}</h3>
-          <p>{{data[getTitleKey(2)]}}</p>
-        </div>
-      </div>
-    </ng-template>
-  </nz-card>
+  <nz-spin [nzSpinning]="_loading">
 
-  <div style="background: #ECECEC;padding:30px;display:none">
-    <div nz-row >
-      <div nz-col [nzSpan]="8"  *ngFor="let data of nzTable.data;let dataIndex = index">
-        <nz-card style="width:240px">
-          <ng-template #body>
-            <div class="custom-image">
-              <img width="100%" [src]="data[getTitleKey(0)]" />
-            </div>
-            <div class="custom-card">
-              <h3>{{data[getTitleKey(1)]}}</h3>
-              <p>{{data[getTitleKey(2)]}}</p>
-            </div>
-          </ng-template>
-        </nz-card>
-      </div>
+    <div #cardContainer [style.height.px]="_cardContainerHeight" (window:resize)="onResize($event)">
+      <nz-card [nzNoHovering]="true" #card class="card" *ngFor="let data of _dataSet;let dataIndex = index;">
+        <ng-template #body>
+          <div class="custom-image">
+            <img width="100%" [src]="data[getTitleKey(0)]" (load)="imgLoad()" />
+          </div>
+          <div class="custom-card">
+            <h3>{{data[getTitleKey(1)]}}</h3>
+            <p>{{data[getTitleKey(2)]}}</p>
+
+            <form nz-form [nzLayout]="'inline'">
+              <!-- 固定按钮组 -->
+              <div nz-row nz-form-item *ngIf="operationOrginButton[0]">
+                <div nz-form-control>
+                  <button nz-button [nzType]="'primary'" (click)="detailClick($event,data,dataIndex)"><span>详情</span></button>
+                </div>
+              </div>
+              <div nz-row nz-form-item *ngIf="operationOrginButton[1]">
+                <div nz-form-control>
+                  <button nz-button [nzType]="'default'" (click)="operationClick($event,data,dataIndex)"><span>操作</span></button>
+                </div>
+              </div>
+              <div nz-row nz-form-item *ngIf="operationOrginButton[2]">
+                <div nz-form-control>
+                  <button nz-button [nzType]="'default'" (click)="attachTableClick($event,data,dataIndex)"><span>附表</span></button>
+                </div>
+              </div>
+              <div nz-row nz-form-item *ngIf="operationOrginButton[3]">
+                <div nz-form-control>
+                  <button nz-button [nzType]="'danger'" (click)="deleteClick(data)"><span>删除</span></button>
+                </div>
+              </div>
+              <!-- 自定义按钮组 -->
+              <ng-container nz-td *ngFor="let btn of operationButton;let i = index">
+                <div nz-row nz-form-item>
+                  <div nz-form-control>
+                    <button nz-button [nzType]="btn.type" [nzLoading]="btn.loading" (click)="btnClick($event,i,data)"><span>{{btn.title}}</span></button>
+                  </div>
+                </div>
+              </ng-container>
+
+            </form>
+
+          </div>
+        </ng-template>
+      </nz-card>
     </div>
-  </div>
 
-  <nz-pagination [(nzPageIndex)]="current" [nzTotal]="_total" [(nzPageSize)]="pageSize" 
-  (nzPageIndexChange)="_refreshData()"
-  (nzPageIndexClickChange)="_refreshData()"
-  (nzPageSizeChange)="_refreshData()"
-  nzShowTotal nzShowQuickJumper nzShowSizeChanger></nz-pagination>
+    <nz-pagination class="card-pagination" [(nzPageIndex)]="current" [nzTotal]="_total" [(nzPageSize)]="pageSize" (nzPageIndexChange)="_refreshData()"
+      (nzPageSizeChange)="_refreshData()" nzShowTotal nzShowQuickJumper nzShowSizeChanger>
+    </nz-pagination>
 
-  <nz-table style="display:none" class="common-table" #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzShowSizeChanger]="true"
-    [nzTotal]="_total" [(nzPageIndex)]="current" (nzPageIndexChange)="_refreshData()" [(nzPageSize)]="pageSize" (nzPageSizeChange)="_refreshData()">
-    <thead nz-thead>
-      <tr>
-        <!-- 标题 -->
-        <th nz-th *ngFor="let title of titleArr"><span>{{title.text}}</span></th>
-      </tr>
-    </thead>
+  </nz-spin>
 
-
-
-    <tbody nz-tbody>
-      <tr #dataTr nz-tbody-tr *ngFor="let data of nzTable.data;let dataIndex = index">
-        <td nz-td *ngFor="let title of titleArr">{{data[title.id]}}</td>
-
-        <!-- 固定按钮组 -->
-        <td *ngIf="operationOrginButton[0]">
-          <button nz-button [nzType]="'primary'" (click)="detailClick($event,data,dataIndex)"><span>详情</span></button>
-        </td>
-        <td *ngIf="operationOrginButton[1]">
-          <button nz-button [nzType]="'default'" (click)="operationClick($event,data,dataIndex)"><span>操作</span></button>
-        </td>
-        <td *ngIf="operationOrginButton[2]">
-          <button nz-button [nzType]="'default'" (click)="attachTableClick($event,data,dataIndex)"><span>附表</span></button>
-        </td>
-        <td *ngIf="operationOrginButton[3]">
-          <button nz-button [nzType]="'danger'" (click)="deleteClick(data)"><span>删除</span></button>
-        </td>
-
-        <!-- 自定义按钮组 -->
-        <td nz-td *ngFor="let btn of operationButton;let i = index">
-          <button nz-button [nzType]="btn.type" [nzLoading]="btn.loading" (click)="btnClick($event,i,data)"><span>{{btn.title}}</span></button>
-        </td>
-      </tr>
-    </tbody>
-  </nz-table>
 </div>
 
 <ng-container *ngIf="_theModalName == 'form-readonly'">
