@@ -9,19 +9,7 @@ import { FormItemElementEM } from '../../enum/form-item.enum';
 @Component({
   selector: 'app-add-form-data',
   templateUrl: './add-form-data.component.html',
-  styleUrls: ['./add-form-data.component.scss'],
-  // animations: [
-  //   trigger('flyInOut', [
-  //     state('in', style({ transform: 'translateX(0)' })),
-  //     transition(':enter', [
-  //       style({ transform: 'translateX(100%)' }),
-  //       animate(500)
-  //     ]),
-  //     transition(':leave', [
-  //       animate(500, style({transform: 'translateX(0)'}))
-  //     ])
-  //   ])
-  // ]
+  styleUrls: ['./add-form-data.component.scss']
 })
 export class AddFormDataComponent extends ModalFormComponent implements OnInit {
 

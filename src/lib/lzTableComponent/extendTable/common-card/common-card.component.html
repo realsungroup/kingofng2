@@ -24,7 +24,7 @@
         <nz-input *ngIf="isAutoData" name="serach" [(ngModel)]="searchValue" [nzPlaceHolder]="'搜索'" (ngModelChange)="searchChange($event)">
         </nz-input>
       </div>
-      
+
       <!-- 菜单植入位置 -->
       <ng-content select=".table-menu"></ng-content>
     </form>
@@ -32,17 +32,22 @@
 
   <nz-spin [nzSpinning]="_loading">
 
-    <div #cardContainer [style.height.px]="_cardContainerHeight" (window:resize)="onResize($event)">
-      <nz-card [nzNoHovering]="true" #card class="card" *ngFor="let data of _dataSet;let dataIndex = index;">
-        <ng-template #body>
-          <div class="custom-image">
-            <img width="100%" [src]="data[getTitleKey(0)]" (load)="imgLoad()" />
-          </div>
-          <div class="custom-card">
-            <h3>{{data[getTitleKey(1)]}}</h3>
-            <p>{{data[getTitleKey(2)]}}</p>
+    <div #cardContainer [style.height.px]="_cardContainerHeight">
+       <!-- (window:resize)="onResize($event)"> -->
 
-            <form nz-form [nzLayout]="'inline'">
+      <ng-container *ngFor="let data of _dataSet;let dataIndex = index;">
+
+
+        <nz-card [nzNoHovering]="true" #card class="card">
+          <ng-template #body>
+            <div class="custom-image">
+              <img width="100%" [src]="data[getTitleKey(0)]" (load)="imgLoad()" />
+            </div>
+            <div class="custom-card">
+              <h3>{{data[getTitleKey(1)]}}</h3>
+              <p>{{data[getTitleKey(2)]}}</p>
+            </div>
+            <form nz-form [nzLayout]="'inline'" style="text-align:left">
               <!-- 固定按钮组 -->
               <div nz-row nz-form-item *ngIf="operationOrginButton[0]">
                 <div nz-form-control>
@@ -74,10 +79,9 @@
               </ng-container>
 
             </form>
-
-          </div>
-        </ng-template>
-      </nz-card>
+          </ng-template>
+        </nz-card>
+      </ng-container>
     </div>
 
     <nz-pagination class="card-pagination" [(nzPageIndex)]="current" [nzTotal]="_total" [(nzPageSize)]="pageSize" (nzPageIndexChange)="_refreshData()"

@@ -6,7 +6,10 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 @Component({
   selector: 'app-common-card',
   templateUrl: './common-card.component.html',
-  styleUrls: ['./common-card.component.scss']
+  styleUrls: ['./common-card.component.scss'],
+  host:{
+    '(window:resize)': 'onResize($event)'
+  }
 })
 export class CommonCardComponent extends LZcommonTableComponent implements OnInit, AfterViewInit {
   colNum: number;
@@ -33,9 +36,10 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
   }
 
   layout() {
+    const cardW = 245;
     let nzCardEle = this.cardContainer.nativeElement;
-    let cardWidth = nzCardEle.offsetWidth;
-    this.colNum = Math.floor(cardWidth / 240);
+    let cardContainerWidth = nzCardEle.offsetWidth;
+    this.colNum = Math.floor(cardContainerWidth / cardW);
 
     this.colSumHeight = [];
     for (var i = 0; i < this.colNum; i++) {
@@ -56,7 +60,7 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
           idx = i;
         }
       }
-      this.render2.setStyle(element, 'left', 240 * idx + 'px');
+      this.render2.setStyle(element, 'left', cardW * idx + 'px');
       this.render2.setStyle(element, 'top', minSumHeight + 'px');
       // console.info("left", 240 * idx, "top", minSumHeight, "offsetheight", element.offsetHeight);
       // 更新solSumHeight
@@ -81,6 +85,8 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
   }
 
   cardContainerHeight() {
-    this._cardContainerHeight = Math.max.apply(Math, this.colSumHeight) + 60;
+    setTimeout(() => {
+      this._cardContainerHeight = Math.max.apply(Math, this.colSumHeight) + 60;
+    });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseHttpService } from '../../../../base-http-service/base-http.service';
-import { LZcommonTableComponent } from '../../../../../lib/lzTableComponent/commonTable/lzcommon-table.component';
+// import { LZcommonTableComponent } from '../../../../../lib/lzTableComponent/commonTable/lzcommon-table.component';
 import { BaseComponent } from '../../../../base-component/base.component';
 import { AppService } from '../../../../app.service';
 import { Router} from '@angular/router';

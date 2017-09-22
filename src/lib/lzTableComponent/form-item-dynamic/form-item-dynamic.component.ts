@@ -39,7 +39,7 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    console.log("this title title.FrmReadonly" + this.title.FrmReadonly);
+    // console.log("this title title.FrmReadonly" + this.title.FrmReadonly);
   }
 
   initData() {
@@ -66,8 +66,11 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
       let p = this.title['lzImgUrl'];
       this.obj = this.data[p];//alert(this.obj);
     } else if (this.selectTypeEM == FormItemTypeEM.Date || this.selectTypeEM == FormItemTypeEM.Time) {
-      this.obj = new Date(m);
-      if (!this.ut.isValiateDate(this.obj)) this.obj = '';
+      this.obj = '';
+      if(this.obj){
+        this.obj = new Date(m);
+        if (!this.ut.isValiateDate(this.obj)) this.obj = '';
+      }
     } else if (this.selectTypeEM == FormItemTypeEM.Checkbox) {
       this.obj = m == 'Y' ? true : false;
     } else {

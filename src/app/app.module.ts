@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
@@ -18,6 +18,7 @@ import { MarketModule } from './main/market/market.module';
 import { RestrauntModule } from './main/restraunt/restraunt.module';
 
 @NgModule({
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     BaseComponent
@@ -35,7 +36,7 @@ import { RestrauntModule } from './main/restraunt/restraunt.module';
     MarketModule,
     RestrauntModule
   ],
-  providers: [BaseHttpService,AppService],
+  providers: [BaseHttpService, AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

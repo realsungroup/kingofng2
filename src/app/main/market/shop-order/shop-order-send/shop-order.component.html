@@ -1,4 +1,4 @@
-<ng-container *ngIf="!isSendModalShow">
+<div [class.hidden]="isSendModalShow">
   <app-lzcommon-table
     [isAutoData]="true"
     [operationOrginButton]="[true,false,false,false]"
@@ -11,7 +11,7 @@
     [requestParams]="requestParams"
     [requestDataType]="requestDataType">
   </app-lzcommon-table>
-</ng-container>
+</div>
 
   <ng-container *ngIf="isSendModalShow">
     <app-modal-form 

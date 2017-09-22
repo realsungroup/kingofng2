@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 
 export class AppService {
 
-  private app: any;
+   app: any;
 
   constructor(private http: Http) {
 
@@ -44,9 +44,9 @@ export class AppService {
         "httppath": "http://kingofdinner.realsun.me:8081/rispweb/upfiles",
         "getColumnsDefine":"api/100/table/RetrieveColumnsDefine",
         "clearCache":"api/100/table/ClearCache"
-    },
-    "enterprisecode":"9063"
-}`)
+      },
+      "enterprisecode":"9063"
+    }`) 
     return this.app;
   }
 

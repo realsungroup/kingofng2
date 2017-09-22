@@ -24,5 +24,8 @@ describe('FormItemDynamicComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect("FormItemDynamicComponent" + component.title.FrmReadonly);
   });
+
+  // it('shou')
 });
