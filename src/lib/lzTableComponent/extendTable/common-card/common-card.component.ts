@@ -12,11 +12,11 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
   }
 })
 export class CommonCardComponent extends LZcommonTableComponent implements OnInit, AfterViewInit {
-  colNum: number;
+  colNum: number;//几列
   navtiveEle: any;
-  colSumHeight: any = [0];
-  _cardContainerHeight: number = 500;
-  @Input() cardIndexArr: Array<number> = [];
+  colSumHeight: any = [0];//每列高度数组
+  _cardContainerHeight: number = 500;//卡片背景高度
+  @Input() cardIndexArr: Array<number> = [];//指定字段的位置数组，第一个为图片，第二标题，第三描述
 
   @ViewChild('cardContainer') cardContainer: ElementRef;
   @ViewChildren('card') things: QueryList<any>;
@@ -27,6 +27,7 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
   }
 
   ngAfterViewInit() {
+    //监听卡片的变化
     this.things.changes.subscribe(
       data => {
         console.log("things loadover");
@@ -69,14 +70,17 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
     this.cardContainerHeight();
   }
 
+  // 窗口调整
   onResize() {
     this.layout();
   }
 
+  // img加载完
   imgLoad(card) {
     this.layout();
   }
 
+  // 获取对应的key
   getTitleKey(idx): string {
     if (Array.isArray(this.cardIndexArr) && this.cardIndexArr.length)
       return this.titleArr[this.cardIndexArr[idx]]["id"];
@@ -84,6 +88,7 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
       return '';
   }
 
+  // 计算卡片背景的高度（动态）
   cardContainerHeight() {
     setTimeout(() => {
       this._cardContainerHeight = Math.max.apply(Math, this.colSumHeight) + 60;

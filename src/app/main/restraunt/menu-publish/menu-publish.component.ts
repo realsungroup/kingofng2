@@ -50,11 +50,7 @@ export class MenuPublishComponent extends BaseComponent implements OnInit {
     }]
 
     this._customBtnArr = [
-      { title: '发货', type: 'primary', loading: false },
-      // { title: 'btn2', type: 'primary', loading: false },
-      // { title: 'btn3', type: 'primary', loading: false },
-      // { title: 'btn4', type: 'primary', loading: false },
-      // { title: 'btn5', type: 'primary', loading: false },
+      { title: '发布', type: 'primary', loading: false }
     ]
 
   }

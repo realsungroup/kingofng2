@@ -45,3 +45,11 @@
     min-height: 360px;
     position: relative;
 }
+
+.nav-container{
+    height: 64px;
+    float: right;
+    button{
+        margin: auto 10px;
+    }
+}

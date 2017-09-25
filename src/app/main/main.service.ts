@@ -18,6 +18,7 @@ export class MainService {
 
   fixRouteData(routeArr: any, cl?: number) {
     if(!Array.isArray(routeArr)) return [];
+    routeArr = routeArr.filter(item => item['C3_558541943043'] != 'clearCache');
     if (!cl) cl = 6;
     while (cl > 0) {
       let filterArr = routeArr.filter(v => v.C3_558541903900 == cl);

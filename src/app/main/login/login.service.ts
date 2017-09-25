@@ -69,7 +69,7 @@ export class LoginService {
 
   private filterRoute(routes: Array<any>, routeArr: Array<any>) {
     return routes.filter((r: any) => {
-      if (r.hasOwnProperty("pathMatch")) return true;
+      if (r.hasOwnProperty("pathMatch") ) return true;
 
       if (!!!routeArr.filter(val => {
         if (r.link == val.C3_558541978410) {

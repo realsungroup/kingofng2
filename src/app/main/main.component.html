@@ -5,9 +5,9 @@
 
     <ul nz-menu class="menu-ul-top" [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
       <ng-container *ngFor="let r1 of routerArr">
-         <li nz-menu-item *ngIf="r1?.children?.length <= 0" [routerLink]="r1.C3_558541978410">
+        <li nz-menu-item *ngIf="r1?.children?.length <= 0" [routerLink]="r1.C3_558541978410">
           <span title><i class="anticon anticon-bars"></i><span class="nav-text">{{r1?.C3_558541955195}}</span></span>
-        </li> 
+        </li>
         <li nz-submenu *ngIf="r1?.children?.length > 0">
           <span title><i class="anticon anticon-bars"></i><span class="nav-text">{{r1?.C3_558541955195}}</span></span>
           <ul>
@@ -52,7 +52,14 @@
   <nz-layout>
     <nz-header style="background: #fff; padding:0;">
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
+        <div class="nav-container">
+           <button nz-button [routerLink]="'/main/clearCache'">
+              <i class="anticon anticon-delete"></i>
+          </button>
+          <div class="clear-float"></div> 
+        </div>
       </ul>
+      
     </nz-header>
     <nz-content class="lz-content">
       <nz-breadcrumb style="margin:12px 0;">
