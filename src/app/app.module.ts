@@ -14,9 +14,6 @@ import { BaseComponent } from './base-component/base.component';
 import { BaseHttpService } from './base-http-service/base-http.service';
 import { AppService } from './app.service';
 
-import { MarketModule } from './main/market/market.module';
-import { RestrauntModule } from './main/restraunt/restraunt.module';
-
 @NgModule({
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
@@ -32,9 +29,7 @@ import { RestrauntModule } from './main/restraunt/restraunt.module';
     AppRouterModule,
     MainModule,
     LoginModule,
-    BrowserAnimationsModule,
-    MarketModule,
-    RestrauntModule
+    BrowserAnimationsModule
   ],
   providers: [BaseHttpService, AppService],
   bootstrap: [AppComponent]

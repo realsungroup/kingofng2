@@ -53,8 +53,11 @@
     <nz-header style="background: #fff; padding:0;">
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
         <div class="nav-container">
-           <button nz-button [routerLink]="'/main/clearCache'">
+          <button nz-button [routerLink]="'/main/clearCache'">
               <i class="anticon anticon-delete"></i>
+          </button>
+          <button nz-button (click)="loginOutClick()">
+              <i class="anticon anticon-logout"></i>
           </button>
           <div class="clear-float"></div> 
         </div>

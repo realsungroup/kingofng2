@@ -40,7 +40,7 @@ export class MainService {
 
   setBreadDataWithUrl(routeArr:Array<any>,url: string) {
     if(!Array.isArray(routeArr)) return;
-    let r:any = routeArr.filter(item => item.C3_558541978410 == url)[0];
+    let r:any = routeArr.filter(item => item.C3_558541978410 == url)[0] || {};
     let rp:any;
 
     let routeTitleArr = [{title:r.C3_558541955195}];

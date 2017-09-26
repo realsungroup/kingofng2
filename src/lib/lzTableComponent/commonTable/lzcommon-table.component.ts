@@ -15,28 +15,33 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 
 })
 export class LZcommonTableComponent implements OnInit, OnChanges {
-  _cmswhere:string = '';
+  _cmswhere: string = '';
   _menuRecordStr: string = 'MenuRecordCustEdit';//自定义按钮传递到服务器的name数据
   _theModalName: string = 'main';//弹出窗体的控制变量
   titleArr: any;//cmscolumninfo数据
   _selectData: any;//操作，详情选择的某个数据
   searchValue: string = '';//搜索框数据
   isMainData: boolean = true;//是否为主表数据
+
   _filterData: Array<any> = [];//下拉菜单数据
   _filterSelectObj: any = {};//下拉菜单选择的对象
 
+  _tableBtnArr: Array<any> = [];//表格后台自定义按钮
+
   //公共参数
   @Input() isAutoData: boolean = false;//是否自动获取数据
+  @Input() isAttachDataModal: boolean = false;//是否是附表数据
+
   @Input() operationButton: Array<any>;//自定义按钮对象{title:'',type:'',loading:true}
+  @Output() operationBtnNoti = new EventEmitter();//自定义按钮回调方法
+
   @Input() operationOrginButton: Array<boolean> = [false, false, false, false];//详情 操作 删除 按钮显示 
   @Input() tabs: Array<LZTab> = [];//窗体名称
   @Input() addFormName: string = '';//新增数据的窗体名称
-  @Input() isEditCustomPosition: boolean = false;//是否自定义定位
-  @Input() isAddCustomPosition: boolean = false;//是否自定义定位
-  @Output() operationBtnNoti = new EventEmitter();//自定义按钮回调方法
-  @Input() isAttachDataModal: boolean = false;
+  @Input() isEditCustomPosition: boolean = false;//操作form是否自定义定位
+  @Input() isAddCustomPosition: boolean = false;//添加form是否自定义定位
 
-  @Input() filterDateCmswhere:string = '';//时间cmswhere
+  @Input() filterDateCmswhere: string = '';//时间cmswhere
   @Input() filterString: string = '';//下拉菜单过滤字段
   @Input() filterData: Array<any> = [];//下拉菜单数据
 
@@ -56,7 +61,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _dataSet = [];//获取的数据数组
   _loading = true;//loading加载界面是否显示
 
-  constructor(protected _httpSev: BaseHttpService,protected modalSev: NzModalService,protected messageSev: NzMessageService) {
+  constructor(protected _httpSev: BaseHttpService, protected modalSev: NzModalService, protected messageSev: NzMessageService) {
 
   }
 
@@ -71,7 +76,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       refresh = true;
     }
 
-    if(changes['filterDateCmswhere'] && this.isAutoData){
+    if (changes['filterDateCmswhere'] && this.isAutoData) {
       refresh = true;
     }
 
@@ -81,24 +86,25 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
         refresh = true;
       }
     }
-    if(refresh) this._refreshData();
+    if (refresh) this._refreshData();
   }
 
   ngOnInit() {
     // this._refreshData();//首次加载数据
+    this.getTableCustomButton();
   }
 
   //获取数据
-  _refreshData(){
+  _refreshData() {
     //自动取数据
     if (this.isAutoData) {
       let tmpCmswhere = this._cmswhere;
       if (Object.keys(this._filterSelectObj).length && this.filterString) {
-        if(tmpCmswhere.length) tmpCmswhere += "AND";
+        if (tmpCmswhere.length) tmpCmswhere += "AND";
         tmpCmswhere += this.filterString + "='" + this._filterSelectObj['value'] + "'";
       }
-      if(this.filterDateCmswhere.length){
-        if(tmpCmswhere.length) tmpCmswhere += "AND";
+      if (this.filterDateCmswhere.length) {
+        if (tmpCmswhere.length) tmpCmswhere += "AND";
         tmpCmswhere += this.filterDateCmswhere;
       }
       this.requestParams.cmswhere = tmpCmswhere;
@@ -106,9 +112,9 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       this.requestParams.pageSize = this.pageSize;
       this.requestParams['key'] = this.searchValue;
       this._loading = true;
-      console.info("request parametter",this.requestParams)
+      console.info("request parametter", this.requestParams)
       //附表数据
-      if (this.isAttachDataModal) { 
+      if (this.isAttachDataModal) {
         this._httpSev.baseRequest(this.requestType, this.requestUrl, this.requestParams, this.requestDataType).subscribe(
           data => {
             if (data && Array.isArray(data['data'])) {
@@ -186,9 +192,27 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
 
   };
 
-  //请求数据加载完
-  loadDataOver(){
+  //获取表格中服务器定义按钮
+  getTableCustomButton() {
+    let path = this._httpSev.path;
+    let btnUrl = path.baseUrl + path.getButton;
+    let params = {
+      resid: this.resid
+    }
+    this._httpSev.baseRequest("GET", btnUrl, params, this._httpSev.dataT.UnKnow).subscribe(
+      (data: any) => {
+        // alert(JSON.stringify(data));
+        console.info(data)
+        if (data && Array.isArray(data.data) && data.error == 0) {
+          this._tableBtnArr = data.data;
+        } else {
 
+        }
+      },
+      err => {
+        // alert(JSON.stringify(err))
+      }
+    )
   }
 
   /***********按钮及输入框触发事件**************/
@@ -266,10 +290,47 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   //自定义按钮事件
   btnClick(event, i: number, data: any) {
     // let name = this._menuRecordStr + i;
+    console.info("btn click",data,this._dataSet)
     this.operationBtnNoti.emit({
       i: i,
       data: data
     });
+  }
+
+  //表格后台按钮组事件
+  tableBtnMenuClick(event, i,btnObj,dataIndex) {
+    let selectTabledata = this._dataSet[dataIndex];
+    let path = this._httpSev.path;
+    let dealBtnUrl = path.baseUrl + path.dealButton;
+    let params = {
+      resid: this.resid,
+      recids: selectTabledata['REC_ID'],
+      strCommand: btnObj['MenuCmd']
+    }
+
+    this.modalSev.open({
+      title: '提示',
+      content: btnObj['ConfirmMsgCn'],
+      onOk: () => {
+        this._loading = true;
+        this._httpSev.baseRequest("GET", dealBtnUrl, params, this._httpSev.dataT.UnKnow).subscribe(
+          (data:any) => {
+            if(!data) return;
+            if(Array.isArray(data.data) && (<Array<any>>data.data).length && data.error == 0){
+              this.messageSev.success(btnObj['OkMsgCn']);
+              this._dataSet[dataIndex] = data.data[0];
+            }else{
+              this.messageSev.error(data['message']);
+            }
+          },
+          err => {
+            this.messageSev.error('操作错误！');
+          },
+          () => {
+            this._loading = false;
+          })
+      }
+    })
   }
 
   /***********窗体通知事件**************/

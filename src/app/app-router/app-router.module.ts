@@ -15,6 +15,10 @@ import { ClearCacheComponent } from '../main/cache/clear-cache/clear-cache.compo
 
 import { MenuManageComponent } from '../main/restraunt/menu-manage/menu-manage.component';
 import { MenuPublishComponent } from "../main/restraunt/menu-publish/menu-publish.component";
+import { MenuOrderStatisticsComponent } from '../main/restraunt/menu-order-statistics/menu-order-statistics.component';
+import { RestrauntOrderComponent } from '../main/restraunt/restraunt-order/restraunt-order.component';
+
+import { EcharttestComponent } from '../main/echarttest/echarttest.component';
 
 const childRouts:Array<any> = [
   // { path: '', redirectTo: 'applying', pathMatch: 'full'},
@@ -26,7 +30,11 @@ const childRouts:Array<any> = [
   { path: 'clearCache',component:ClearCacheComponent,link:'/main/clearCache'},
 
   { path: 'menuManage',component:MenuManageComponent,link:'/main/menuManage'},
-  { path: 'menuPublish',component:MenuPublishComponent,link:'/main/menuPublish'}
+  { path: 'menuPublish',component:MenuPublishComponent,link:'/main/menuPublish'},
+  { path: 'menuOrderStatistics',component:MenuOrderStatisticsComponent,link:'/main/menuOrderStatistics'},
+  { path: 'restrauntOrder',component:RestrauntOrderComponent,link:'/main/restrauntOrder'},
+
+  { path: 'echart',component:EcharttestComponent,link:'/main/echart'}
 ]
 
 const routes: Array<any> = [

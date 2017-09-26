@@ -29,7 +29,7 @@ export class ShopListComponent extends BaseComponent implements OnInit {
     private httpSev: BaseHttpService) {
     super(mainSev,appSev,router);
 
-    let path = this.appSev.getAppConfig()['path'];
+    let path = window.app['path'];
     this.url = path['baseUrl'] + path['getData'];
     this.params = {
       'subresid': '',

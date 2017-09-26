@@ -12,14 +12,14 @@ export class LoginService {
   constructor(private httpService: BaseHttpService,
     private appSve: AppService,
     private router: Router) {
-    this.path = this.appSve.getAppConfig()["path"];
+    this.path = window.app["path"];
   }
 
   public login(type: string, loginParams: any) {
     let userStr: string = loginParams["account"]; //'80881';
     let params;
     let url = this.path.baseUrl + this.path.login;
-    this.appSve.addProperty("badgeNo", userStr);
+    window.app["badgeNo"] = userStr;
 
     if (type == 'badgeno') {
       let passWordStr: string = '1234567';
@@ -45,7 +45,7 @@ export class LoginService {
         data => {
           if (data && data.data) {
             let dataArr = data.data;
-            this.appSve.addProperty("routesArr", dataArr);
+            window.app["routesArr"] = dataArr;
 
             let filterRouteArr = this.filterRoute(this.router.config[2].children, dataArr);
             this.router.config[2].children = filterRouteArr;

@@ -106,7 +106,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
         if (data['OpResult'] != 'Y') { alert(data['ErrorMsg']); return }
 
-        this.appSve.addProperty("userInfo", data);
+        window.app["userInfo"] = data;
 
         this.loginSve.getRouteData().subscribe(
           data => {

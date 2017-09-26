@@ -7,7 +7,7 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
   selector: 'app-common-card',
   templateUrl: './common-card.component.html',
   styleUrls: ['./common-card.component.scss'],
-  host:{
+  host: {
     '(window:resize)': 'onResize($event)'
   }
 })
@@ -53,7 +53,7 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
     cardEleArr.forEach(element => {
 
       let idx = 0,
-        minSumHeight = this.colSumHeight[0];
+          minSumHeight = this.colSumHeight[0];
       // 获取到solSumHeight中的最小高度
       for (var i = 0; i < this.colSumHeight.length; i++) {
         if (minSumHeight > this.colSumHeight[i]) {

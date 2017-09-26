@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MainService } from './main.service';
 import { Subject } from 'rxjs/Subject';
 import { AppService } from '../app.service';
+import { BaseHttpService } from '../base-http-service/base-http.service';
 
 @Component({
   selector: 'app-main',
@@ -20,14 +21,15 @@ export class MainComponent implements OnInit, AfterViewInit {
   constructor(protected router: Router,
     private route: ActivatedRoute,
     private mainSev: MainService,
-    private appSev: AppService) {
+    private appSev: AppService,
+    private httpSev:BaseHttpService) {
 
   }
 
   ngOnInit() { }
 
   ngAfterViewInit() {
-    let routeArr = this.appSev.getAppConfig()["routesArr"];
+    let routeArr = window.app["routesArr"];
     setTimeout(() => {
       this.routerArr = this.mainSev.fixRouteData(routeArr, 6);
       let a = []
@@ -45,6 +47,17 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   toggleCollapsed() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  //登出
+  loginOutClick(){
+    this.router.navigate(['/login']);
+    // window.app = {};
+    // this.httpSev.appConfig = {};
+    window.app["routesArr"] = [];
+     window.app["badgeNo"] = '';
+    window.app["userInfo"] = {};
+    this.httpSev.updateAppConfig();
   }
 
 }

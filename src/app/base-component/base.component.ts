@@ -13,7 +13,7 @@ export class BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mainSev.setBreadDataWithUrl(this.appSev.getAppConfig()["routesArr"], this.router.url);
+    this.mainSev.setBreadDataWithUrl(window.app["routesArr"], this.router.url);
    }
 
 }

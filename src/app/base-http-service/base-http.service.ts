@@ -12,7 +12,11 @@ export class BaseHttpService {
   public appConfig: any;
   public dataT = dataType;
   constructor(private http: Http, private appS: AppService, private router: Router) {
-    this.appConfig = this.appS.getAppConfig();
+    this.updateAppConfig();
+  }
+
+  updateAppConfig(){
+    this.appConfig = window.app;
     this.path = this.appConfig.path;
   }
 
@@ -105,7 +109,7 @@ export class BaseHttpService {
 
   private getHeaderWithUrl(str: any) {
     if (str != this.path.baseUrl + this.path.login) {
-      if (!this.appConfig.userInfo) {
+      if (!this.appConfig.userInfo || !Object.keys(this.appConfig.userInfo).length) {
         console.error("用户信息错误");
         this.router.navigate(["/login"]);
         return;

@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { MenuManageComponent } from './menu-manage/menu-manage.component';
 import { MenuPublishComponent } from './menu-publish/menu-publish.component';
 import { LzcommonTableModule } from '../../../lib/lzTableComponent/commonTable/lzcommon-table.module';
+import { MenuOrderStatisticsComponent } from './menu-order-statistics/menu-order-statistics.component';
+import { RestrauntOrderComponent } from './restraunt-order/restraunt-order.component';
 
 @NgModule({
   imports: [
@@ -14,6 +16,6 @@ import { LzcommonTableModule } from '../../../lib/lzTableComponent/commonTable/l
     FormsModule,
     LzcommonTableModule
   ],
-  declarations: [MenuManageComponent,MenuPublishComponent]
+  declarations: [MenuManageComponent,MenuPublishComponent, MenuOrderStatisticsComponent, RestrauntOrderComponent]
 })
 export class RestrauntModule { }

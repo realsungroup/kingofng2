@@ -5,12 +5,16 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LzcommonTableModule } from '../../lib/lzTableComponent/commonTable/lzcommon-table.module';
 import { FormsModule } from '@angular/forms';
+import { LzcommonTableModule } from '../../lib/lzTableComponent/commonTable/lzcommon-table.module';
 
 import { ClearCacheComponent } from '../main/cache/clear-cache/clear-cache.component';
 
 import { MainService } from './main.service';
+import { EcharttestComponent } from './echarttest/echarttest.component';
+
+import { MarketModule } from './market/market.module';
+import { RestrauntModule } from './restraunt/restraunt.module';
 
 @NgModule({
   imports: [
@@ -20,11 +24,14 @@ import { MainService } from './main.service';
     BrowserModule,
     RouterModule,
     LzcommonTableModule,
-    FormsModule
+    FormsModule,
+    MarketModule,
+    RestrauntModule
   ],
   declarations: [
     MainComponent,
-    ClearCacheComponent],
+    ClearCacheComponent,
+    EcharttestComponent],
   entryComponents: [
   ],
   providers: [

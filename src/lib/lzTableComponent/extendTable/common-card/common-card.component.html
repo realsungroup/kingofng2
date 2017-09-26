@@ -33,7 +33,7 @@
   <nz-spin [nzSpinning]="_loading">
 
     <div #cardContainer [style.height.px]="_cardContainerHeight">
-       <!-- (window:resize)="onResize($event)"> -->
+      <!-- (window:resize)="onResize($event)"> -->
 
       <ng-container *ngFor="let data of _dataSet;let dataIndex = index;">
 
@@ -77,7 +77,14 @@
                   </div>
                 </div>
               </ng-container>
-
+              <!-- 表格自定义按钮组 -->
+              <ng-container nz-td *ngFor="let btn of _tableBtnArr;let btnI = index">
+                <div nz-row nz-form-item *ngIf="btn.Show && btn.Type == 1">
+                  <div nz-form-control>
+                    <button nz-button  (click)="tableBtnMenuClick($event,btnI,btn,dataIndex)"><span>{{btn.Name1}}</span></button>
+                  </div>
+                </div>
+              </ng-container>
             </form>
           </ng-template>
         </nz-card>

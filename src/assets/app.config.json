@@ -6,11 +6,13 @@
         "getSubData": "api/100/table/RetrieveRelTableByHostRecord",
         "saveData": "api/100/table/Save",
         "login": "api/Account/Login",
-        "getFormDefine":"api/100/table/RetrieveFormDefine",
+        "getFormDefine": "api/100/table/RetrieveFormDefine",
         "uploadFileUrl": "http://kingofdinner.realsun.me:8081/rispweb/rispservice/SvcUploadFile2.aspx",
         "httppath": "http://kingofdinner.realsun.me:8081/rispweb/upfiles",
-        "getColumnsDefine":"api/100/table/RetrieveColumnsDefine",
-        "clearCache":"api/100/table/ClearCache"
+        "getColumnsDefine": "api/100/table/RetrieveColumnsDefine",
+        "clearCache": "api/100/table/ClearCache",
+        "getButton": "api/menu/GetButton",
+        "dealButton": "api/menu/DealButton"
     },
-    "enterprisecode":"9063"
+    "enterprisecode": "9063"
 }

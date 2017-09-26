@@ -265,6 +265,6 @@ export class ModalFormComponent implements OnInit,OnDestroy{
   }
 
   ngOnDestroy(){
-    console.log("=>>>>>>modal form destory");
+    // console.log("=>>>>>>modal form destory");
   }
 }
