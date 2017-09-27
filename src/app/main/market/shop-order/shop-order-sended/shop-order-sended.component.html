@@ -5,5 +5,14 @@
     [requestType]="'GET'"
     [requestUrl]="url"
     [requestParams]="requestParams"
-    [requestDataType]="requestDataType">
+    [requestDataType]="requestDataType"
+    [filterDateCmswhere]="_selectDateCmswhere">
+    <ng-container class="table-menu">
+        <div nz-row nz-form-item>
+            <nz-datepicker [(ngModel)]="_selectStartDate" (ngModelChange)="dateChange($event,0)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择开始日期'" ></nz-datepicker>
+        </div>
+        <div nz-row nz-form-item>
+            <nz-datepicker [(ngModel)]="_selectEndDate" (ngModelChange)="dateChange($event,1)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择结束日期'" ></nz-datepicker>
+        </div>
+    </ng-container>
   </app-lzcommon-table>

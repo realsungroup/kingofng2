@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router} from '@angular/router';
@@ -13,8 +13,8 @@ import { BaseComponent } from '../../../base-component/base.component';
 })
 export class ClearCacheComponent extends BaseComponent implements OnInit {
 
-  constructor(private httpSev:BaseHttpService,private messageSev:NzMessageService,protected router: Router,protected appSve: AppService,protected mainSev:MainService) {
-    super(mainSev,appSve,router);
+  constructor(injector:Injector, private httpSev:BaseHttpService,private messageSev:NzMessageService) {
+    super(injector);
   }
 
   ngOnInit() {

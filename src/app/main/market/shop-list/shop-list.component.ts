@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Injector } from '@angular/core';
 import { AppService } from '../../../app.service';
 import { dataType } from '../../../enum/http.enum';
 import { LZTab } from '../../../../lib/lzTableComponent/interface/tab.interface';
@@ -19,15 +19,14 @@ export class ShopListComponent extends BaseComponent implements OnInit {
   params: any;
   dataT: dataType;
   tabsArr: Array<LZTab>;
-  operationButtonTitle: Array<any>;
 
   filterString: string = 'GcId';
   filterData: Array<any> = [];
 
-  constructor(protected appSev: AppService, protected router: Router,
-    private route: ActivatedRoute, protected mainSev: MainService,
+  constructor(injector:Injector,
+    private route: ActivatedRoute, 
     private httpSev: BaseHttpService) {
-    super(mainSev,appSev,router);
+    super(injector);
 
     let path = window.app['path'];
     this.url = path['baseUrl'] + path['getData'];
@@ -42,12 +41,6 @@ export class ShopListComponent extends BaseComponent implements OnInit {
       'getcolumninfo': '1'
     }
     this.dataT = dataType.HostTableDataEM;
-
-    this.operationButtonTitle = [
-    { title: 'btn1', type: 'primary', loading: false },
-    { title: 'btn2', type: 'default', loading: false },
-    { title: 'btn3', type: 'danger', loading: false }];
-
 
     let filterRequestParams = {
       'pageSize': 10,

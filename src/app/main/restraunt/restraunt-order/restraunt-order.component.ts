@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Injector } from '@angular/core';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
 import { BaseComponent } from '../../../base-component/base.component';
 import { AppService } from '../../../app.service';
@@ -13,18 +13,12 @@ import { LZUntilService } from '../../../../lib/lzTableComponent/until/until.ser
 })
 export class RestrauntOrderComponent extends BaseComponent implements OnInit {
 
-  startDateString = '';
-  endDateString = "";
-  _selectStartDate = null;
-  _selectEndDate = null;
-  _selectDateCmswhere: string = '';
-
   url: string = '';
   requestParams: any = {};
   requestDataType: number = -1;
 
-  constructor(private httpSev: BaseHttpService, protected mainSev: MainService, protected appSev: AppService, protected router: Router, private utSev: LZUntilService) {
-    super(mainSev, appSev, router);
+  constructor(private httpSev: BaseHttpService, injector:Injector) {
+    super(injector);
   }
 
   ngOnInit() {
@@ -40,14 +34,9 @@ export class RestrauntOrderComponent extends BaseComponent implements OnInit {
     }
     this.requestDataType = this.httpSev.dataT.HostTableDataEM;
 
-  }
+    this.dateChangeStr = 'C3_512140206161';
+    // this.xlsxFileName = ''
 
-  dateChange(event, index) {
-    if (!index) this.startDateString = this.utSev.transformDateToString(event, "yyyyMMdd") || '';
-    else this.endDateString = this.utSev.transformDateToString(event, "yyyyMMdd") || '';
-
-    if (this.startDateString.length && this.endDateString.length) this._selectDateCmswhere = "C3_512140206161 >='" + this.startDateString + "' AND C3_512140206161 <='" + this.endDateString + "'";
-    else this._selectDateCmswhere = "";
   }
 
 }

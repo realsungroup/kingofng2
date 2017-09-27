@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Injector } from '@angular/core';
 import { BaseHttpService } from '../../../../base-http-service/base-http.service';
 import { BaseComponent } from '../../../../base-component/base.component';
 import { AppService } from '../../../../app.service';
 import { Router} from '@angular/router';
 import { MainService } from '../../../main.service';
+import { LZUntilService } from '../../../../../lib/lzTableComponent/until/until.service';
 
 @Component({
   selector: 'app-shop-order-sended',
@@ -17,8 +18,8 @@ export class ShopOrderSendedComponent extends BaseComponent implements OnInit {
   requestDataType: number = -1;
   tabs: Array<any> = [];
 
-  constructor(private httpSev: BaseHttpService,protected mainSev:MainService,protected appSev: AppService, protected router: Router) {
-    super(mainSev,appSev,router);
+  constructor(private httpSev: BaseHttpService,injector:Injector) {
+    super(injector);
   }
 
   ngOnInit() {
@@ -29,8 +30,7 @@ export class ShopOrderSendedComponent extends BaseComponent implements OnInit {
       resid: 558722057400,
       pageIndex: 0,
       pageSize: 10,
-      getcolumninfo: 1,
-      cmswhere: "Status = '待收货'"
+      getcolumninfo: 1
     }
     this.tabs = [{
       isSubForm: false,
@@ -38,6 +38,7 @@ export class ShopOrderSendedComponent extends BaseComponent implements OnInit {
     }];
 
     this.requestDataType = this.httpSev.dataT.HostTableDataEM;
-  }
 
+    this.dateChangeStr = 'C3_543089973094';
+  }
 }

@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,Injector } from '@angular/core';
 import { BaseHttpService } from '../../../../base-http-service/base-http.service';
-// import { LZcommonTableComponent } from '../../../../../lib/lzTableComponent/commonTable/lzcommon-table.component';
 import { BaseComponent } from '../../../../base-component/base.component';
 import { AppService } from '../../../../app.service';
 import { Router} from '@angular/router';
 import { MainService } from '../../../main.service';
+import { LZUntilService } from '../../../../../lib/lzTableComponent/until/until.service';
 
 @Component({
   selector: 'app-shop-order',
@@ -28,8 +28,8 @@ export class ShopOrderComponent extends BaseComponent implements OnInit {
   attachRequestDataType: number = -1;
   attachRequestUrl:string = '';
 
-  constructor(private httpSev: BaseHttpService,protected mainSev:MainService,protected appSev: AppService, protected router: Router) { 
-    super(mainSev,appSev,router);
+  constructor(private httpSev: BaseHttpService,injector:Injector) { 
+    super(injector);
   }
 
   ngOnInit() {
@@ -57,6 +57,8 @@ export class ShopOrderComponent extends BaseComponent implements OnInit {
       getcolumninfo: 1
     }
     this.requestDataType = this.httpSev.dataT.HostTableDataEM;
+
+    this.dateChangeStr = 'C3_543089973094';
   }
 
   operationBtnClick(note) {

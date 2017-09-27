@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Injector } from '@angular/core';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
 import { BaseComponent } from '../../../base-component/base.component';
 import { AppService } from '../../../app.service';
@@ -16,8 +16,8 @@ export class MenuManageComponent extends BaseComponent implements OnInit {
   requestParams: any = {};
   requestDataType: number = -1;
 
-  constructor(private httpSev: BaseHttpService, mainSev: MainService, appSev: AppService, router: Router) {
-    super(mainSev, appSev, router);
+  constructor(private httpSev: BaseHttpService,injector:Injector) {
+    super(injector);
   }
 
   ngOnInit() {

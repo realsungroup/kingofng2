@@ -99,9 +99,9 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     //自动取数据
     if (this.isAutoData) {
       let tmpCmswhere = this._cmswhere;
-      if (Object.keys(this._filterSelectObj).length && this.filterString) {
+      if (Object.keys(this._filterSelectObj).length && this._filterSelectObj.value && this._filterSelectObj.value.length && this.filterString) {
         if (tmpCmswhere.length) tmpCmswhere += "AND";
-        tmpCmswhere += this.filterString + "='" + this._filterSelectObj['value'] + "'";
+        tmpCmswhere += this.filterString + "='" + this._filterSelectObj['value'] + "'";  
       }
       if (this.filterDateCmswhere.length) {
         if (tmpCmswhere.length) tmpCmswhere += "AND";

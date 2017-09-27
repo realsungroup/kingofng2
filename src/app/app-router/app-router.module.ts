@@ -18,6 +18,9 @@ import { MenuPublishComponent } from "../main/restraunt/menu-publish/menu-publis
 import { MenuOrderStatisticsComponent } from '../main/restraunt/menu-order-statistics/menu-order-statistics.component';
 import { RestrauntOrderComponent } from '../main/restraunt/restraunt-order/restraunt-order.component';
 
+import { CompanyBalanceTableComponent } from '../main/company-balance/company-balance-table/company-balance-table.component';
+import { SupplierBalanceTableComponent } from '../main/company-balance/supplier-balance-table/supplier-balance-table.component';
+
 import { EcharttestComponent } from '../main/echarttest/echarttest.component';
 
 const childRouts:Array<any> = [
@@ -33,6 +36,9 @@ const childRouts:Array<any> = [
   { path: 'menuPublish',component:MenuPublishComponent,link:'/main/menuPublish'},
   { path: 'menuOrderStatistics',component:MenuOrderStatisticsComponent,link:'/main/menuOrderStatistics'},
   { path: 'restrauntOrder',component:RestrauntOrderComponent,link:'/main/restrauntOrder'},
+
+  { path: 'companyBalanceTable',component:CompanyBalanceTableComponent,link:'/main/companyBalanceTable'},
+  { path: 'supplierBalanceTable',component:SupplierBalanceTableComponent,link:'/main/supplierBalanceTable'},
 
   { path: 'echart',component:EcharttestComponent,link:'/main/echart'}
 ]

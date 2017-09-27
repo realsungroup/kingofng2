@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
 import { BaseComponent } from '../../../base-component/base.component';
 import { AppService } from '../../../app.service';
@@ -12,15 +12,10 @@ import { LZUntilService } from '../../../../lib/lzTableComponent/until/until.ser
   styleUrls: ['./menu-publish.component.scss']
 })
 export class MenuPublishComponent extends BaseComponent implements OnInit {
-  startDateString = '';
-  endDateString = "";
   url: string = '';
   tabs: Array<any> = [];
   requestParams: any = {};
   requestDataType: number = -1;
-  _selectStartDate = null;
-  _selectEndDate = null;
-  _selectDateCmswhere: string = '';
   _customBtnArr: Array<any> = [];
 
   _isPublishModalShow = false;
@@ -28,8 +23,8 @@ export class MenuPublishComponent extends BaseComponent implements OnInit {
   _selectData = {};
   _publishTabs:Array<any> = [];
 
-  constructor(private httpSev: BaseHttpService, mainSev: MainService, appSev: AppService, router: Router, private utSev: LZUntilService) {
-    super(mainSev, appSev, router);
+  constructor(private httpSev: BaseHttpService, injector:Injector) {
+    super(injector);
   }
 
   ngOnInit() {
@@ -53,14 +48,7 @@ export class MenuPublishComponent extends BaseComponent implements OnInit {
       { title: '发布', type: 'primary', loading: false }
     ]
 
-  }
-
-  dateChange(event, index) {
-    if (!index) this.startDateString = this.utSev.transformDateToString(event, "yyyyMMdd") || '';
-    else this.endDateString = this.utSev.transformDateToString(event, "yyyyMMdd") || '';
-    let selectStr = 'C3_529015275277';
-    if (this.startDateString.length && this.endDateString.length) this._selectDateCmswhere = selectStr + " >='" + this.startDateString + "' AND " + selectStr + " <='" + this.endDateString + "'";
-    else this._selectDateCmswhere = "";
+    this.dateChangeStr = 'C3_529015275277';
   }
 
   operationBtnClick(note) {

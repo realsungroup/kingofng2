@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { BaseComponent } from '../../../base-component/base.component';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,8 +16,8 @@ export class ShopCategoryComponent extends BaseComponent implements OnInit {
   requestParams: any = {};
   requestDataType: number = -1;
 
-  constructor(private httpSev: BaseHttpService,protected mainSev:MainService,protected appSev: AppService, protected router: Router) {
-    super(mainSev,appSev,router);
+  constructor(private httpSev: BaseHttpService,injector:Injector) {
+    super(injector);
 
     let path = this.httpSev.path;
     this.url = path.baseUrl + path.getData;

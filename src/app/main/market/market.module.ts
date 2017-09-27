@@ -16,7 +16,6 @@ import { LzcommonTableModule } from '../../../lib/lzTableComponent/commonTable/l
     NgZorroAntdModule,
     FormsModule
   ],
-  declarations: [ShopCategoryComponent,ShopListComponent,ShopOrderComponent,ShopOrderDetailComponent,ShopOrderSendedComponent],
-  exports:[ShopCategoryComponent,ShopListComponent,ShopOrderComponent,ShopOrderDetailComponent,ShopOrderSendedComponent]
+  declarations: [ShopCategoryComponent,ShopListComponent,ShopOrderComponent,ShopOrderDetailComponent,ShopOrderSendedComponent]
 })
 export class MarketModule { }

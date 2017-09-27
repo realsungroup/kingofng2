@@ -15,6 +15,7 @@ import { EcharttestComponent } from './echarttest/echarttest.component';
 
 import { MarketModule } from './market/market.module';
 import { RestrauntModule } from './restraunt/restraunt.module';
+import { CompanyBalanceModule } from './company-balance/company-balance.module';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { RestrauntModule } from './restraunt/restraunt.module';
     LzcommonTableModule,
     FormsModule,
     MarketModule,
-    RestrauntModule
+    RestrauntModule,
+    CompanyBalanceModule
   ],
   declarations: [
     MainComponent,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Injector } from '@angular/core';
 import { BaseComponent } from '../../base-component/base.component';
 import { Router, RouterModule, Routes, ActivatedRoute, ParamMap } from '@angular/router';
 import { LoginService } from './login.service';
@@ -28,13 +28,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
     passWord: ""
   };
 
-  constructor(protected router: Router,
+  constructor(protected injector: Injector,
     private loginSve: LoginService,
-    protected appSve: AppService,
     private route: ActivatedRoute,
-    protected mainSev: MainService,
     private fb: FormBuilder) {
-    super(mainSev, appSve, router);
+    super(injector);
 
     this.route.queryParams.subscribe(
       data => {

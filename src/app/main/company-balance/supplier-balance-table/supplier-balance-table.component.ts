@@ -1,4 +1,4 @@
-import { Component, OnInit,Injector } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { BaseComponent } from '../../../base-component/base.component';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -6,26 +6,26 @@ import { MainService } from '../../main.service';
 import { AppService } from '../../../app.service';
 
 @Component({
-  selector: 'app-company-balance-table',
-  templateUrl: './company-balance-table.component.html',
-  styleUrls: ['./company-balance-table.component.scss']
+  selector: 'app-supplier-balance-table',
+  templateUrl: './supplier-balance-table.component.html',
+  styleUrls: ['./supplier-balance-table.component.scss']
 })
-export class CompanyBalanceTableComponent extends BaseComponent implements OnInit {
+export class SupplierBalanceTableComponent extends BaseComponent implements OnInit {
 
   url: string = '';
   requestParams: any = {};
   requestDataType: number = -1;
 
-  filterString: string = 'C3_556499703696';
+  filterString: string = 'C3_556467337521';
   filterData: Array<any> = [];
 
-  constructor(injector:Injector, private httpSev: BaseHttpService) {
+  constructor(injector: Injector, private httpSev: BaseHttpService) {
     super(injector);
 
     let path = this.httpSev.path;
     this.url = path.baseUrl + path.getData;
     this.requestParams = {
-      resid: 557444707466,
+      resid: 557445224980,
       pageIndex: 0,
       pageSize: 10,
       getcolumninfo: 1
@@ -52,7 +52,8 @@ export class CompanyBalanceTableComponent extends BaseComponent implements OnIni
         }
       }
     )
-    this.xlsxFileName = '企业结算报表';
+
+    this.xlsxFileName = '供应商结算报表';
   }
 
   ngOnInit() {
