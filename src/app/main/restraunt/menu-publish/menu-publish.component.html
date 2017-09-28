@@ -7,12 +7,10 @@
     [requestParams]="requestParams" 
     [requestDataType]="requestDataType"
     [operationOrginButton]="[true,true,false,false]"
-    (operationBtnNoti)="operationBtnClick($event)"
     [tabs]="tabs"
     [addFormName]="'add'"
     [cardIndexArr]="[13,9,10]"
-    [filterDateCmswhere]="_selectDateCmswhere"
-    [operationButton]="_customBtnArr">
+    [filterDateCmswhere]="_selectDateCmswhere">
     <ng-container class="table-menu">
           <div nz-row nz-form-item>
               <nz-datepicker [(ngModel)]="_selectStartDate" (ngModelChange)="dateChange($event,0)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择开始日期'" ></nz-datepicker>

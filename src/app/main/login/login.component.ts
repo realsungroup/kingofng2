@@ -1,12 +1,11 @@
-import { Component, OnInit,Injector } from '@angular/core';
+import { Component, OnInit, Injector ,Optional } from '@angular/core';
 import { BaseComponent } from '../../base-component/base.component';
 import { Router, RouterModule, Routes, ActivatedRoute, ParamMap } from '@angular/router';
 import { LoginService } from './login.service';
 import { LoginInterface } from './login.interface';
-import { AppService } from '../../app.service';
 import { Observable } from 'rxjs';
-import { MainService } from '../main.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd';
 
 interface MyRoute {
   title: string;
@@ -23,15 +22,18 @@ interface MyRoute {
 export class LoginComponent extends BaseComponent implements OnInit {
   isLoginWithToken: boolean = false;
   validateForm: FormGroup;
+  _loginBtnLoading = false;
   loginM: LoginInterface = {
-    account: "",
-    passWord: ""
+    account: "001",
+    passWord: "123456",
+    ucode: ""
   };
 
   constructor(protected injector: Injector,
     private loginSve: LoginService,
     private route: ActivatedRoute,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private messageSev: NzMessageService) {
     super(injector);
 
     this.route.queryParams.subscribe(
@@ -39,13 +41,12 @@ export class LoginComponent extends BaseComponent implements OnInit {
         // alert(JSON.stringify(data));
         let path = data.path;
         let ucode = data.ucode;
-        let badgeno = data.badgeno;
+        let account = data.account;
+        let loginMethod = data.loginMethod;
 
-        if (path) {
+        if (path && ucode && account && loginMethod) {
           this.isLoginWithToken = true;
-
-          this.loginWithToken(badgeno, ucode);
-          this.navigateWithPath(path);
+          this.loginWithToken(account, ucode,loginMethod, path);
         }
 
       },
@@ -55,20 +56,21 @@ export class LoginComponent extends BaseComponent implements OnInit {
     )
   }
 
-  loginWithToken(badgeno: string, token: string) {
-    let params = {
+  loginWithToken(badgeno: string, token: string,loginMethod:string, path: string) {
+    let params: LoginInterface = {
       account: badgeno,//'80881',
       ucode: token//'GHgfPHoXCQno+l0KaDrIOg=='
     }
-    this.loginSve.login('badgenodynamic', params).subscribe(
+    this.loginSve.login(loginMethod, params).subscribe(
       data => {
-        alert("badgenodynamic success" + JSON.stringify(data));
+        // alert("badgenodynamic success" + JSON.stringify(data));
+        this.loginSuccessDeal(data, path);
       },
       err => {
-        alert("badgenodynamic error" + JSON.stringify(err));
+        this.messageSev.error('登录错误，错误信息：' + JSON.stringify(err));
       },
       () => {
-        alert("badgenodynamic complete");
+
       }
     )
   }
@@ -85,44 +87,38 @@ export class LoginComponent extends BaseComponent implements OnInit {
     });
   }
 
-  getRouteData() {
-
-  }
-
   _submitForm() {
+    this._loginBtnLoading = true;
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
     }
 
-    let params = {
-      // account:'80881',
-      account: '001'
-    }
-    this.loginSve.login('', params).subscribe(
+    this.loginSve.login('', this.loginM).subscribe(
       data => {
-        console.log("login success" + JSON.stringify(data));
-
-        if (data['OpResult'] != 'Y') { alert(data['ErrorMsg']); return }
-
-        window.app["userInfo"] = data;
-
-        this.loginSve.getRouteData().subscribe(
-          data => {
-            this.router.navigate(["/main"]);
-            console.log("all success" + JSON.stringify(data));
-          },
-          err => {
-            console.log("some or all err" + JSON.stringify(err));
-          },
-          () => {
-            console.log("all complete");
-          })
+        this.loginSuccessDeal(data, 'main');
       },
       err => {
-        alert("login fail");
+        this.messageSev.error("登录错误");
+      },
+      () => {
+        this._loginBtnLoading = false;
       }
     )
   }
 
+  loginSuccessDeal(data: any, path: string) {
+    if (data['OpResult'] != 'Y') {
+       this.messageSev.error(data['ErrorMsg']); 
+       return;
+    }
+    window.app["userInfo"] = data;
+    this.loginSve.getRouteData().subscribe(
+      data => {
+        this.navigateWithPath(path);
+      },
+      err => {
+        this.messageSev.error("获取路由错误，错误信息：" + JSON.stringify(err));
+      })
+  }
 
 }

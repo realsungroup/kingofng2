@@ -9,7 +9,10 @@ import { BaseHttpService } from '../base-http-service/base-http.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
+  host:{
+    '(window:resize)': 'onResize($event)'
+  }
 })
 
 export class MainComponent implements OnInit, AfterViewInit {
@@ -17,7 +20,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   breadcrumbArr: Array<any> = [];
   isCollapsed = false;
   routerArr: any;
-
+  _siderHeight:number = 0;
   constructor(protected router: Router,
     private route: ActivatedRoute,
     private mainSev: MainService,
@@ -29,6 +32,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   ngOnInit() { }
 
   ngAfterViewInit() {
+    this._siderHeight = window.innerHeight;
     let routeArr = window.app["routesArr"];
     setTimeout(() => {
       this.routerArr = this.mainSev.fixRouteData(routeArr, 6);
@@ -58,6 +62,10 @@ export class MainComponent implements OnInit, AfterViewInit {
      window.app["badgeNo"] = '';
     window.app["userInfo"] = {};
     this.httpSev.updateAppConfig();
+  }
+
+  onResize(){
+    this._siderHeight = window.innerHeight;
   }
 
 }

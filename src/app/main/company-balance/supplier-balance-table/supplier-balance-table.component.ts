@@ -1,9 +1,6 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { BaseComponent } from '../../../base-component/base.component';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MainService } from '../../main.service';
-import { AppService } from '../../../app.service';
 
 @Component({
   selector: 'app-supplier-balance-table',

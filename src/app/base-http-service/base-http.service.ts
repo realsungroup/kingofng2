@@ -11,6 +11,9 @@ export class BaseHttpService {
   public path: any;
   public appConfig: any;
   public dataT = dataType;
+
+  private loginMethod:string = '';
+
   constructor(private http: Http, private appS: AppService, private router: Router) {
     this.updateAppConfig();
   }
@@ -25,17 +28,27 @@ export class BaseHttpService {
       case dataType.LoginEM: {
         data.loginMethod = "badgeno";//工号
         data.enterprisecode = this.appConfig.enterprisecode;
+        this.loginMethod = data.loginMethod;
       }
         break;
 
       case dataType.LoginDynamicEM: {
         data.loginMethod = "badgenodynamic";
         data.enterprisecode = this.appConfig.enterprisecode;
+        this.loginMethod = data.loginMethod;
       }
         break;
       case dataType.LoginDefaultEM: {
         data.loginMethod = "default";
         data.enterprisecode = this.appConfig.enterprisecode;
+        this.loginMethod = data.loginMethod;
+      }
+        break;
+
+      case dataType.LoginDefaultDynamicEM:{
+        data.loginMethod = "defaultdynamic";
+        data.enterprisecode = this.appConfig.enterprisecode;
+        this.loginMethod = data.loginMethod;
       }
         break;
 
@@ -118,11 +131,11 @@ export class BaseHttpService {
       let headers = new Headers({
         "userCode": this.appConfig.userInfo.UserCode,
         "accessToken": this.appConfig.userInfo.AccessToken,
-        "loginmethod": "default",
+        "loginmethod": this.loginMethod,
         "badgeno": this.appConfig.badgeNo,
         "enterprisecode": this.appConfig.enterprisecode,
         "unionid": "11"
-      });
+      }); //alert(this.loginMethod)
 
       return headers;
     } else return new Headers();
@@ -130,7 +143,7 @@ export class BaseHttpService {
 
   baseRequest(type: string, url: string, params: any, dType?: dataType) {
     let baseObser: Observable<any>;
-    let headers = this.getHeaderWithUrl(url); console.log("header=>" + JSON.stringify(headers));
+    let headers = this.getHeaderWithUrl(url); console.info("header=>" , headers);
     let options = new RequestOptions({ headers: headers });
     params = this.fixDataWithDataType(params, dType);
     switch (type) {

@@ -1,7 +1,7 @@
-  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="_submitForm()">
+  <form *ngIf="!isLoginWithToken" nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="_submitForm()">
     <div nz-form-item>
       <div nz-form-control [nzValidateStatus]="validateForm.controls.userName">
-        <nz-input formControlName="userName" [nzPlaceHolder]="'用户名'" [nzSize]="'large'">
+        <nz-input formControlName="userName" [(ngModel)]="loginM.account" [nzPlaceHolder]="'用户名'" [nzSize]="'large'">
           <ng-template #prefix>
             <i class="anticon anticon-user"></i>
           </ng-template>
@@ -11,7 +11,7 @@
     </div>
     <div nz-form-item>
       <div nz-form-control [nzValidateStatus]="validateForm.controls.password">
-        <nz-input formControlName="password" [nzType]="'password'" [nzPlaceHolder]="'密码'" [nzSize]="'large'">
+        <nz-input formControlName="password" [(ngModel)]="loginM.passWord" [nzType]="'password'" [nzPlaceHolder]="'密码'" [nzSize]="'large'">
           <ng-template #prefix>
             <i class="anticon anticon-lock"></i>
           </ng-template>
@@ -21,7 +21,7 @@
     </div>
     <div nz-form-item>
       <div nz-form-control>
-        <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">登录</button> 
+        <button nz-button class="login-form-button" [nzLoading]="_loginBtnLoading" [nzType]="'primary'" [nzSize]="'large'">登录</button> 
       </div>
     </div>
   </form>

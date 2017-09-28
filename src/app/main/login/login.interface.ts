@@ -1,4 +1,5 @@
 export interface LoginInterface {
     account:string;
-    passWord:string;
+    passWord?:string;
+    ucode?:string;
 }

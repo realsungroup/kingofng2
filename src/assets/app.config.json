@@ -12,7 +12,9 @@
         "getColumnsDefine": "api/100/table/RetrieveColumnsDefine",
         "clearCache": "api/100/table/ClearCache",
         "getButton": "api/menu/GetButton",
-        "dealButton": "api/menu/DealButton"
+        "dealButton": "api/menu/DealButton",
+        "exportXls":"api/100/table/ExportTableData",
+        "fileUrl":"http://kingofdinner.realsun.me:8081/"
     },
     "enterprisecode": "9063"
 }

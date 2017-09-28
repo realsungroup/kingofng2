@@ -1,9 +1,9 @@
 :host ::ng-deep{
     .main-container{
-        height: 950px;
+        // height: 950px;
 
         .menu-ul-top{
-            height: 834px;
+            // height: 834px;
             overflow: auto;
         }
     }
@@ -15,7 +15,7 @@
     }
 
     .lz-content{
-        min-width: 1000px;
+        // min-width: 1000px;
         margin:0 16px;
     }
 
@@ -44,6 +44,7 @@
     background: #fff;
     min-height: 360px;
     position: relative;
+    margin-left: 30px;
 }
 
 .nav-container{

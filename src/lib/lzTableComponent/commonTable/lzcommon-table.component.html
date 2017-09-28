@@ -21,6 +21,11 @@
         </nz-dropdown>
       </div>
 
+      <div nz-row nz-form-item>
+        <button nz-button (click)="exportXls()" [nzType]="'primary'">
+              <span>导出1</span>
+          </button>
+      </div>
       <div nz-form-item nz-row>
         <nz-input *ngIf="isAutoData" name="serach" [(ngModel)]="searchValue" [nzPlaceHolder]="'搜索'" (ngModelChange)="searchChange($event)">
         </nz-input>

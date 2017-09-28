@@ -1,9 +1,6 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router} from '@angular/router';
-import { AppService } from '../../../app.service';
-import { MainService } from '../../main.service';
 import { BaseComponent } from '../../../base-component/base.component';
 
 @Component({

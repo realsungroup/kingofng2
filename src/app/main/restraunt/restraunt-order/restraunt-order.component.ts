@@ -35,7 +35,7 @@ export class RestrauntOrderComponent extends BaseComponent implements OnInit {
     this.requestDataType = this.httpSev.dataT.HostTableDataEM;
 
     this.dateChangeStr = 'C3_512140206161';
-    // this.xlsxFileName = ''
+    this.xlsxFileName = '餐饮订单记录';
 
   }
 

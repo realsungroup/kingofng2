@@ -22,8 +22,8 @@ export class AppService {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '../assets/app.config.json', false);
     xhr.onload = () => {
-      this.app = JSON.parse(xhr.response) 
-      window.app = this.app; 
+      this.app = JSON.parse(xhr.response)
+      window.app = this.app;
     }
     xhr.send();
   }

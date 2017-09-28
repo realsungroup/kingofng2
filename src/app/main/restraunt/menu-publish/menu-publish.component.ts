@@ -1,10 +1,6 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { BaseHttpService } from '../../../base-http-service/base-http.service';
 import { BaseComponent } from '../../../base-component/base.component';
-import { AppService } from '../../../app.service';
-import { Router } from '@angular/router';
-import { MainService } from '../../main.service';
-import { LZUntilService } from '../../../../lib/lzTableComponent/until/until.service';
 
 @Component({
   selector: 'app-menu-publish',
@@ -16,7 +12,6 @@ export class MenuPublishComponent extends BaseComponent implements OnInit {
   tabs: Array<any> = [];
   requestParams: any = {};
   requestDataType: number = -1;
-  _customBtnArr: Array<any> = [];
 
   _isPublishModalShow = false;
   _resid:number;
@@ -44,25 +39,7 @@ export class MenuPublishComponent extends BaseComponent implements OnInit {
       formName: "default",
     }]
 
-    this._customBtnArr = [
-      { title: '发布', type: 'primary', loading: false }
-    ]
-
     this.dateChangeStr = 'C3_529015275277';
-  }
-
-  operationBtnClick(note) {
-    if (!note.i) {
-      this._isPublishModalShow = true;
-      this._resid = this.requestParams['resid'];
-      this._selectData = note.data;
-      this._publishTabs = [
-        {
-          isSubForm: false,
-          formName: "publish"
-        }
-      ];
-    }
   }
 
   modalFormNoti() {

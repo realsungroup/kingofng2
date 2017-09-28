@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, AfterViewInit, Renderer2, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, AfterViewInit, Renderer2, ViewChild, ViewChildren, QueryList,AfterViewChecked } from '@angular/core';
 import { LZcommonTableComponent } from '../../commonTable/lzcommon-table.component';
 import { BaseHttpService } from '../../../../app/base-http-service/base-http.service';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
@@ -11,7 +11,7 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
     '(window:resize)': 'onResize($event)'
   }
 })
-export class CommonCardComponent extends LZcommonTableComponent implements OnInit, AfterViewInit {
+export class CommonCardComponent extends LZcommonTableComponent implements OnInit, AfterViewInit,AfterViewChecked {
   colNum: number;//几列
   navtiveEle: any;
   colSumHeight: any = [0];//每列高度数组
@@ -19,7 +19,7 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
   @Input() cardIndexArr: Array<number> = [];//指定字段的位置数组，第一个为图片，第二标题，第三描述
 
   @ViewChild('cardContainer') cardContainer: ElementRef;
-  @ViewChildren('card') things: QueryList<any>;
+  @ViewChildren('card') things: QueryList<any>;//卡片dom数组
 
   constructor(_httpSev: BaseHttpService, modalSev: NzModalService, messageSev: NzMessageService, private el: ElementRef, private render2: Renderer2) {
     super(_httpSev, modalSev, messageSev);
@@ -27,27 +27,32 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
   }
 
   ngAfterViewInit() {
-    //监听卡片的变化
-    this.things.changes.subscribe(
-      data => {
-        console.log("things loadover");
-        this.layout();
-      }
-    )
+    //监听卡片的变化(切换pagesize容易混乱，暂先注释掉)
+    // this.things.changes.subscribe(
+    //   data => {
+    //     console.log("things loadover");
+    //     this.layout();
+    //   }
+    // )
   }
 
-  layout() {
+  ngAfterViewChecked(){
+    console.log("card component AfterViewChecked");
+  }
+
+  layout() { //console.log("card layout")
     const cardW = 245;
     let nzCardEle = this.cardContainer.nativeElement;
     let cardContainerWidth = nzCardEle.offsetWidth;
     this.colNum = Math.floor(cardContainerWidth / cardW);
+    if(this.colNum == 0) this.colNum = 1;
 
     this.colSumHeight = [];
     for (var i = 0; i < this.colNum; i++) {
       this.colSumHeight.push(0);
     }
 
-    let cardEleArr = this.navtiveEle.querySelectorAll('.card');
+    let cardEleArr = this.navtiveEle.querySelectorAll('.card'); 
     cardEleArr = Object.keys(cardEleArr).map(key => cardEleArr[key]);
     // console.info("cardelearr", cardEleArr, typeof (cardEleArr), Array.isArray(cardEleArr));
     cardEleArr.forEach(element => {
@@ -61,9 +66,13 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
           idx = i;
         }
       }
-      this.render2.setStyle(element, 'left', cardW * idx + 'px');
+      // if(element.style.left != cardW * idx + 'px') this.render2.setStyle(element, 'left', cardW * idx + 'px'); 
+      // if(element.style.top != minSumHeight + 'px') this.render2.setStyle(element, 'top', minSumHeight + 'px');
+      // if(element.style.display != 'block') this.render2.setStyle(element, 'display', 'block');
+       this.render2.setStyle(element, 'left', cardW * idx + 'px'); 
       this.render2.setStyle(element, 'top', minSumHeight + 'px');
-      // console.info("left", 240 * idx, "top", minSumHeight, "offsetheight", element.offsetHeight);
+      this.render2.setStyle(element, 'display', 'block'); 
+      
       // 更新solSumHeight
       this.colSumHeight[idx] = this.colSumHeight[idx] + element.offsetHeight;
     });
@@ -71,12 +80,12 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
   }
 
   // 窗口调整
-  onResize() {
+  onResize() { 
     this.layout();
   }
 
   // img加载完
-  imgLoad(card) {
+  imgLoad(card) { console.log("img load")
     this.layout();
   }
 

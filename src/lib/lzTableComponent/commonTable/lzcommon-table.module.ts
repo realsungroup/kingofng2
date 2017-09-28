@@ -13,7 +13,6 @@ import { FormItemResourceComponent } from '../window-modal/form-item-resource/fo
 import { ExtendTableComponent } from '../../../app/extend-table/extend-table.component';
 import { FormItemDynamicPComponent } from '../form-item-dynamic-p/form-item-dynamic-p.component';
 import { AddFormDataComponent } from '../window-modal/add-form-data/add-form-data.component';
-import { ConfirmAlertComponent } from '../confirm-alert/confirm-alert.component';
 import { FormTitleDynamicComponent } from '../form-title-dynamic/form-title-dynamic.component';
 import { CommonCardComponent } from '../extendTable/common-card/common-card.component';
 
@@ -39,7 +38,6 @@ import { LZUntilService } from '../until/until.service';
     MergePipe,
     FormItemDynamicPComponent,
     AddFormDataComponent,
-    ConfirmAlertComponent,
     FormTitleDynamicComponent,
     CommonCardComponent],
   providers: [LZUntilService],
@@ -51,7 +49,6 @@ import { LZUntilService } from '../until/until.service';
     ExtendTableComponent,
     FormItemDynamicPComponent,
     AddFormDataComponent,
-    ConfirmAlertComponent,
     FormTitleDynamicComponent,
     CommonCardComponent]
 })

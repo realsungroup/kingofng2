@@ -4,6 +4,7 @@ import { AppService } from '../../app.service';
 import { dataType } from '../../enum/http.enum';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { LoginInterface } from './login.interface';
 
 @Injectable()
 export class LoginService {
@@ -15,8 +16,8 @@ export class LoginService {
     this.path = window.app["path"];
   }
 
-  public login(type: string, loginParams: any) {
-    let userStr: string = loginParams["account"]; //'80881';
+  public login(type: string, loginParams: LoginInterface) {
+    let userStr: string = loginParams.account; //'80881';
     let params;
     let url = this.path.baseUrl + this.path.login;
     window.app["badgeNo"] = userStr;
@@ -26,11 +27,16 @@ export class LoginService {
       params = { "badgeno": userStr, "Password": passWordStr };
       return this.httpService.baseRequest("POST", url, params, dataType.LoginEM);
     } else if (type == 'badgenodynamic') {
-      let ucode: string = loginParams["ucode"]; //'GHgfPHoXCQno+l0KaDrIOg==';
+      let ucode: string = loginParams.ucode; //'GHgfPHoXCQno+l0KaDrIOg==';
       params = { "badgeno": userStr, "Ucode": ucode };
       return this.httpService.baseRequest("POST", url, params, dataType.LoginDynamicEM);
+    }else if(type == 'defaultdynamic'){
+      let ucode: string = loginParams.ucode; //'GHgfPHoXCQno+l0KaDrIOg==';
+      params = { "Code": userStr, "Ucode": ucode };
+      return this.httpService.baseRequest("POST", url, params, dataType.LoginDefaultDynamicEM);
     } else {
-      params = { "code": '001', "Password": '123456' };
+      let passWordStr: string = loginParams.passWord;
+      params = { "code": userStr, "Password": passWordStr };//{ "code": '001', "Password": '123456' };
       return this.httpService.baseRequest("POST", url, params, dataType.LoginDefaultEM);
     }
   }

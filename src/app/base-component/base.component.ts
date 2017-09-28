@@ -50,7 +50,6 @@ export class BaseComponent implements OnInit {
 
   exportExcel() {
     var wopts = { bookType: 'xlsx', bookSST: false, type: 'binary' };
-
     var worksheet = XLSX.utils.table_to_book(this.el.nativeElement.querySelector('table'));
     var wbout = XLSX.write(worksheet, wopts);
 
