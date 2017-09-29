@@ -5,12 +5,6 @@
     [requestParams]="requestParams"
     [requestDataType]="requestDataType"
     [filterString]="filterString"
-    [filterData]="filterData">
-    <ng-container class="table-menu">
-        <div nz-row nz-form-item>
-            <button nz-button (click)="exportExcel()" [nzType]="'default'">
-                <span>导出</span>
-            </button>
-        </div>
-    </ng-container>
+    [filterData]="filterData"
+    [isExport]="true">
 </app-lzcommon-table>

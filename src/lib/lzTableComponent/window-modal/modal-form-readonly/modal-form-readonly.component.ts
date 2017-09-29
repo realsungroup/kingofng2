@@ -22,7 +22,6 @@ export class WindowModalFormReadonlyComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.info(this)
     this.tabs = this.tabs.filter(item => !item.isSubForm)
 
     //获取每个窗体的数据

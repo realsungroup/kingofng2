@@ -24,9 +24,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
   validateForm: FormGroup;
   _loginBtnLoading = false;
   loginM: LoginInterface = {
-    account: "001",
-    passWord: "123456",
-    ucode: ""
+    account: "",
+    passWord: "",
   };
 
   constructor(protected injector: Injector,
@@ -59,7 +58,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   loginWithToken(badgeno: string, token: string,loginMethod:string, path: string) {
     let params: LoginInterface = {
       account: badgeno,//'80881',
-      ucode: token//'GHgfPHoXCQno+l0KaDrIOg=='
+      passWord: token//'GHgfPHoXCQno+l0KaDrIOg=='
     }
     this.loginSve.login(loginMethod, params).subscribe(
       data => {
@@ -93,7 +92,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
     }
 
-    this.loginSve.login('', this.loginM).subscribe(
+    this.loginSve.login('default', this.loginM).subscribe(
       data => {
         this.loginSuccessDeal(data, 'main');
       },

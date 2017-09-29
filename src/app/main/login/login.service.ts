@@ -21,21 +21,17 @@ export class LoginService {
     let params;
     let url = this.path.baseUrl + this.path.login;
     window.app["badgeNo"] = userStr;
-
+    let passWordStr: string = loginParams.passWord;
     if (type == 'badgeno') {
-      let passWordStr: string = '1234567';
       params = { "badgeno": userStr, "Password": passWordStr };
       return this.httpService.baseRequest("POST", url, params, dataType.LoginEM);
     } else if (type == 'badgenodynamic') {
-      let ucode: string = loginParams.ucode; //'GHgfPHoXCQno+l0KaDrIOg==';
-      params = { "badgeno": userStr, "Ucode": ucode };
+      params = { "badgeno": userStr, "Ucode": passWordStr };
       return this.httpService.baseRequest("POST", url, params, dataType.LoginDynamicEM);
     }else if(type == 'defaultdynamic'){
-      let ucode: string = loginParams.ucode; //'GHgfPHoXCQno+l0KaDrIOg==';
-      params = { "Code": userStr, "Ucode": ucode };
+      params = { "Code": userStr, "Ucode": passWordStr };
       return this.httpService.baseRequest("POST", url, params, dataType.LoginDefaultDynamicEM);
-    } else {
-      let passWordStr: string = loginParams.passWord;
+    } else if(type == 'default'){
       params = { "code": userStr, "Password": passWordStr };//{ "code": '001', "Password": '123456' };
       return this.httpService.baseRequest("POST", url, params, dataType.LoginDefaultEM);
     }
@@ -89,7 +85,6 @@ export class LoginService {
       }
 
       if (r.children && !!r.children.length) {
-        console.log("child")
         r.children = this.filterRoute(r.children, routeArr);
       }
 

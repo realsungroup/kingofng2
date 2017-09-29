@@ -161,7 +161,7 @@ export class ModalFormComponent implements OnInit,OnDestroy{
         // alert("save success" + JSON.stringify(data));
       },
       err => {
-        console.error("save fail " + JSON.stringify(err));
+        this.messageSev.error("保存错误，错误信息： " + JSON.stringify(err));
       }
     )
   }
@@ -211,7 +211,7 @@ export class ModalFormComponent implements OnInit,OnDestroy{
       "data": subData
     }
 
-    console.info(params, urlStr)
+    //console.info(params, urlStr)
     this.httpSev.baseRequest("POST", urlStr, params, this.httpSev.dataT.DeleteOneDataEM).subscribe(
       data => {
         if (data.error == 0) {

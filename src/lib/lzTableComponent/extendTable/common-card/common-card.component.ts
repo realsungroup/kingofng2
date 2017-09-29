@@ -37,7 +37,7 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
   }
 
   ngAfterViewChecked(){
-    console.log("card component AfterViewChecked");
+    // console.log("card component AfterViewChecked");
   }
 
   layout() { //console.log("card layout")
@@ -85,7 +85,7 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
   }
 
   // img加载完
-  imgLoad(card) { console.log("img load")
+  imgLoad(card) { //console.log("img load")
     this.layout();
   }
 

@@ -21,9 +21,9 @@
         </nz-dropdown>
       </div>
 
-      <div nz-row nz-form-item>
+      <div nz-row nz-form-item *ngIf="isExport">
         <button nz-button (click)="exportXls()" [nzType]="'primary'">
-              <span>导出1</span>
+              <span>导出</span>
           </button>
       </div>
       <div nz-form-item nz-row>

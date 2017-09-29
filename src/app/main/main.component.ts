@@ -56,8 +56,6 @@ export class MainComponent implements OnInit, AfterViewInit {
   //登出
   loginOutClick(){
     this.router.navigate(['/login']);
-    // window.app = {};
-    // this.httpSev.appConfig = {};
     window.app["routesArr"] = [];
      window.app["badgeNo"] = '';
     window.app["userInfo"] = {};

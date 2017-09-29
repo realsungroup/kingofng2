@@ -142,8 +142,9 @@ export class BaseHttpService {
   }
 
   baseRequest(type: string, url: string, params: any, dType?: dataType) {
+    console.log("params"+ JSON.stringify(params));
     let baseObser: Observable<any>;
-    let headers = this.getHeaderWithUrl(url); console.info("header=>" , headers);
+    let headers = this.getHeaderWithUrl(url); //console.info("header=>" , headers);
     let options = new RequestOptions({ headers: headers });
     params = this.fixDataWithDataType(params, dType);
     switch (type) {

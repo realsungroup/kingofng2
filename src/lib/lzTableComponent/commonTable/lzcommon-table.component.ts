@@ -2,14 +2,11 @@
   name:通用表格
   date:2017-9-1
 */
-import { Component, OnInit, Input,ElementRef, SimpleChanges, Output, EventEmitter, OnChanges, ViewChild,Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter, OnChanges, ViewChild } from '@angular/core';
 import { BaseHttpService } from '../../../app/base-http-service/base-http.service';
 import { Observable } from 'rxjs';
 import { LZTab } from '../interface/tab.interface';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
-
-          declare var ActiveXObject;
-
 
 @Component({
   selector: 'app-lzcommon-table',
@@ -32,7 +29,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _tableBtnArr: Array<any> = [];//表格后台自定义按钮
 
   //公共参数
-  @Input() isExport:boolean = false;
+  @Input() isExport: boolean = false;
   @Input() isAutoData: boolean = false;//是否自动获取数据
   @Input() isAttachDataModal: boolean = false;//是否是附表数据
 
@@ -98,16 +95,17 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     this.getTableCustomButton();
   }
 
-  getCmswhere(){
+  //获取cmswhere （resquestparam中cmswhere + 下拉菜单 + 传入的cmswhere（日期段等））
+  getCmswhere():string{
     let tmpCmswhere = this._cmswhere;
-      if (Object.keys(this._filterSelectObj).length && this._filterSelectObj.value && this._filterSelectObj.value.length && this.filterString) {
-        if (tmpCmswhere.length) tmpCmswhere += "AND";
-        tmpCmswhere += this.filterString + "='" + this._filterSelectObj['value'] + "'";  
-      }
-      if (this.filterDateCmswhere.length) {
-        if (tmpCmswhere.length) tmpCmswhere += "AND";
-        tmpCmswhere += this.filterDateCmswhere;
-      }
+    if (Object.keys(this._filterSelectObj).length && this._filterSelectObj.value && this._filterSelectObj.value.length && this.filterString) {
+      if (tmpCmswhere.length) tmpCmswhere += "AND";
+      tmpCmswhere += this.filterString + "='" + this._filterSelectObj['value'] + "'";
+    }
+    if (this.filterDateCmswhere.length) {
+      if (tmpCmswhere.length) tmpCmswhere += "AND";
+      tmpCmswhere += this.filterDateCmswhere;
+    }
     return tmpCmswhere;
   }
 
@@ -115,7 +113,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _refreshData() {
     //自动取数据
     if (this.isAutoData) {
-      
+
       this.requestParams.cmswhere = this.getCmswhere();
       this.requestParams.pageIndex = this.current - 1;
       this.requestParams.pageSize = this.pageSize;
@@ -136,8 +134,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
           },
           () => {
             this._loading = false;
-          }
-        )
+          })
 
         let url = this._httpSev.path.baseUrl + this._httpSev.path.getColumnsDefine;
         let param = {
@@ -162,8 +159,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
           },
           err => {
 
-          }
-        )
+          })
 
       } else {
         //主表数据
@@ -180,8 +176,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
           },
           () => {
             this._loading = false;
-          }
-        )
+          })
       }
 
     } else {
@@ -218,25 +213,19 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       },
       err => {
         this.messageSev.error('获取表格中服务器定义按钮错误');
-        // alert(JSON.stringify(err))
       }
     )
   }
 
   /***********按钮及输入框触发事件**************/
-  exportXls(){
+  //后台导出文件下载
+  exportXls() {
     let path = this._httpSev.path;
     let url = path.baseUrl + path.exportXls;
-    this._httpSev.baseRequest("GET",url,{resid:this.resid,cmswhere:this.getCmswhere()},this._httpSev.dataT.UnKnow).subscribe(
+    this._httpSev.baseRequest("GET", url, { resid: this.resid, cmswhere: this.getCmswhere() }, this._httpSev.dataT.UnKnow).subscribe(
       data => {
-        console.log(JSON.stringify(data));
-        if(data && data.data){
+        if (data && data.data) {
           let fileUrl = path.fileUrl + data.data;
-          console.log(fileUrl); 
-        //  window.location.href = fileUrl;
-          // let a = this.render2.createElement('a');
-          // a.href = fileUrl;
-          // a.cli
           window.open(fileUrl);
         }
       },
@@ -319,7 +308,6 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
 
   //自定义按钮事件
   btnClick(event, i: number, data: any) {
-    // let name = this._menuRecordStr + i;
     this.operationBtnNoti.emit({
       i: i,
       data: data
@@ -327,7 +315,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   }
 
   //表格后台按钮组事件
-  tableBtnMenuClick(event, i,btnObj,dataIndex) {
+  tableBtnMenuClick(event, i, btnObj, dataIndex) {
     let selectTabledata = this._dataSet[dataIndex];
     let path = this._httpSev.path;
     let dealBtnUrl = path.baseUrl + path.dealButton;
@@ -343,12 +331,12 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       onOk: () => {
         this._loading = true;
         this._httpSev.baseRequest("GET", dealBtnUrl, params, this._httpSev.dataT.UnKnow).subscribe(
-          (data:any) => {
-            if(!data) return;
-            if(Array.isArray(data.data) && (<Array<any>>data.data).length && data.error == 0){
+          (data: any) => {
+            if (!data) return;
+            if (Array.isArray(data.data) && (<Array<any>>data.data).length && data.error == 0) {
               this.messageSev.success(btnObj['OkMsgCn']);
               this._dataSet[dataIndex] = data.data[0];
-            }else{
+            } else {
               this.messageSev.error(data['message']);
             }
           },

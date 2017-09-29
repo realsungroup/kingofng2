@@ -129,7 +129,6 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
           this.updateNotiEvent.emit({
             data:this.data
           });
-          console.log(imgUrl);
           // 上传代码返回结果之后，将图片插入到编辑器中
         } else {
           alert('error==' + data);

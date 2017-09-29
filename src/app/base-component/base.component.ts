@@ -12,15 +12,15 @@ declare var saveAs: any;
   template: ''
 })
 export class BaseComponent implements OnInit {
-  dateChangeStr:string = '';
-  xlsxFileName:string = '';
 
   mainSev:MainService;
-  appSev
-  router
-  utSev
-  el
+  appSev:AppService;
+  router:Router;
+  utSev:LZUntilService;
+  el:ElementRef;
 
+  dateChangeStr:string = '';
+  xlsxFileName:string = '';
 
   startDateString = '';
   endDateString = "";

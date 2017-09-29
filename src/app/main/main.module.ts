@@ -11,7 +11,6 @@ import { LzcommonTableModule } from '../../lib/lzTableComponent/commonTable/lzco
 import { ClearCacheComponent } from '../main/cache/clear-cache/clear-cache.component';
 
 import { MainService } from './main.service';
-import { EcharttestComponent } from './echarttest/echarttest.component';
 
 import { MarketModule } from './market/market.module';
 import { RestrauntModule } from './restraunt/restraunt.module';
@@ -32,13 +31,12 @@ import { CompanyBalanceModule } from './company-balance/company-balance.module';
   ],
   declarations: [
     MainComponent,
-    ClearCacheComponent,
-    EcharttestComponent],
+    ClearCacheComponent
+  ],
   entryComponents: [
   ],
   providers: [
-    MainService],
-  exports: [
+    MainService
   ]
 })
 

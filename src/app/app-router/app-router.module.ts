@@ -21,8 +21,6 @@ import { RestrauntOrderComponent } from '../main/restraunt/restraunt-order/restr
 import { CompanyBalanceTableComponent } from '../main/company-balance/company-balance-table/company-balance-table.component';
 import { SupplierBalanceTableComponent } from '../main/company-balance/supplier-balance-table/supplier-balance-table.component';
 
-import { EcharttestComponent } from '../main/echarttest/echarttest.component';
-
 const childRouts:Array<any> = [
   // { path: '', redirectTo: 'applying', pathMatch: 'full'},
   { path: 'shopCategory', component: ShopCategoryComponent,link:'/main/shopCategory'},
@@ -39,8 +37,6 @@ const childRouts:Array<any> = [
 
   { path: 'companyBalanceTable',component:CompanyBalanceTableComponent,link:'/main/companyBalanceTable'},
   { path: 'supplierBalanceTable',component:SupplierBalanceTableComponent,link:'/main/supplierBalanceTable'},
-
-  { path: 'echart',component:EcharttestComponent,link:'/main/echart'}
 ]
 
 const routes: Array<any> = [
