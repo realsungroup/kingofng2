@@ -78,12 +78,13 @@
                 </div>
               </ng-container>
               <!-- 表格自定义按钮组 -->
-              <ng-container nz-td *ngFor="let btn of _tableBtnArr;let btnI = index">
-                <div nz-row nz-form-item *ngIf="btn.Show && btn.Type == 1">
+              <ng-container nz-td *ngFor="let btn of _tableBtnArr;let btnI = index;let last = last">
+                <div nz-row nz-form-item *ngIf="btn.Show && btn.Type == 1 && tableBtnStrArr[btnI] && data[tableBtnStrArr[btnI]] == 'Y'">
                   <div nz-form-control>
-                    <button nz-button  (click)="tableBtnMenuClick($event,btnI,btn,dataIndex)"><span>{{btn.Name1}}</span></button>
+                    <button nz-button (click)="tableBtnMenuClick($event,btnI,btn,dataIndex)"><span>{{btn.Name1}}</span></button>
                   </div>
                 </div>
+                 <img *ngIf="last" width="0" height="0" [src]="''" (error)="btnLoadOver()" />
               </ng-container>
             </form>
           </ng-template>

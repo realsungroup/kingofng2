@@ -7,6 +7,7 @@ import { AppRouterModule } from './app-router/app-router.module';
 import { MainModule } from './main/main.module';
 import { LoginModule } from './main/login/login.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {HashLocationStrategy,LocationStrategy} from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { BaseComponent } from './base-component/base.component';
@@ -31,7 +32,7 @@ import { AppService } from './app.service';
     LoginModule,
     BrowserAnimationsModule
   ],
-  providers: [BaseHttpService, AppService],
+  providers: [BaseHttpService, AppService,{provide: LocationStrategy,useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

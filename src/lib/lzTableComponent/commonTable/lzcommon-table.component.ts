@@ -46,6 +46,8 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   @Input() filterString: string = '';//下拉菜单过滤字段
   @Input() filterData: Array<any> = [];//下拉菜单数据
 
+  @Input() tableBtnStrArr:Array<string> = [];//服务器按钮组绑定字段(5个)
+
   // 自动获取数据(所需参数)
   @Input() requestType: string = "GET";//获取数据的http请求方式
   @Input() requestUrl: string = '';//获取数据的url
@@ -96,7 +98,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   }
 
   //获取cmswhere （resquestparam中cmswhere + 下拉菜单 + 传入的cmswhere（日期段等））
-  getCmswhere():string{
+  getCmswhere(): string {
     let tmpCmswhere = this._cmswhere;
     if (Object.keys(this._filterSelectObj).length && this._filterSelectObj.value && this._filterSelectObj.value.length && this.filterString) {
       if (tmpCmswhere.length) tmpCmswhere += "AND";
@@ -206,9 +208,12 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     this._httpSev.baseRequest("GET", btnUrl, params, this._httpSev.dataT.UnKnow).subscribe(
       (data: any) => {
         if (data && Array.isArray(data.data) && data.error == 0) {
+          // this._dataSet.forEach(item => {
+          //   item['tableBtnArr'] = data.data;
+          // })
           this._tableBtnArr = data.data;
         } else {
-          this.messageSev.error('获取表格中服务器定义按钮失败')
+          this.messageSev.error('获取表格中服务器定义按钮失败');
         }
       },
       err => {

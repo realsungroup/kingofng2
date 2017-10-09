@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, AfterViewInit, Renderer2, ViewChild, ViewChildren, QueryList,AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, AfterViewInit, Renderer2, ViewChild, ViewChildren, QueryList,AfterViewChecked,AfterContentChecked } from '@angular/core';
 import { LZcommonTableComponent } from '../../commonTable/lzcommon-table.component';
 import { BaseHttpService } from '../../../../app/base-http-service/base-http.service';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
@@ -11,7 +11,7 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
     '(window:resize)': 'onResize($event)'
   }
 })
-export class CommonCardComponent extends LZcommonTableComponent implements OnInit, AfterViewInit,AfterViewChecked {
+export class CommonCardComponent extends LZcommonTableComponent implements OnInit, AfterViewInit,AfterViewChecked,AfterContentChecked {
   colNum: number;//几列
   navtiveEle: any;
   colSumHeight: any = [0];//每列高度数组
@@ -31,16 +31,21 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
     // this.things.changes.subscribe(
     //   data => {
     //     console.log("things loadover");
-    //     this.layout();
+    //     console.info(data);
+    //     // this.layout();
     //   }
     // )
   }
 
-  ngAfterViewChecked(){
-    // console.log("card component AfterViewChecked");
+  ngAfterContentChecked(){
+    //console.info("card component AfterContentChecked");
   }
 
-  layout() { //console.log("card layout")
+  ngAfterViewChecked(){
+    //console.info("card component AfterViewChecked");
+  }
+
+  layout() {// console.log("card layout")
     const cardW = 245;
     let nzCardEle = this.cardContainer.nativeElement;
     let cardContainerWidth = nzCardEle.offsetWidth;
@@ -69,7 +74,7 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
       // if(element.style.left != cardW * idx + 'px') this.render2.setStyle(element, 'left', cardW * idx + 'px'); 
       // if(element.style.top != minSumHeight + 'px') this.render2.setStyle(element, 'top', minSumHeight + 'px');
       // if(element.style.display != 'block') this.render2.setStyle(element, 'display', 'block');
-       this.render2.setStyle(element, 'left', cardW * idx + 'px'); 
+      this.render2.setStyle(element, 'left', cardW * idx + 'px'); 
       this.render2.setStyle(element, 'top', minSumHeight + 'px');
       this.render2.setStyle(element, 'display', 'block'); 
       
@@ -85,7 +90,11 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
   }
 
   // img加载完
-  imgLoad(card) { //console.log("img load")
+  imgLoad(card) { console.log("img load" + card)
+    this.layout();
+  }
+
+  btnLoadOver(){
     this.layout();
   }
 
