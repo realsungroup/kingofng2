@@ -22,7 +22,7 @@
       </div>
 
       <div nz-row nz-form-item *ngIf="isExport">
-        <button nz-button (click)="exportXls()" [nzType]="'primary'">
+        <button nz-button (click)="exportXls()" [nzLoading]="_btnExportLoading" [nzType]="'primary'">
               <span>导出</span>
           </button>
       </div>
@@ -35,14 +35,16 @@
     </form>
   </div>
 
-  <nz-table class="common-table" #nzTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzShowSizeChanger]="true" [nzTotal]="_total"
+  <nz-table class="common-table" #nzTable [nzScroll]="{ y: 240 }" [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzShowSizeChanger]="true" [nzTotal]="_total"
     [(nzPageIndex)]="current" (nzPageIndexChange)="_refreshData()" [(nzPageSize)]="pageSize" (nzPageSizeChange)="_refreshData()">
+    <ng-template #nzFixedHeader>
     <thead nz-thead>
       <tr>
         <!-- 标题 -->
         <th nz-th *ngFor="let title of titleArr"><span>{{title.text}}</span></th>
       </tr>
     </thead>
+    </ng-template>
     <tbody nz-tbody>
       <tr #dataTr nz-tbody-tr *ngFor="let data of nzTable.data;let dataIndex = index">
         <td nz-td *ngFor="let title of titleArr">{{data[title.id]}}</td>

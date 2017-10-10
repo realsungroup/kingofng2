@@ -90,10 +90,11 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
   }
 
   // img加载完
-  imgLoad(card) { console.log("img load" + card)
+  imgLoad(card) { //console.log("img load" + card)
     this.layout();
   }
 
+  //服务器按钮加载完成(通过img error调用，ngFor渲染次数不确定而且过多会导致页面卡死)
   btnLoadOver(){
     this.layout();
   }

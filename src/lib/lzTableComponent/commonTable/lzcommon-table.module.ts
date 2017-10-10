@@ -4,6 +4,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NzTreeModule } from 'ng-tree-antd';
 
 import { LZcommonTableComponent } from './lzcommon-table.component';
 import { WindowModalFormReadonlyComponent } from '../window-modal/modal-form-readonly/modal-form-readonly.component';
@@ -15,6 +16,7 @@ import { FormItemDynamicPComponent } from '../form-item-dynamic-p/form-item-dyna
 import { AddFormDataComponent } from '../window-modal/add-form-data/add-form-data.component';
 import { FormTitleDynamicComponent } from '../form-title-dynamic/form-title-dynamic.component';
 import { CommonCardComponent } from '../extendTable/common-card/common-card.component';
+import { CommonTreeComponent } from '../common-tree/common-tree.component';
 
 import { MergePipe } from '../pipe/merge.pipe';
 
@@ -27,7 +29,8 @@ import { LZUntilService } from '../until/until.service';
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NzTreeModule
   ],
   declarations: [LZcommonTableComponent,
     WindowModalFormReadonlyComponent,
@@ -39,7 +42,8 @@ import { LZUntilService } from '../until/until.service';
     FormItemDynamicPComponent,
     AddFormDataComponent,
     FormTitleDynamicComponent,
-    CommonCardComponent],
+    CommonCardComponent,
+    CommonTreeComponent],
   providers: [LZUntilService],
   exports: [LZcommonTableComponent,
     WindowModalFormReadonlyComponent,
@@ -50,6 +54,7 @@ import { LZUntilService } from '../until/until.service';
     FormItemDynamicPComponent,
     AddFormDataComponent,
     FormTitleDynamicComponent,
-    CommonCardComponent]
+    CommonCardComponent,
+    CommonTreeComponent]
 })
 export class LzcommonTableModule { }

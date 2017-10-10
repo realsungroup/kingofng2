@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "e2e": "protractor ./protractor.conf.js",
     "build:aot": "ng build --prod --aot",
+    "build:aot:o": "ng build --prod --aot --build-optimizer",
     "pree2e": "webdriver-manager update --standalone false --gecko false --quiet"
   },
   "private": true,
@@ -23,7 +24,9 @@
     "@angular/platform-browser": "^4.3.5",
     "@angular/platform-browser-dynamic": "^4.3.5",
     "@angular/router": "^4.3.5",
+    "angular-tree-component": "^5.0.0",
     "core-js": "^2.4.1",
+    "ng-tree-antd": "^1.0.0-bate",
     "ng-zorro-antd": "^0.5.1",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"

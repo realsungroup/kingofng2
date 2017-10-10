@@ -1,0 +1,19 @@
+
+
+<app-common-tree 
+  [rootNodeTitle]="'商品类别维护'"
+  [requestType]="'GET'" 
+  [requestParams]="nodeRequestParams"
+  [requestUrl]="nodeRequestUrl" [tableRequestParam]="requestParams"
+  [requestDataType]="nodeRequestDataT" (updateRequestParamsEvent)="updateRequestParams($event)">
+  <app-lzcommon-table
+    [isAutoData]="true"
+    [operationOrginButton]="[true,false,false,false]"
+    [isEditCustomPosition]="false"
+    [requestType]="'GET'"
+    [requestUrl]="url"
+    [requestParams]="requestParams"
+    [isAttachDataModal]="true"
+    [requestDataType]="requestDataType">
+  </app-lzcommon-table>
+</app-common-tree> 

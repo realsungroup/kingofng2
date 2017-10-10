@@ -24,8 +24,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
   validateForm: FormGroup;
   _loginBtnLoading = false;
   loginM: LoginInterface = {
-    account: "",
-    passWord: "",
+    account: "001",
+    passWord: "123456",
   };
 
   constructor(protected injector: Injector,

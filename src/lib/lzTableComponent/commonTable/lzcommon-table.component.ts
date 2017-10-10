@@ -46,7 +46,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   @Input() filterString: string = '';//下拉菜单过滤字段
   @Input() filterData: Array<any> = [];//下拉菜单数据
 
-  @Input() tableBtnStrArr:Array<string> = [];//服务器按钮组绑定字段(5个)
+  @Input() tableBtnStrArr: Array<string> = [];//服务器按钮组绑定字段(5个)
 
   // 自动获取数据(所需参数)
   @Input() requestType: string = "GET";//获取数据的http请求方式
@@ -63,6 +63,8 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _total = 1;//数据总数
   _dataSet = [];//获取的数据数组
   _loading = true;//loading加载界面是否显示
+
+  _btnExportLoading: boolean = false;//导出按钮loading状态
 
   constructor(protected _httpSev: BaseHttpService, protected modalSev: NzModalService, protected messageSev: NzMessageService) {
 
@@ -129,14 +131,19 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
             if (data && Array.isArray(data['data'])) {
               this._dataSet = data['data'];
               this._total = data['total'];
+            }else{
+              this._dataSet = [];
+              this._total = 0;
             }
           },
           error => {
             this.messageSev.error("获取数据失败");
+            this._loading = false;
           },
           () => {
             this._loading = false;
-          })
+          }
+        )
 
         let url = this._httpSev.path.baseUrl + this._httpSev.path.getColumnsDefine;
         let param = {
@@ -171,10 +178,14 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
               this.titleArr = data['cmscolumninfo'];
               this._dataSet = data['data'];
               this._total = data['total'];
+            }else{
+              this._dataSet = [];
+              this._total = 0;
             }
           },
           error => {
-            this.messageSev.error("获取数据失败")
+            this.messageSev.error("获取数据失败");
+            this._loading = false;
           },
           () => {
             this._loading = false;
@@ -227,6 +238,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   exportXls() {
     let path = this._httpSev.path;
     let url = path.baseUrl + path.exportXls;
+    this._btnExportLoading = true;
     this._httpSev.baseRequest("GET", url, { resid: this.resid, cmswhere: this.getCmswhere() }, this._httpSev.dataT.UnKnow).subscribe(
       data => {
         if (data && data.data) {
@@ -236,6 +248,9 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       },
       err => {
         alert(JSON.stringify(err));
+      },
+      () => {
+        this._btnExportLoading = false;
       }
     )
   }

@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { LzcommonTableModule } from '../../lib/lzTableComponent/commonTable/lzcommon-table.module';
+import { NzTreeModule } from 'ng-tree-antd';
 
 import { ClearCacheComponent } from '../main/cache/clear-cache/clear-cache.component';
 
@@ -15,6 +16,7 @@ import { MainService } from './main.service';
 import { MarketModule } from './market/market.module';
 import { RestrauntModule } from './restraunt/restraunt.module';
 import { CompanyBalanceModule } from './company-balance/company-balance.module';
+import { TreetestComponent } from './treetest/treetest.component';
 
 @NgModule({
   imports: [
@@ -27,11 +29,13 @@ import { CompanyBalanceModule } from './company-balance/company-balance.module';
     FormsModule,
     MarketModule,
     RestrauntModule,
-    CompanyBalanceModule
+    CompanyBalanceModule,
+    NzTreeModule
   ],
   declarations: [
     MainComponent,
-    ClearCacheComponent
+    ClearCacheComponent,
+    TreetestComponent
   ],
   entryComponents: [
   ],

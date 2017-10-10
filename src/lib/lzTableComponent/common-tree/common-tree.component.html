@@ -1,0 +1,11 @@
+<div>
+  <div style="display:block;width:200px;float:left">
+
+    <nz-tree [nzNodes]="nodes" [nzOptions]="options" [nzShowLine]="false" (nzActivate)="onStateChangeEvent($event)">
+    </nz-tree>
+  </div>
+  <div class="table-right" style="display:block;float:right">
+     <ng-content></ng-content> 
+  </div>
+  <div class="clear-float"></div>
+</div>
