@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TreetestComponent } from './treetest.component';
+import { ShopCategoryManageComponent } from './shop-category-manage.component';
 
-describe('TreetestComponent', () => {
-  let component: TreetestComponent;
-  let fixture: ComponentFixture<TreetestComponent>;
+describe('ShopCategoryManageComponent', () => {
+  let component: ShopCategoryManageComponent;
+  let fixture: ComponentFixture<ShopCategoryManageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TreetestComponent ]
+      declarations: [ ShopCategoryManageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TreetestComponent);
+    fixture = TestBed.createComponent(ShopCategoryManageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,15 +7,18 @@ import { ShopOrderSendedComponent } from './shop-order/shop-order-sended/shop-or
 import { ShopOrderDetailComponent } from './shop-order-detail/shop-order-detail.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
+import { NzTreeModule } from 'ng-tree-antd';
 
 import { LzcommonTableModule } from '../../../lib/lzTableComponent/commonTable/lzcommon-table.module';
+import { ShopCategoryManageComponent } from './shop-category-manage/shop-category-manage.component';
 @NgModule({
   imports: [
     CommonModule,
     LzcommonTableModule,
     NgZorroAntdModule,
-    FormsModule
+    FormsModule,
+    NzTreeModule
   ],
-  declarations: [ShopCategoryComponent,ShopListComponent,ShopOrderComponent,ShopOrderDetailComponent,ShopOrderSendedComponent]
+  declarations: [ShopCategoryComponent,ShopListComponent,ShopOrderComponent,ShopOrderDetailComponent,ShopOrderSendedComponent, ShopCategoryManageComponent]
 })
 export class MarketModule { }

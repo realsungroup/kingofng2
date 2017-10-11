@@ -21,7 +21,7 @@ import { RestrauntOrderComponent } from '../main/restraunt/restraunt-order/restr
 import { CompanyBalanceTableComponent } from '../main/company-balance/company-balance-table/company-balance-table.component';
 import { SupplierBalanceTableComponent } from '../main/company-balance/supplier-balance-table/supplier-balance-table.component';
 
-import { TreetestComponent } from '../main/treetest/treetest.component';
+import { ShopCategoryManageComponent } from '../main/market/shop-category-manage/shop-category-manage.component';
 
 const childRouts:Array<any> = [
   // { path: '', redirectTo: 'applying', pathMatch: 'full'},
@@ -40,7 +40,7 @@ const childRouts:Array<any> = [
   { path: 'companyBalanceTable',component:CompanyBalanceTableComponent,link:'/main/companyBalanceTable'},
   { path: 'supplierBalanceTable',component:SupplierBalanceTableComponent,link:'/main/supplierBalanceTable'},
 
-  { path: 'treeTest',component:TreetestComponent,link:'/main/treeTest'},
+  { path: 'shopCategoryManage',component:ShopCategoryManageComponent,link:'/main/shopCategoryManage'},
 ]
 
 const routes: Array<any> = [

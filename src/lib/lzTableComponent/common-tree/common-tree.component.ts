@@ -8,6 +8,7 @@ import { BaseHttpService } from '../../../app/base-http-service/base-http.servic
 })
 export class CommonTreeComponent implements OnInit {
 
+
   @Input() requestType:string = 'GET';
   @Input() requestParams:any = {};
   @Input() requestUrl:string = '';
@@ -18,6 +19,7 @@ export class CommonTreeComponent implements OnInit {
   @Input() rootNodeTitle:string = '';
   @Output() updateRequestParamsEvent = new EventEmitter();
 
+  cmswhereOrgin = '';
   options: any = {};
   nodes :any[] = [];
 
@@ -34,6 +36,7 @@ export class CommonTreeComponent implements OnInit {
   constructor(private httpSev: BaseHttpService) { }
 
   ngOnInit() {
+    this.cmswhereOrgin = this.requestParams.cmswhere;
     this.nodes = [
       {
         id: 0,
@@ -42,17 +45,15 @@ export class CommonTreeComponent implements OnInit {
       }
     ]
 
+    //懒加载树节点
     this.options.getChildren = (node: any) => {
       const path = this.httpSev.path;
       let url = path.baseUrl + path.getData;
       return new Promise((resolve, reject) => {
-        let cmswhere = this.requestParams.cmswhere;
-        cmswhere = cmswhere + node.id;
-        this.requestParams.cmswhere = cmswhere;
+        this.requestParams.cmswhere = this.cmswhereOrgin + node.id;
         this.httpSev.baseRequest(this.requestType, this.requestUrl, this.requestParams, this.requestDataType)
           .subscribe(
           data => {
-            console.info(data);
             if (data && data.error == 0 && Array.isArray(data.data)) {
               <Array<any>>data.data.forEach(element => {
                 element.hasChildren = true;
