@@ -1,12 +1,10 @@
 <nz-layout class="main-container" [style.height.px]="_siderHeight">
-  <!-- <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed"> -->
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzCollapsedWidth]="0" [nzBreakpoint]="false">
     <div class="logo">
       Realsun
     </div>
 
     <ul nz-menu class="menu-ul-top" [nzTheme]="'dark'" [nzMode]="'inline'" [style.height.px]="_siderHeight - 66">
-      <!-- [nzMode]="isCollapsed?'vertical':'inline'"> -->
       <ng-container *ngFor="let r1 of routerArr">
         <li nz-menu-item *ngIf="r1?.children?.length <= 0" [routerLink]="r1.C3_558541978410">
           <span title><i class="anticon anticon-bars"></i><span class="nav-text">{{r1?.C3_558541955195}}</span></span>

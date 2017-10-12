@@ -55,7 +55,7 @@ export class ShopListComponent extends BaseComponent implements OnInit {
           data['data'].forEach(element => {
             filterArr.push({
               title: element['Name'],
-              value: element['GcId']
+              value: element['GcId'] + ''
             });
           });
           this.filterData = filterArr;

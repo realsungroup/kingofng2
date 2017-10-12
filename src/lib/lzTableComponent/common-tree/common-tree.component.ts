@@ -8,7 +8,6 @@ import { BaseHttpService } from '../../../app/base-http-service/base-http.servic
 })
 export class CommonTreeComponent implements OnInit {
 
-
   @Input() requestType:string = 'GET';
   @Input() requestParams:any = {};
   @Input() requestUrl:string = '';

@@ -102,7 +102,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   //获取cmswhere （resquestparam中cmswhere + 下拉菜单 + 传入的cmswhere（日期段等））
   getCmswhere(): string {
     let tmpCmswhere = this._cmswhere;
-    if (Object.keys(this._filterSelectObj).length && this._filterSelectObj.value && this._filterSelectObj.value.length && this.filterString) {
+    if (Object.keys(this._filterSelectObj).length && this._filterSelectObj.value.length && this.filterString) {
       if (tmpCmswhere.length) tmpCmswhere += "AND";
       tmpCmswhere += this.filterString + "='" + this._filterSelectObj['value'] + "'";
     }

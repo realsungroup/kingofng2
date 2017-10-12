@@ -45,7 +45,7 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
     //console.info("card component AfterViewChecked");
   }
 
-  layout() {// console.log("card layout")
+  layout() { //console.log("card layout")
     const cardW = 245;
     let nzCardEle = this.cardContainer.nativeElement;
     let cardContainerWidth = nzCardEle.offsetWidth;
@@ -94,8 +94,8 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
     this.layout();
   }
 
-  //服务器按钮加载完成(通过img error调用，ngFor渲染次数不确定而且过多会导致页面卡死)
-  btnLoadOver(){
+  //服务器按钮加载完成
+  btnLoadOver = () => {
     this.layout();
   }
 

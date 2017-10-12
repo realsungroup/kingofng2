@@ -19,6 +19,7 @@ import { CommonCardComponent } from '../extendTable/common-card/common-card.comp
 import { CommonTreeComponent } from '../common-tree/common-tree.component';
 
 import { MergePipe } from '../pipe/merge.pipe';
+import { RepeatLoadOverDirective } from '../directive/repeat-load-over.directive';
 
 import { LZUntilService } from '../until/until.service';
 
@@ -43,7 +44,8 @@ import { LZUntilService } from '../until/until.service';
     AddFormDataComponent,
     FormTitleDynamicComponent,
     CommonCardComponent,
-    CommonTreeComponent],
+    CommonTreeComponent,
+    RepeatLoadOverDirective],
   providers: [LZUntilService],
   exports: [LZcommonTableComponent,
     WindowModalFormReadonlyComponent,
