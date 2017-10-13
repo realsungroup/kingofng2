@@ -8,12 +8,14 @@
   [requestDataType]="nodeRequestDataT" (updateRequestParamsEvent)="updateRequestParams($event)">
   <app-lzcommon-table
     [isAutoData]="true"
-    [operationOrginButton]="[true,false,false,false]"
+    [operationOrginButton]="[false,true,false,false]"
     [isEditCustomPosition]="false"
     [requestType]="'GET'"
     [requestUrl]="url"
     [requestParams]="requestParams"
     [isAttachDataModal]="true"
-    [requestDataType]="requestDataType">
+    [requestDataType]="requestDataType"
+    [addFormName]="'add'"
+    [tabs]="tabs">
   </app-lzcommon-table>
 </app-common-tree> 

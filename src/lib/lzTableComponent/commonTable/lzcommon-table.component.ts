@@ -91,7 +91,10 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
         refresh = true;
       }
     }
-    if (refresh) this._refreshData();
+    if (refresh) {
+      this._refreshData();
+      this._theModalName = 'main';
+    }
   }
 
   ngOnInit() {

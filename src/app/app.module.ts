@@ -26,7 +26,7 @@ import { AppService } from './app.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    NgZorroAntdModule.forRoot(),
+    NgZorroAntdModule.forRoot({ extraFontName: 'anticon', extraFontUrl: '../assets/fonts/iconfont' }),
     AppRouterModule,
     MainModule,
     LoginModule,

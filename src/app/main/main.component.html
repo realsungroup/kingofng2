@@ -1,5 +1,5 @@
 <nz-layout class="main-container" [style.height.px]="_siderHeight">
-    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzCollapsedWidth]="0" [nzBreakpoint]="false">
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzCollapsedWidth]="0" [nzBreakpoint]="false" [nzTrigger]="null">
     <div class="logo">
       Realsun
     </div>
@@ -52,21 +52,29 @@
   </nz-sider>
   <nz-layout>
     <nz-header style="background: #fff; padding:0;">
-      <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
-        <div class="nav-container">
-          <button nz-button [routerLink]="'/main/clearCache'">
-              <i class="anticon anticon-delete"></i>
-          </button>
-          <button nz-button (click)="loginOutClick()">
-              <i class="anticon anticon-logout"></i>
-          </button>
-          <div class="clear-float"></div> 
-        </div>
-      </ul>
-      
+      <div nz-row [nzType]="'flex'" [nzJustify]="'start'" [nzAlign]="'middle'">
+          <div nz-col [nzSpan]="2" title="菜单开合">
+            <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+          </div>
+          <div nz-col [nzSpan]="22">
+            <ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 64px;">
+              <div class="nav-container">
+                <button nz-button [routerLink]="'/main/clearCache'" [nzShape]="'circle'" title="清空缓存">
+                    <i class="anticon anticon-delete"></i>
+                </button>
+                <button nz-button (click)="loginOutClick()" [nzShape]="'circle'" title="退出登录">
+                    <i class="anticon anticon-logout"></i>
+                </button>
+                <div class="clear-float"></div> 
+              </div>
+            </ul>
+          </div>
+      </div>
     </nz-header>
+
     <nz-content class="lz-content">
-      <nz-breadcrumb style="margin:12px 0;padding-left:30px">
+      <!-- padding-left:30px -->
+      <nz-breadcrumb style="margin:12px 0">
         <nz-breadcrumb-item *ngFor="let bread of breadcrumbArr">{{bread?.title}}</nz-breadcrumb-item>
       </nz-breadcrumb>
 

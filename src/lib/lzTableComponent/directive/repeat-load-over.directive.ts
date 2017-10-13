@@ -5,12 +5,14 @@ import { Directive,OnInit,ElementRef, Input } from '@angular/core';
 })
 export class RepeatLoadOverDirective implements OnInit {
 
-  @Input('appRepeatLoadOver') loadFunc;
+  @Input('appRepeatLoadOver') params = [];
 
   constructor(private _el:ElementRef) { }
 
   ngOnInit(){
-    this.loadFunc();
+    if(this.params[1] && typeof(this.params[0]) == 'function'){
+      this.params[0]();
+    }
   }
 
 }

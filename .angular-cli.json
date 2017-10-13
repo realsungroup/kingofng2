@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "testng4scss",
+    "name": "商品餐厅维护系统",
     "ejected": false
   },
   "apps": [

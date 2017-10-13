@@ -12,7 +12,7 @@ const compressionWebpackPlugin = require('compression-webpack-plugin');
 
 const { NoEmitOnErrorsPlugin, SourceMapDevToolPlugin, NamedModulesPlugin } = require('webpack');
 const { InsertConcatAssetsWebpackPlugin, NamedLazyChunksWebpackPlugin, BaseHrefWebpackPlugin } = require('@angular/cli/plugins/webpack');
-const { CommonsChunkPlugin } = require('webpack').optimize;
+const { CommonsChunkPlugin,UglifyJsPlugin } = require('webpack').optimize;
 const { AotPlugin } = require('@ngtools/webpack');
 
 const nodeModules = path.join(process.cwd(), 'node_modules');
@@ -92,7 +92,7 @@ module.exports = {
   },
   "output": {
     "path": path.join(process.cwd(), "dist"),
-    "filename": "[name].bundle.js",
+    "filename": "[name]-[chunkhash:6].bundle.js",
     "chunkFilename": "[id].chunk.js"
   },
   "module": {
@@ -465,6 +465,12 @@ module.exports = {
       "exclude": [],
       "tsConfigPath": "src\\tsconfig.app.json",
       "skipCodeGeneration": true
+    }),
+    new UglifyJsPlugin({
+      compress: {
+          warnings: false
+      },
+      sourceMap: false
     })
   ],
   "node": {

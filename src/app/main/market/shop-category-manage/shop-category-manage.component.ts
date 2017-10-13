@@ -11,12 +11,12 @@ export class ShopCategoryManageComponent implements OnInit {
   url = '';
   requestParams: any = {};
   requestDataType = -1;
-
   options: any = {};
 
   nodeRequestUrl: string = '';
   nodeRequestParams: any = {};
   nodeRequestDataT: number = -1;
+  tabs:any[] = [];
 
   constructor(private httpSev: BaseHttpService) { }
 
@@ -36,6 +36,10 @@ export class ShopCategoryManageComponent implements OnInit {
     this.nodeRequestUrl = path.baseUrl + path.getData;
     this.nodeRequestParams = { resid: 560949427095, cmswhere: 'pid = ' };
     this.nodeRequestDataT = this.httpSev.dataT.HostTableDataEM;
+    this.tabs = [{
+      isSubForm: false,
+      formName: "default",
+    }]
   }
 
   updateRequestParams(note: any) {
