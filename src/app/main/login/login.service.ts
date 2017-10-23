@@ -75,7 +75,7 @@ export class LoginService {
 
       if (!!!routeArr.filter(val => {
         if (r.link == val.C3_558541978410) {
-          r.class = val.C3_558541922352;
+          r.class = val.C3_558541903900;
           r.parent = val.C3_558541922352;
           r.title = val.C3_558541943043;
           return true;
