@@ -74,7 +74,7 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
     } else if (this.selectTypeEM == FormItemTypeEM.Checkbox) {
       this.obj = m == 'Y' ? true : false;
     } else {
-      this.obj = m + '';
+      this.obj = m ? m + '' : '';
     }
   }
 
