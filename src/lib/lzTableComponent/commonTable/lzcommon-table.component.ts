@@ -359,6 +359,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
             if (Array.isArray(data.data) && (<Array<any>>data.data).length && data.error == 0) {
               this.messageSev.success(btnObj['OkMsgCn']);
               this._dataSet[dataIndex] = data.data[0];
+              // console.info(data);
             } else {
               this.messageSev.error(data['message']);
             }
