@@ -18,10 +18,14 @@
         </nz-input>
         <div nz-form-explain *ngIf="validateForm.controls.password.dirty&&validateForm.controls.password.hasError('required')">请输入密码！</div>
       </div>
+
     </div>
+    
+    
     <div nz-form-item>
       <div nz-form-control>
         <button nz-button class="login-form-button" [nzLoading]="_loginBtnLoading" [nzType]="'primary'" [nzSize]="'large'">登录</button> 
       </div>
     </div>
+ 
   </form>

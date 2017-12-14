@@ -14,12 +14,14 @@ import { BaseComponent } from './base-component/base.component';
 
 import { BaseHttpService } from './base-http-service/base-http.service';
 import { AppService } from './app.service';
+import { ChangeWordComponent } from './change-word/change-word.component';
 
 @NgModule({
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
-    BaseComponent
+    BaseComponent,
+    ChangeWordComponent
   ],
   entryComponents:[],
   imports: [

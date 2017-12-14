@@ -119,5 +119,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
         this.messageSev.error("获取路由错误，错误信息：" + JSON.stringify(err));
       })
   }
+ChangePassWord(){
+  this.router.navigate(['/ChangeWord'])
 
+  
+}
 }

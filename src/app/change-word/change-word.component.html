@@ -1,0 +1,47 @@
+ <form nz-form class="Change-form">
+   
+    <div nz-form-item>
+        <div nz-form-explain >请输入原始密码</div>
+        <div>
+          <nz-input [(ngModel)]="oldPassWord"  [nzPlaceHolder]="'原始密码'" [ngModelOptions]="{standalone: true}" [nzSize]="'large'" >
+              <ng-template #prefix>
+                  <i class="anticon anticon-lock"></i>
+                </ng-template>
+          </nz-input>
+        </div>
+      
+      
+      </div>
+      <div nz-form-item>
+          <div nz-form-explain class="New-Password">请输入新密码</div>
+          <div>
+            <nz-input [(ngModel)]="passWord" [nzType]="'password'" [nzPlaceHolder]="'新密码'" [ngModelOptions]="{standalone: true}" [nzSize]="'large'" >
+                <ng-template #prefix>
+                    <i class="anticon anticon-lock"></i>
+                  </ng-template>
+            </nz-input>
+          </div>
+       
+        
+        </div>
+        <div nz-form-item>
+         
+        
+            <div nz-form-explain  class="Re-New-Password">请输入新密码</div>
+            <div>
+              <nz-input [(ngModel)]="surePassWord" [nzType]="'password'" [nzPlaceHolder]="'确认密码'" [ngModelOptions]="{standalone: true}" [nzSize]="'large'" >
+                  <ng-template #prefix>
+                      <i class="anticon anticon-lock"></i>
+                    </ng-template>
+              </nz-input>
+            </div>
+          
+          
+          </div>  
+          <div nz-form-item>
+            <button nz-button (click)="CheckPassword()" [nzType]="'primary'" [nzSize]="'large'">提交</button>
+            <button (click)="Goback()" nz-button  [nzType]="'primary'" [nzSize]="'large'" class="back-button" >取消</button>
+          </div>
+          
+</form>
+    
