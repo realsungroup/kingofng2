@@ -12,7 +12,7 @@ import { BaseHttpService } from '../base-http-service/base-http.service';
   styleUrls: ['./change-word.component.scss']
 })
 export class ChangeWordComponent implements OnInit {
-  dataForm: FormGroup;
+ 
 
   oldPassWord = '';
   passWord = '';
@@ -24,7 +24,7 @@ export class ChangeWordComponent implements OnInit {
 
   }
   Goback() {
-    this.router.navigate(['/login'])
+    this.router.navigate(['/main'])
   }
   CheckPassword() {
     let passwordValiate = this.confirmPassWord(this.passWord,this.surePassWord);
