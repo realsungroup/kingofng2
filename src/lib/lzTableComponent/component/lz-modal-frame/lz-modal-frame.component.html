@@ -1,0 +1,8 @@
+<div class="lz-modal-container" [@host]>
+  <button class="lz-close-btn" (click)="close()" nz-button [nzType]="'dashed'" [nzShape]="'circle'">
+      <i class="anticon anticon-close"></i>
+  </button>
+  <div class="lz-modal-content" [style.width.px]="width">
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+.camer-menu button{
+    float: right;
+    margin-right: 10px;
+}
+
+.camera-container{
+    width: 1000px;
+    .camera-content{
+        display: inline-block;
+        width: 490px;
+        padding: 10px;
+
+        button{
+            // margin: 0 auto;
+            display: block;
+        }
+    }
+}

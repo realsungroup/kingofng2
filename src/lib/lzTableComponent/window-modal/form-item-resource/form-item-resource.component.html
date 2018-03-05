@@ -1,13 +1,16 @@
 <div class="components-table-demo-control-bar">
   <form nz-form [nzLayout]="'inline'">
     <div nz-row nz-form-item>
-      <button nz-button [nzType]="'default'" (click)="goBack()">
+      <button nz-button [nzType]="'default'" (click)="goBack()" *ngIf="!alertModal">
         <span>返回</span>
       </button>
     </div>
+    <div nz-form-item nz-row>
+      <nz-input name="serach" [(ngModel)]="searchValue" [nzPlaceHolder]="'搜索'" (ngModelChange)="searchChange($event)">
+      </nz-input>
+    </div>
   </form>
 </div>
-
 
 <nz-table class="common-table" #rTable [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzShowSizeChanger]="true" [nzTotal]="_total"
   [(nzPageIndex)]="current" (nzPageIndexChange)="_refreshData()" [(nzPageSize)]="pageSize" (nzPageSizeChange)="_refreshData()">

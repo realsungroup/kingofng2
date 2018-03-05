@@ -23,22 +23,21 @@ export class ShopListComponent extends BaseComponent implements OnInit {
   filterString: string = 'GcId';
   filterData: Array<any> = [];
 
-  constructor(injector:Injector,
-    private route: ActivatedRoute, 
+  constructor(injector: Injector,
+    private route: ActivatedRoute,
     private httpSev: BaseHttpService) {
     super(injector);
 
     let path = window.app['path'];
     this.url = path['baseUrl'] + path['getData'];
     this.params = {
-      'subresid': '',
       'cmswhere': '',
       'key': '',
       'pageSize': 10,
       'pageIndex': 0,
       'resid': '535214541525',
-      // 'resid':549561320087,
-      'getcolumninfo': '1'
+      'getcolumninfo': '1',
+      // subResid:568722127598
     }
     this.dataT = dataType.HostTableDataEM;
 
@@ -66,13 +65,17 @@ export class ShopListComponent extends BaseComponent implements OnInit {
     this.tabsArr = [{
       isSubForm: false,
       formName: "default",
+    },
+    {
+      isSubForm: true,
+      formName: "default",
+      subFormResid:'568722127598'
     }]
   }
 
   btnClick(i) {
     alert("click index - " + i);
   }
-
 
   ngOnInit() {
     super.ngOnInit();

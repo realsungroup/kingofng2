@@ -1,0 +1,29 @@
+<tr #dataTr nz-tbody-tr *ngFor="let data of tableData;let dataIndex = index">
+    <td nz-td *ngFor="let title of titleArr">{{data[title.id]}}</td>
+
+    <!-- ????? -->
+    <ng-container *ngFor="let isShow of operationOrginButton;let index = index">
+        <td *ngIf="isShow">
+            <button nz-button [nzType]="_orginBtnType[index]" (click)="orginBtnClick($event,index,data,dataIndex)">
+                <span>{{_orginBtnTitle[index]}}</span>
+            </button>
+        </td>
+    </ng-container>
+
+    <!-- ?????? -->
+    <td nz-td *ngFor="let btn of operationButton;let i = index">
+        <button nz-button [nzType]="btn.type" [nzLoading]="btn.loading" (click)="btnClick($event,i,data)">
+            <span>{{btn.title}}</span>
+        </button>
+    </td>
+
+    <!-- 服务器按钮组 -->
+    <ng-container *ngFor="let btn of tableBtnArr;let btnI = index">
+        <td nz-td *ngIf="btn.Show && btn.Type == 1 && tableBtnStrArr[btnI] && data[tableBtnStrArr[btnI]] == 'Y'">
+            <button nz-button (click)="serveMenuClick($event,btnI,btn,dataIndex)">
+                <span>{{btn.Name1}}</span>
+            </button>
+        </td>
+    </ng-container>
+
+</tr>

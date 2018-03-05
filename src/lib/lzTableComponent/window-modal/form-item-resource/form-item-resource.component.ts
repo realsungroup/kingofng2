@@ -19,9 +19,11 @@ export class FormItemResourceComponent implements OnInit {
   pageSize = 10;
   _matchAndReferenceCols: Array<any> = [];
   _dictionaryFilterCol: Array<any> = [];
-
+  searchValue = '';
+  
   @Input() advDictionaryListData: any;
   @Input() data: any = {};
+  @Input() alertModal = false;
   @Output() formItemResourceNoti = new EventEmitter();
 
   constructor(private httpSev: BaseHttpService,private messageSev:NzMessageService) {
@@ -36,6 +38,11 @@ export class FormItemResourceComponent implements OnInit {
     if(obj && obj.DictionaryFilterCol && Array.isArray(obj.DictionaryFilterCol)){
       this._dictionaryFilterCol = obj.DictionaryFilterCol;
     }
+  }
+
+  //输入框监听事件
+  searchChange(val) {
+    this._refreshData();
   }
 
   //获取数据
@@ -54,13 +61,17 @@ export class FormItemResourceComponent implements OnInit {
     }
     let params = {
       resid: resid2,
-      cmswhere: cmswhere
+      pageIndex:this.current,
+      pageSize:10,
+      cmswhere: cmswhere,
+      key: this.searchValue
     }
     this._loading = true;
     this.httpSev.baseRequest("GET", url, params, this.httpSev.dataT.HostTableDataEM).subscribe(
       data => {
         if(data && data.error == 0 && data['data'] && Array.isArray(data['data'])){
           this._dataSet = data['data'];
+          this._total = data['total'];
         }
       },
       err => {

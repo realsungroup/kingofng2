@@ -24,8 +24,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
   validateForm: FormGroup;
   _loginBtnLoading = false;
   loginM: LoginInterface = {
-    account: "",
-    passWord: "",
+    account: "001",
+    passWord: "123456",
   };
 
   constructor(protected injector: Injector,
@@ -119,5 +119,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
         this.messageSev.error("获取路由错误，错误信息：" + JSON.stringify(err));
       })
   }
+ChangePassWord(){
+  this.router.navigate(['/ChangeWord'])
 
+  
+}
 }

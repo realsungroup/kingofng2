@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild,Injector } from '@angular/core';
+import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { BaseHttpService } from '../../../../base-http-service/base-http.service';
 import { BaseComponent } from '../../../../base-component/base.component';
 import { AppService } from '../../../../app.service';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { MainService } from '../../../main.service';
 import { LZUntilService } from '../../../../../lib/lzTableComponent/until/until.service';
 
@@ -26,9 +26,9 @@ export class ShopOrderComponent extends BaseComponent implements OnInit {
   _selectData = {};
   attachParams = {};
   attachRequestDataType: number = -1;
-  attachRequestUrl:string = '';
+  attachRequestUrl: string = '';
 
-  constructor(private httpSev: BaseHttpService,injector:Injector) { 
+  constructor(private httpSev: BaseHttpService, injector: Injector) {
     super(injector);
   }
 
@@ -74,10 +74,13 @@ export class ShopOrderComponent extends BaseComponent implements OnInit {
       ];
 
       this.attachRequestUrl = this.httpSev.path.baseUrl + this.httpSev.path.getSubData;
-      this.attachParams = Object.assign({}, this.requestParams);
-      this.attachParams['subResid'] = 559049368638;
-      this.attachParams['hostrecid'] = note.data['REC_ID'];
-      delete this.attachParams['getcolumninfo'];
+      this.attachParams = {
+        resid: 558721970759,
+        pageIndex: 0,
+        pageSize: 10,
+        subResid: 559049368638,
+        hostrecid: note.data['REC_ID']
+      };
       this.attachRequestDataType = this.httpSev.dataT.AttachTableDataEM;
     }
   }

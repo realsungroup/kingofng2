@@ -13,8 +13,8 @@ import { FormItemDynamicComponent } from '../form-item-dynamic/form-item-dynamic
 export class FormItemDynamicPComponent extends FormItemDynamicComponent {
 
   //自定义定位
-  customStyle(obj: any): any {
-    return this.ut.customStyle(obj);
+  customStyle(obj: any,group?): any {
+    return this.ut.customStyle(obj,group);
   }
 
 }

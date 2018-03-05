@@ -1,0 +1,10 @@
+<div class="camera-container">
+  <div class="camera-content">
+    <video id="video" width="480" height="480"></video>
+    <button nz-button (click)="pause()" [nzSize]="'large'">拍照</button>
+  </div>
+  <div class="camera-content">
+    <canvas id="canvas" width="480" height="480"></canvas>
+    <button nz-button (click)="sureClick()" [nzSize]="'large'">确定</button>
+  </div>
+</div>

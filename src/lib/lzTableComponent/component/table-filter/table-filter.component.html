@@ -1,0 +1,20 @@
+<ng-container *ngIf="_sortColArr.indexOf(titleID) !== -1">
+  <nz-table-sort [(nzValue)]="sortMap[titleID]" (nzValueChange)="sort('' + titleID,$event)"></nz-table-sort>
+</ng-container>
+
+<ng-container *ngIf="_filterColArr.indexOf(titleID) !== -1">
+  <nz-dropdown [nzTrigger]="'click'">
+    <i class="anticon anticon-filter" nz-dropdown></i>
+    <ul nz-menu class="rsu-filter-dropdown">
+      <li nz-menu-item *ngFor="let filter of filterArrayMap[titleID]">
+        <label nz-checkbox [(ngModel)]="filter.value">
+                      <span>{{filter.name}}</span>
+        </label>
+      </li>
+    </ul>
+    <div nz-table-filter>
+      <span nz-table-filter-confirm (click)="search()">OK</span>
+      <span nz-table-filter-clear (click)="reset(filterArrayMap[titleID + ''])">Reset</span>
+    </div>
+  </nz-dropdown>
+</ng-container>

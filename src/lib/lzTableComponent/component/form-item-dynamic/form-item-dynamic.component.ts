@@ -2,9 +2,9 @@
  * name：编辑表单中item
  */
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
-import { FormItemStructEM, FormItemTypeEM, FormItemElementEM } from '../enum/form-item.enum';
-import { LZUntilService } from '../until/until.service';
-import { BaseHttpService } from '../../../app/base-http-service/base-http.service';
+import { FormItemStructEM, FormItemTypeEM, FormItemElementEM } from '../../enum/form-item.enum';
+import { LZUntilService } from '../../until/until.service';
+import { BaseHttpService } from '../../../../app/base-http-service/base-http.service';
 
 @Component({
   selector: 'app-form-item-dynamic',
@@ -15,11 +15,12 @@ import { BaseHttpService } from '../../../app/base-http-service/base-http.servic
 export class FormItemDynamicComponent implements OnInit, OnChanges {
   selectTypeEM: FormItemTypeEM;//合并后的枚举
   formItemEM = FormItemTypeEM;
-
+  webCamera = false;//拍照
   structType: number;//数据结构(优先级 2)
   editType: number;//框体类型(优先级 3)
   frmFieldFormType: number;//图片一些显示控件(优先级 1)
 
+  @Input() nSpan = 12;
   @Input() data: any;//上页传递的data数据
   @Input() title: any;//字段数据
   @Input() index: number;//item的index
@@ -33,7 +34,7 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(change: SimpleChanges) {
-    if (change['data']) { 
+    if (change['data']) {
       this.initData();
     }
   }
@@ -50,6 +51,8 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
     //数据结构类型对应到itemtype枚举中
     if (this.frmFieldFormType == FormItemElementEM.ImageForUrlCol) {
       this.selectTypeEM = FormItemTypeEM.ImageForUrlCol;
+    } else if(this.frmFieldFormType == FormItemElementEM.ImageForInputform){
+      this.selectTypeEM = FormItemTypeEM.ImgCamera;
     } else if (this.structType == FormItemStructEM.Date) {
       this.selectTypeEM = FormItemTypeEM.Date;
     } else if (this.structType == FormItemStructEM.Time) {
@@ -62,24 +65,25 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
 
     //根据枚举初始化对应的数据
     let m = this.data[this.title['ColName']];
-    if (this.selectTypeEM == FormItemTypeEM.ImageForUrlCol) {
-      let p = this.title['lzImgUrl'];
-      this.obj = this.data[p];//alert(this.obj);
-    } else if (this.selectTypeEM == FormItemTypeEM.Date || this.selectTypeEM == FormItemTypeEM.Time) {
+    // if (this.selectTypeEM == FormItemTypeEM.ImageForUrlCol) {
+    //   let p = this.title['lzImgUrl'];
+    //   this.obj = this.data[p];//alert(this.obj);
+    // } else
+    if (this.selectTypeEM == FormItemTypeEM.Date || this.selectTypeEM == FormItemTypeEM.Time) {
       this.obj = '';
-      if(this.obj){
+      if (m) {
         this.obj = new Date(m);
         if (!this.ut.isValiateDate(this.obj)) this.obj = '';
       }
     } else if (this.selectTypeEM == FormItemTypeEM.Checkbox) {
       this.obj = m == 'Y' ? true : false;
     } else {
-      this.obj = m ? m + '' : '';
+      this.obj = m;
     }
   }
 
   //绑定字段变化事件
-  modelChange(event, dataT) { 
+  modelChange(event, dataT) {
     this.obj = event;
     // console.info(event, dataT, this.title['ColName']);
     if (this.selectTypeEM == FormItemTypeEM.Date || this.selectTypeEM == FormItemTypeEM.Time) {
@@ -101,42 +105,37 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
   imgSelectClick(event) {
     let src, url = window.URL, files = event.target.files;
     let upUrlStr = this.httpSev.path.uploadFileUrl + '?savepath=c:\\web\\web\\rispweb\\upfiles&httppath=' + this.httpSev.path.httppath;
-
     for (let i = 0, len = files.length; i < len; ++i) {
       let file = files[i];
-      let fd = new FormData();
-      fd.append("file", file, 'hello.png');//新建formdata提交，png格式
-      // this.httpSev.baseRequest("POST", upUrlStr, fd, -1).subscribe(
-      //   data => {
-      //     if (data && data.error == 0) {
-      //       var imgUrl = data.httpfilename; alert(imgUrl)
-      //     }
-      //     alert("fail")
-      //   },
-      //   err => {
-      //     alert("error")
-      //   }
-      // )
-
-      var xhr = new XMLHttpRequest();
-       xhr.open('POST', upUrlStr);
-      xhr.onload =  () => {
-        var data = JSON.parse(xhr.response);
-        if (xhr.status === 200) {
-          var imgUrl = data.httpfilename;
-          this.obj = imgUrl;
-          this.data[this.title['ColName']] = this.obj;
-          this.updateNotiEvent.emit({
-            data:this.data
-          });
-          // 上传代码返回结果之后，将图片插入到编辑器中
-        } else {
-          alert('error==' + data);
+      this.httpSev.updateImg(file).then(
+        value => {
+          this.updateAndDetailFile(value);
         }
-      };
+      )
+    }
+  }
 
-      fd.append("file", file, 'hello.png');//新建formdata提交，png格式
-      xhr.send(fd);
+  updateAndDetailFile(value) {
+    this.obj = value;
+    this.data[this.title['ColName']] = this.obj;
+    this.updateNotiEvent.emit({
+      data: this.data
+    });
+  }
+
+  cameraClick() {
+    this.webCamera = true;
+  }
+
+  cameraImgEM(img) {
+    // console.info(img);
+    if (img) {
+      this.httpSev.updateImgOfBase64(img).then(
+        value => {
+          this.updateAndDetailFile(value);
+          this.webCamera = false;
+        }
+      )
     }
   }
 

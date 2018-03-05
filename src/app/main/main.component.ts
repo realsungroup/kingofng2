@@ -66,4 +66,9 @@ export class MainComponent implements OnInit, AfterViewInit {
     this._siderHeight = window.innerHeight;
   }
 
+  ChangePassWord(){
+    this.router.navigate(['/ChangeWord'])
+    
+  }
+
 }

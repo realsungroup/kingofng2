@@ -1,5 +1,5 @@
 import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
-import { BaseHttpService } from '../../../app/base-http-service/base-http.service';
+import { BaseHttpService } from '../../../../app/base-http-service/base-http.service';
 
 @Component({
   selector: 'app-common-tree',

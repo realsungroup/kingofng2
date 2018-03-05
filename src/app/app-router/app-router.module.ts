@@ -22,7 +22,7 @@ import { CompanyBalanceTableComponent } from '../main/company-balance/company-ba
 import { SupplierBalanceTableComponent } from '../main/company-balance/supplier-balance-table/supplier-balance-table.component';
 
 import { ShopCategoryManageComponent } from '../main/market/shop-category-manage/shop-category-manage.component';
-
+import { ChangeWordComponent } from'../change-word/change-word.component'
 const childRouts:Array<any> = [
   // { path: '', redirectTo: 'applying', pathMatch: 'full'},
   { path: 'shopCategory', component: ShopCategoryComponent,link:'/main/shopCategory'},
@@ -46,7 +46,8 @@ const childRouts:Array<any> = [
 const routes: Array<any> = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent ,link:"/login"},
-  { path: 'main', component: MainComponent ,children:childRouts,link:"/main"}
+  { path: 'main', component: MainComponent ,children:childRouts,link:"/main"},
+  {path:'ChangeWord',component:ChangeWordComponent,link:"/ChangeWord"}
 ];
 
 @NgModule({

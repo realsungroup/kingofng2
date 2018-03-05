@@ -1,0 +1,109 @@
+<ng-container [ngSwitch]="selectTypeEM">
+
+  <!-- 单行文本输入框 -->
+  <div *ngSwitchCase="formItemEM.Input" nz-col [nzSpan]="nSpan" nz-form-control nzHasFeedback>
+    <nz-input [nzDisabled]="title.FrmReadonly" [(ngModel)]="obj" (ngModelChange)="modelChange($event,formItemEM.Input)" [nzPlaceHolder]="''"
+      [nzSize]="'large'">
+    </nz-input>
+  </div>
+
+  <!-- 多行文本输入框 -->
+  <div *ngSwitchCase="formItemEM.LongText" nz-col [nzSpan]="nSpan" nz-form-control nzHasFeedback>
+    <nz-input [nzDisabled]="title.FrmReadonly" [(ngModel)]="obj" [nzType]="'textarea'" [nzRows]="textareaRows(title)" (ngModelChange)="modelChange($event,formItemEM.LongText)"
+      [nzPlaceHolder]="''" [nzSize]="'large'">
+    </nz-input>
+  </div>
+
+  <!-- 日期框 -->
+  <div *ngSwitchCase="formItemEM.Date" nz-col [nzSpan]="nSpan" nz-form-control>
+    <nz-datepicker [nzDisabled]="title.FrmReadonly" [(ngModel)]="obj" (ngModelChange)="modelChange($event,formItemEM.Date)" [nzSize]="'large'"
+      [nzPlaceHolder]="''" [nzFormat]="'YYYY-MM-DD'" style="width: 100%;"></nz-datepicker>
+  </div>
+
+  <!-- 日期附带时间框 -->
+  <div *ngSwitchCase="formItemEM.Time" nz-col [nzSpan]="nSpan" nz-form-control>
+    <nz-datepicker [nzDisabled]="title.FrmReadonly" [(ngModel)]="obj" (ngModelChange)="modelChange($event,formItemEM.Time)" [nzShowTime]="true"
+      [nzSize]="'large'" [nzFormat]="'YYYY-MM-DD HH:mm:ss'" [nzPlaceHolder]="'请选择时间'" style="width: 100%;"></nz-datepicker>
+  </div>
+
+  <!-- 下拉菜单 -->
+  <div *ngSwitchCase="formItemEM.OptionValue" nz-col [nzSpan]="nSpan" nz-form-control>
+    <nz-select [nzDisabled]="title.FrmReadonly" style="width: 200px;" (ngModelChange)="modelChange($event,formItemEM.OptionValue)"
+      [(ngModel)]="obj" [nzSize]="size">
+      <nz-option *ngFor="let ol of (title.DisplayOptions | merge:title.ValueOptions)" [nzLabel]="ol.paramOne" [nzValue]="ol.paramTwo">
+      </nz-option>
+    </nz-select>
+  </div>
+
+  <!-- 下拉字典 -->
+  <div *ngSwitchCase="formItemEM.OptionDictionary" nz-col [nzSpan]="nSpan" nz-form-control>
+    <nz-select [nzDisabled]="title.FrmReadonly" style="width: 200px;" (ngModelChange)="modelChange($event,formItemEM.OptionDictionary)"
+      [(ngModel)]="obj" [nzSize]="size">
+      <nz-option *ngFor="let olD of title.ListOfColOptions" [nzLabel]="olD.displayColValue" [nzValue]="olD.valueColValue">
+      </nz-option>
+    </nz-select>
+  </div>
+
+  <!--勾选框  -->
+  <div *ngSwitchCase="formItemEM.Checkbox" nz-col [nzSpan]="nSpan" nz-form-control>
+    <label [nzDisabled]="title.FrmReadonly" nz-checkbox [(ngModel)]="obj" (ngModelChange)="modelChange($event,formItemEM.Checkbox)">
+    </label>
+  </div>
+
+  <!-- 单选框 -->
+  <div *ngSwitchCase="formItemEM.RadioGroup" nz-col [nzSpan]="nSpan" nz-form-control>
+    <nz-radio-group [(ngModel)]="obj" (ngModelChange)="modelChange($event,formItemEM.RadioGroup)">
+      <label [nzDisabled]="title.FrmReadonly" nz-radio *ngFor="let rl of (title.DisplayOptions | merge:title.ValueOptions)" [nzValue]="rl.paramTwo">
+        <span>{{rl.paramOne}}</span>
+      </label>
+    </nz-radio-group>
+  </div>
+
+  <!-- 高级字典 -->
+  <div *ngSwitchCase="formItemEM.AdvDictionary" nz-col [nzSpan]="nSpan" nz-form-control>
+    <nz-input-group [nzSize]="'large'" [nzCompact]="true">
+      <input [attr.readonly]="title.FrmReadonly" [(ngModel)]="obj" (ngModelChange)="modelChange($event,formItemEM.AdvDictionary)"
+        style="width: 50%;" nz-input>
+      <button nz-button [nzType]="'primary'" (click)="searchDataClick($event,formItemEM.AdvDictionary)" [nzShape]="'circle'">
+        <i class="anticon anticon-search"></i>
+      </button>
+    </nz-input-group>
+  </div>
+
+  <!-- 图片选择 -->
+  <div *ngSwitchCase="formItemEM.ImageSelect" nz-col [nzSpan]="nSpan" nz-form-control>
+    <nz-input-group [nzSize]="'large'" [nzCompact]="true">
+      <input [attr.readonly]="title.FrmReadonly" [(ngModel)]="obj" (ngModelChange)="modelChange($event,formItemEM.ImageSelect)"
+        style="width: 50%;" nz-input>
+      <button nz-button>
+        <input class="img-input" type="file" accept="image/*" (change)="imgSelectClick($event)">
+        <i class="anticon anticon-file"></i>
+      </button>
+    </nz-input-group>
+  </div>
+
+  <!-- 图片 -->
+  <div *ngSwitchCase="formItemEM.ImageForUrlCol" nz-col [nzSpan]="nSpan" nz-form-control>
+    <div nz-form-item nz-row>
+      <img [src]="obj" width="300" height="300" alt="">
+    </div>
+  </div>
+
+  <!-- 拍照 -->
+  <div *ngSwitchCase="formItemEM.ImgCamera" nz-col [nzSpan]="nSpan" nz-form-control>
+    <nz-input-group [nzSize]="'large'" [nzCompact]="true">
+      <input [attr.readonly]="title.FrmReadonly" [(ngModel)]="obj" (ngModelChange)="modelChange($event,formItemEM.AdvDictionary)"
+        style="width: 50%;" nz-input>
+      <button nz-button [nzType]="'primary'" (click)="cameraClick()" [nzShape]="'circle'">
+          <i class="anticon anticon-camera-o"></i>
+      </button>
+    </nz-input-group>
+  </div>
+
+</ng-container>
+
+<ng-container *ngIf="webCamera">
+  <lz-modal-frame [width]="1200" (closeEM)="webCamera = false" >
+    <web-camera (cameraImgEM)="cameraImgEM($event)"></web-camera>
+  </lz-modal-frame>
+</ng-container>

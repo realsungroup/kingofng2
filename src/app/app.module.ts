@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
@@ -7,21 +7,23 @@ import { AppRouterModule } from './app-router/app-router.module';
 import { MainModule } from './main/main.module';
 import { LoginModule } from './main/login/login.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HashLocationStrategy,LocationStrategy} from '@angular/common';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { BaseComponent } from './base-component/base.component';
 
 import { BaseHttpService } from './base-http-service/base-http.service';
 import { AppService } from './app.service';
+import { ChangeWordComponent } from './change-word/change-word.component';
 
 @NgModule({
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
-    BaseComponent
+    BaseComponent,
+    ChangeWordComponent
   ],
-  entryComponents:[],
+  entryComponents: [],
   imports: [
     BrowserModule,
     FormsModule,
@@ -32,7 +34,7 @@ import { AppService } from './app.service';
     LoginModule,
     BrowserAnimationsModule
   ],
-  providers: [BaseHttpService, AppService,{provide: LocationStrategy,useClass: HashLocationStrategy}],
+  providers: [BaseHttpService, AppService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,10 @@
 <div class="window-model-container">
   <div class="components-table-demo-control-bar">
     <form nz-form [nzLayout]="'inline'">
-      <div nz-row nz-form-item>
-        <button nz-button [nzType]="'default'" (click)="close()"><span>返回</span></button>
+      <div nz-row nz-form-item *ngIf="!alertModal">
+        <button nz-button [nzType]="'default'" (click)="goBack()">
+          <span>返回</span>
+        </button>
       </div>
     </form>
   </div>
@@ -23,8 +25,27 @@
           </div>
           <div class="clear-float"></div>
         </div>
+
+        <!-- 图片 -->
+        <div class="lzform-item-row" *ngFor="let title of tab?.imgElementArr;">
+          <div class="title-right" nz-col [nzSm]="6">
+            <label>{{title?.ColDispName}}</label>
+          </div>
+          <div class="val-div" nz-col [nzSm]="14">
+          <!-- <div nz-col [nzSpan]="nSpan" nz-form-control>
+            <div nz-form-item nz-row> -->
+              <img [src]="data[title?.ColName]" width="300" height="300" alt="图片">
+            <!-- </div>
+          </div> -->
+        </div>
+
+        <div class="clear-float"></div>
       </div>
 
-    </nz-tab>
-  </nz-tabset>
 </div>
+
+</nz-tab>
+</nz-tabset>
+</div>
+
+<ng-content></ng-content>

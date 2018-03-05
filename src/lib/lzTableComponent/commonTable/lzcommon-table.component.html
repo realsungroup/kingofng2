@@ -1,17 +1,17 @@
-
-<div [class.hidden]="_theModalName != 'main'"> 
+<div [class.hidden]="_theModalName != 'main' && !alertModal">
 
   <div class="components-table-demo-control-bar">
     <form nz-form [nzLayout]="'inline'">
       <div nz-row nz-form-item *ngIf="addFormName">
         <button nz-button (click)="addDataClick()" [nzType]="'primary'">
-              <span>添加</span>
-          </button>
+          <span>添加</span>
+        </button>
       </div>
       <div nz-row nz-form-item *ngIf="filterData.length">
         <nz-dropdown>
           <a class="ant-dropdown-link" nz-dropdown>
-            {{_filterSelectObj?.title}} <i class="anticon anticon-down"></i>
+            {{_filterSelectObj?.title}}
+            <i class="anticon anticon-down"></i>
           </a>
           <ul nz-menu>
             <li nz-menu-item *ngFor="let filterObj of filterData" (click)="filterClick($event,filterObj)">
@@ -23,11 +23,11 @@
 
       <div nz-row nz-form-item *ngIf="isExport">
         <button nz-button (click)="exportXls()" [nzLoading]="_btnExportLoading" [nzType]="'primary'">
-              <span>导出</span>
-          </button>
+          <span>导出</span>
+        </button>
       </div>
       <div nz-form-item nz-row>
-        <nz-input *ngIf="isAutoData" name="serach" [(ngModel)]="searchValue" [nzPlaceHolder]="'搜索'" (ngModelChange)="searchChange($event)">
+        <nz-input *ngIf="isAutoData && serchEnable" name="serach" [(ngModel)]="searchValue" [nzPlaceHolder]="'搜索'" (ngModelChange)="searchChange($event)">
         </nz-input>
       </div>
 
@@ -35,60 +35,57 @@
     </form>
   </div>
 
-  <nz-table class="common-table" #nzTable [nzScroll]="{ y: 500 }" [nzAjaxData]="_dataSet" [nzLoading]="_loading" [nzShowSizeChanger]="true" [nzTotal]="_total"
-    [(nzPageIndex)]="current" (nzPageIndexChange)="_refreshData()" [(nzPageSize)]="pageSize" (nzPageSizeChange)="_refreshData()">
-    <!-- <ng-template #nzFixedHeader> -->
-    <thead nz-thead>
-      <tr>
-        <!-- 标题 -->
-        <th nz-th *ngFor="let title of titleArr"><span>{{title.text}}</span></th>
-      </tr>
-    </thead>
-    <!-- </ng-template> -->
-    <tbody nz-tbody>
-      <tr #dataTr nz-tbody-tr *ngFor="let data of nzTable.data;let dataIndex = index">
-        <td nz-td *ngFor="let title of titleArr">{{data[title.id]}}</td>
+  <nz-table *ngIf="!havTableFilter" class="common-table" #nzTable [nzScroll]="{ y: 500 }" [nzAjaxData]="_dataSet" [nzLoading]="_loading"
+    [nzShowSizeChanger]="true" [nzTotal]="_total" [(nzPageIndex)]="current" (nzPageIndexChange)="_refreshData()" [(nzPageSize)]="pageSize"
+    (nzPageSizeChange)="_refreshData()">
 
-        <!-- 固定按钮组 -->
-        <td *ngIf="operationOrginButton[0]">
-          <button nz-button [nzType]="'primary'" (click)="detailClick($event,data,dataIndex)"><span>详情</span></button>
-        </td>
-        <td *ngIf="operationOrginButton[1]">
-          <button nz-button [nzType]="'default'" (click)="operationClick($event,data,dataIndex)"><span>操作</span></button>
-        </td>
-        <td *ngIf="operationOrginButton[2]">
-          <button nz-button [nzType]="'default'" (click)="attachTableClick($event,data,dataIndex)"><span>附表</span></button>
-        </td>
-        <td *ngIf="operationOrginButton[3]">
-          <button nz-button [nzType]="'danger'" (click)="deleteClick(data)"><span>删除</span></button>
-        </td>
+    <thead nz-thead table-thead [titleArr]="titleArr" (updateDataEM)="tableFilterUpdateData($event)" [copyData]="copyData" [filterColArr]="filterColArr"
+      [sortColArr]="sortColArr"></thead>
 
-        <!-- 自定义按钮组 -->
-        <td nz-td *ngFor="let btn of operationButton;let i = index">
-          <button nz-button [nzType]="btn.type" [nzLoading]="btn.loading" (click)="btnClick($event,i,data)"><span>{{btn.title}}</span></button>
-        </td>
-
-        <!-- 表格自定义按钮组 -->
-        <ng-container *ngFor="let btn of _tableBtnArr;let btnI = index">
-          <td nz-td *ngIf="btn.Show && btn.Type == 1">
-            <button nz-button  (click)="tableBtnMenuClick($event,btnI,btn,dataIndex)"><span>{{btn.Name1}}</span></button>
-          </td>
-        </ng-container>
-      </tr>
-    </tbody>
+    <tbody nz-tbody table-tbody [tableData]="_dataSet" [titleArr]="titleArr" [operationOrginButton]="operationOrginButton" [operationButton]="operationButton" [tableBtnStrArr]="tableBtnStrArr"
+      [tableBtnArr]="_tableBtnArr" (orginBtnClickEM)="orginBtnClick($event)" (customBtnClickEM)="customBtnClick($event)" (serveBtnClickEM)="serveBtnClick($event)"></tbody>
   </nz-table>
+
+  <nz-table *ngIf="havTableFilter" class="common-table" #nzTable [nzDataSource]="_dataSet" [nzPageSize]="50" [nzScroll]="{ y: 500 }"
+    [nzLoading]="_loading" [nzShowSizeChanger]="true">
+    <thead nz-thead table-thead [titleArr]="titleArr" (updateDataEM)="tableFilterUpdateData($event)" [copyData]="copyData" [filterColArr]="filterColArr"
+      [sortColArr]="sortColArr"></thead>
+
+    <tbody nz-tbody table-tbody [tableData]="_dataSet" [titleArr]="titleArr" [operationOrginButton]="operationOrginButton" [operationButton]="operationButton" [tableBtnStrArr]="tableBtnStrArr"
+      [tableBtnArr]="_tableBtnArr" (orginBtnClickEM)="orginBtnClick($event)" (customBtnClickEM)="customBtnClick($event)" (serveBtnClickEM)="serveBtnClick($event)"></tbody>
+  </nz-table>
+
 </div>
 
 <ng-container *ngIf="_theModalName == 'form-readonly'">
-  <app-window-modal [tabs]="tabs" [resid]="resid" [data]="_selectData" (closeNoti)="windowModalNoti($event)"></app-window-modal>
+  <lz-modal-frame (closeEM)="alertModalEM($event)" *ngIf="alertModal">
+    <app-window-modal [alertModal]="alertModal" [tabs]="tabs" [resid]="resid" [data]="_selectData" (closeNoti)="windowModalNoti($event)"></app-window-modal>
+  </lz-modal-frame>
+
+  <ng-container *ngIf="!alertModal">
+    <app-window-modal [tabs]="tabs" [resid]="resid" [data]="_selectData" (closeNoti)="windowModalNoti($event)"></app-window-modal>
+  </ng-container>
 </ng-container>
 
 <ng-container *ngIf="_theModalName == 'form'">
-  <app-modal-form [tabs]="tabs" [resid]="resid" [isMainData]="isMainData" [data]="_selectData" [isCustomPosition]="isEditCustomPosition"
-    (eventNoti)="modalFormNoti($event)"></app-modal-form>
+  <lz-modal-frame (closeEM)="alertModalEM($event)" *ngIf="alertModal">
+    <app-modal-form [alertModal]="alertModal" [tabs]="tabs" [resid]="resid" [isMainData]="isMainData" [data]="_selectData" [isCustomPosition]="isEditCustomPosition"
+      (eventNoti)="modalFormNoti($event)"></app-modal-form>
+  </lz-modal-frame>
+
+  <ng-container *ngIf="!alertModal">
+    <app-modal-form [tabs]="tabs" [resid]="resid" [isMainData]="isMainData" [data]="_selectData" [isCustomPosition]="isEditCustomPosition"
+      (eventNoti)="modalFormNoti($event)"></app-modal-form>
+  </ng-container>
 </ng-container>
 
 <ng-container *ngIf="_theModalName == 'addDataForm'">
-  <app-add-form-data [addFormName]="addFormName" [resid]="resid" [isCustomPosition]="isAddCustomPosition" (eventNoti)="modalFormNoti($event)"></app-add-form-data>
-</ng-container>
+  <lz-modal-frame (closeEM)="alertModalEM($event)" *ngIf="alertModal">
+    <app-add-form-data [alertModal]="alertModal" [addFormName]="addFormName" [resid]="resid" [isCustomPosition]="isAddCustomPosition"
+      (eventNoti)="modalFormNoti($event)"></app-add-form-data>
+  </lz-modal-frame>
 
+  <ng-container *ngIf="!alertModal">
+    <app-add-form-data [addFormName]="addFormName" [resid]="resid" [isCustomPosition]="isAddCustomPosition" (eventNoti)="modalFormNoti($event)"></app-add-form-data>
+  </ng-container>
+</ng-container>

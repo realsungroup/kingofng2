@@ -11,6 +11,7 @@ import { NzTreeModule } from 'ng-tree-antd';
 
 import { LzcommonTableModule } from '../../../lib/lzTableComponent/commonTable/lzcommon-table.module';
 import { ShopCategoryManageComponent } from './shop-category-manage/shop-category-manage.component';
+import { SpecComponent } from './shop-list/spec/spec.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +20,6 @@ import { ShopCategoryManageComponent } from './shop-category-manage/shop-categor
     FormsModule,
     NzTreeModule
   ],
-  declarations: [ShopCategoryComponent,ShopListComponent,ShopOrderComponent,ShopOrderDetailComponent,ShopOrderSendedComponent, ShopCategoryManageComponent]
+  declarations: [ShopCategoryComponent,ShopListComponent,ShopOrderComponent,ShopOrderDetailComponent,ShopOrderSendedComponent, ShopCategoryManageComponent, SpecComponent]
 })
 export class MarketModule { }

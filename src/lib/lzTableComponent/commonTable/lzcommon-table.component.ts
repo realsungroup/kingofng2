@@ -12,7 +12,6 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
   selector: 'app-lzcommon-table',
   templateUrl: './lzcommon-table.component.html',
   styleUrls: ['./lzcommon-table.component.scss'],
-
 })
 export class LZcommonTableComponent implements OnInit, OnChanges {
   _cmswhere: string = '';
@@ -25,14 +24,14 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
 
   _filterData: Array<any> = [];//下拉菜单数据
   _filterSelectObj: any = {};//下拉菜单选择的对象
-
   _tableBtnArr: Array<any> = [];//表格后台自定义按钮
 
   //公共参数
+  @Input() alertModal:boolean = false;
+  @Input() serchEnable:boolean = true;  
   @Input() isExport: boolean = false;
-  @Input() isAutoData: boolean = false;//是否自动获取数据
+  @Input() isAutoData: boolean = true;//是否自动获取数据
   @Input() isAttachDataModal: boolean = false;//是否是附表数据
-
   @Input() operationButton: Array<any>;//自定义按钮对象{title:'',type:'',loading:true}
   @Output() operationBtnNoti = new EventEmitter();//自定义按钮回调方法
 
@@ -45,7 +44,6 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   @Input() filterDateCmswhere: string = '';//时间cmswhere
   @Input() filterString: string = '';//下拉菜单过滤字段
   @Input() filterData: Array<any> = [];//下拉菜单数据
-
   @Input() tableBtnStrArr: Array<string> = [];//服务器按钮组绑定字段(5个)
 
   // 自动获取数据(所需参数)
@@ -63,12 +61,20 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   _total = 1;//数据总数
   _dataSet = [];//获取的数据数组
   _loading = true;//loading加载界面是否显示
-
   _btnExportLoading: boolean = false;//导出按钮loading状态
+
+  //table header 过滤排序部分
+  @Input() havTableFilter: boolean = false;
+  copyData = [];
+  @Input() filterColArr = [];//过滤字段数组
+  @Input() sortColArr = [];//排序字段数组
+
 
   constructor(protected _httpSev: BaseHttpService, protected modalSev: NzModalService, protected messageSev: NzMessageService) {
 
   }
+
+  voidFunc(){return false}
 
   //监听输入数据的变化（自动获取数据状态下取出current，pageSize，resid数据）
   ngOnChanges(changes: SimpleChanges) {
@@ -77,6 +83,9 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       this.current = this.requestParams['pageIndex'] + 1;
       this.pageSize = this.requestParams['pageSize'];
       this.resid = this.requestParams.resid;
+      if(this.isAttachDataModal){
+        this.resid = this.requestParams.subResid;
+      }
       this._cmswhere = this.requestParams.cmswhere || "";
       refresh = true;
     }
@@ -98,7 +107,6 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    // this._refreshData();//首次加载数据
     this.getTableCustomButton();
   }
 
@@ -134,10 +142,11 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
             if (data && Array.isArray(data['data'])) {
               this._dataSet = data['data'];
               this._total = data['total'];
-            }else{
+            } else {
               this._dataSet = [];
               this._total = 0;
             }
+            this.copyData = [...this._dataSet];
           },
           error => {
             this.messageSev.error("获取数据失败");
@@ -181,10 +190,11 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
               this.titleArr = data['cmscolumninfo'];
               this._dataSet = data['data'];
               this._total = data['total'];
-            }else{
+            } else {
               this._dataSet = [];
               this._total = 0;
             }
+            this.copyData = [...this._dataSet];
           },
           error => {
             this.messageSev.error("获取数据失败");
@@ -222,18 +232,45 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     this._httpSev.baseRequest("GET", btnUrl, params, this._httpSev.dataT.UnKnow).subscribe(
       (data: any) => {
         if (data && Array.isArray(data.data) && data.error == 0) {
-          // this._dataSet.forEach(item => {
-          //   item['tableBtnArr'] = data.data;
-          // })
           this._tableBtnArr = data.data;
-        } else {
-          this.messageSev.error('获取表格中服务器定义按钮失败');
         }
       },
       err => {
         this.messageSev.error('获取表格中服务器定义按钮错误');
       }
     )
+  }
+
+/***********tbody按钮回调************** */
+  orginBtnClick(note){
+    const event = note.$event;
+    const index = note.index;
+    const data = note.data;
+    const idx = note.dataIndex;
+    switch (index){
+      case 0:this.detailClick(event,data,idx);
+      break;
+      case 1:this.operationClick(event,data,idx);
+      break;
+      case 2:this.attachTableClick(event, data, idx);
+      break;
+      case 3:this.deleteClick(data);
+    }
+  }
+
+  customBtnClick(note){
+    const event = note.$event;
+    const index = note.i;
+    const data = note.data;
+    this.btnClick(event,index,data);
+  }
+
+  serveBtnClick(note){
+    const event = note.$event;
+    const btnI = note.btnI;
+    const btn = note.btn;
+    const dataIndex = note.dataIndex;
+    this.tableBtnMenuClick(event,btnI,btn,dataIndex);
   }
 
   /***********按钮及输入框触发事件**************/
@@ -279,6 +316,8 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     this._theModalName = 'form-readonly';
     this._selectData = Object.assign({}, data, { idx: idx });
   }
+
+  
 
   //操作事件
   operationClick(event, data, idx) {
@@ -359,7 +398,6 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
             if (Array.isArray(data.data) && (<Array<any>>data.data).length && data.error == 0) {
               this.messageSev.success(btnObj['OkMsgCn']);
               this._dataSet[dataIndex] = data.data[0];
-              // console.info(data);
             } else {
               this.messageSev.error(data['message']);
             }
@@ -391,6 +429,16 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     } else if (notiObj && notiObj.name == 'update' && notiObj.data && notiObj.data.idx >= 0) {//本地更新（未用）
 
     }
+  }
+
+  /********组件代理******* */
+  //table filter 筛选 排序更新事件
+  tableFilterUpdateData(data) {
+    this._dataSet = data;
+  }
+
+  alertModalEM(){
+    this.windowModalNoti();
   }
 
 }

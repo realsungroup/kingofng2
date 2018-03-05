@@ -37,7 +37,8 @@ export enum FormItemTypeEM {
     Time = 19,
     LongText = 20,
     ImageForUrlCol = 21,
-    ImageSelect = 22
+    ImageSelect = 22,
+    ImgCamera = 23
 }
 
 export enum FormItemElementEM {

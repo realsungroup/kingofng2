@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { BaseHttpService } from '../../../../app/base-http-service/base-http.service';
 import { LZTab } from '../../interface/tab.interface';
 import { NzMessageService } from 'ng-zorro-antd';
+import { FormService } from '../../service/form.service';
+import { FormItemElementEM } from '../../enum/form-item.enum';
 
 @Component({
   selector: 'app-window-modal',
@@ -12,12 +14,12 @@ export class WindowModalFormReadonlyComponent implements OnInit {
   path: any;
 
   @Output() closeNoti = new EventEmitter();
-
+  @Input() alertModal:boolean = false;
   @Input() tabs: Array<LZTab> = [];
   @Input() data: any = {};
   @Input() resid: string = '';
 
-  constructor(private httpSev: BaseHttpService,private messageSev:NzMessageService) {
+  constructor(private httpSev: BaseHttpService,private messageSev:NzMessageService,private formService:FormService) {
     this.path = this.httpSev.path;
   }
 
@@ -40,7 +42,11 @@ export class WindowModalFormReadonlyComponent implements OnInit {
     this.httpSev.baseRequest("GET", urlStr, params, -1).subscribe(
       data => {
         if (data && data.data && data.data.columns) {
-          tab.titleArray = data.data.columns.filter(item => item.ColDispName.length);
+          tab.titleArray = data.data.columns.filter(item => (item.ColDispName.length));
+          // tab = this.formService.fixTabsTitleArr(data,tab);
+          tab.imgElementArr = data.data.columns.filter(item => item.FrmFieldFormType == FormItemElementEM.ImageForUrlCol);
+          console.info("imgElementArr",tab.imgElementArr)
+          tab = this.formService.fixTabsTitleArrOnlyForImage(data,tab);
         }
       },
       err => {
@@ -50,7 +56,7 @@ export class WindowModalFormReadonlyComponent implements OnInit {
   }
 
   //返回事件
-  close() {
+  goBack() {
     this.closeNoti.emit();
   }
 }

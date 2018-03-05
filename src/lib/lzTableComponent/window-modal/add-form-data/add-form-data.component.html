@@ -1,9 +1,9 @@
-<div [class.hidden]="!_theMainModal" >
-<!-- [@flyInOut]="'in'" -->
-    
+<div [class.hidden]="!_theMainModal && !alertModal">
+  <!-- [@flyInOut]="'in'" -->
+
   <div class="components-table-demo-control-bar">
     <form nz-form [nzLayout]="'inline'">
-      <div nz-row nz-form-item>
+      <div nz-row nz-form-item *ngIf="!alertModal">
         <button nz-button (click)="goBack()" [nzType]="'default'">
           <span>返回</span>
         </button>
@@ -22,31 +22,33 @@
         <div nz-form-label nz-col [nzSpan]="7">
           <label>{{title?.ColDispName}}</label>
         </div>
-        <app-form-item-dynamic [index]="j" [data]="data" [title]="title"
-         (clickNotiEvent)="formItemDynamicClick($event)"
-         (updateNotiEvent)="update($event)">
+        <app-form-item-dynamic [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicClick($event)" (updateNotiEvent)="update($event)">
         </app-form-item-dynamic>
       </div>
     </form>
   </ng-container>
 
   <!-- 自定义布局   -->
-  <ng-container *ngIf="isCustomPosition">
-    <form class="form-scroll position-r" nz-form>
-      <div *ngFor="let titleEle of titleElementArray">
-        <label class="position-a" [ngStyle]="customStyle(titleEle)">{{titleEle?.FrmText}}</label>
-      </div>
-      <ng-container *ngFor="let title of titleArray;let j = index">
-        <app-form-item-dynamic-p [index]="j" [data]="data" [title]="title"
-         (clickNotiEvent)="formItemDynamicClick($event)"
-         (updateNotiEvent)="update($event)">
-        </app-form-item-dynamic-p>
-      </ng-container>
-    </form>
-  </ng-container>
-
+    <ng-container *ngIf="isCustomPosition">
+      <form class="form-scroll position-r" nz-form [style.height.px]="formHeight">
+        <div *ngFor="let titleEle of titleElementArray">
+          <label class="position-a" [ngStyle]="customStyle(titleEle)">{{titleEle?.FrmText}}</label>
+        </div>
+        <ng-container *ngFor="let title of titleArray;let j = index">
+          <app-form-item-dynamic-p [index]="j" [data]="data" [title]="title" (clickNotiEvent)="formItemDynamicClick($event)" (updateNotiEvent)="update($event)">
+          </app-form-item-dynamic-p>
+        </ng-container>
+      </form>
+    </ng-container>
+    
 </div>
 
 <ng-container *ngIf="!_theMainModal">
-  <app-form-item-resource [advDictionaryListData]="advDictionaryListData" [data]="data" (formItemResourceNoti)="formItemResourceNoti($event)"></app-form-item-resource>
+  <lz-modal-frame (closeEM)="_theMainModal = true" [width]="700" *ngIf="alertModal">
+    <app-form-item-resource [alertModal]="alertModal" [advDictionaryListData]="advDictionaryListData" [data]="data" (formItemResourceNoti)="formItemResourceNoti($event)"></app-form-item-resource>
+  </lz-modal-frame>
+
+  <ng-container *ngIf="!alertModal">
+    <app-form-item-resource [advDictionaryListData]="advDictionaryListData" [data]="data" (formItemResourceNoti)="formItemResourceNoti($event)"></app-form-item-resource>
+  </ng-container>
 </ng-container>

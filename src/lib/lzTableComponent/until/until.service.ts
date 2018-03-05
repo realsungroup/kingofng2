@@ -47,7 +47,8 @@ export class LZUntilService {
     }
 
     //自定义定位
-    customStyle(obj: any): any {
+    customStyle(obj: any,group?): any {
+        if(group == 'group') obj.FrmWidth = Number(obj.FrmWidth) + 20;
         let styles = {
             // "background-color": c,
             "display": "inline-block",

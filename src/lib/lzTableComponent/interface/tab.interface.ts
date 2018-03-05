@@ -9,4 +9,5 @@ export interface LZTab {
     subFormLayout?:string;//子表布局方式
     dataArray?:Array<any>;//附表数据组
     formHeight?:string;//form 高度
+    elementArr?:Array<any>;//控件信息
 }

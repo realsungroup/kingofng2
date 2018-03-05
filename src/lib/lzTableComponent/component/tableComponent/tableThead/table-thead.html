@@ -1,0 +1,9 @@
+
+    <tr>
+        <!-- 标题 -->
+        <th nz-th *ngFor="let title of titleArr">
+            <span>{{title.text}}</span>
+            <table-filter (updateDataEM)="tableFilterUpdateData($event)" [titleID]="title.id" [copyData]="copyData" [filterColArr]="filterColArr"
+                [sortColArr]="sortColArr"></table-filter>
+        </th>
+    </tr>
