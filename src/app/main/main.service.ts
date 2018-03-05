@@ -26,7 +26,7 @@ export class MainService {
       for (let r of filterArr) {
         for (let fr of fixRouteArr) {
           if (r.C3_558541922352 && r.C3_558541922352.length && r.C3_558541922352 == fr.C3_558541943043) {
-            if (fr.children && Array.isArray(fr.children)) fr.children.push(r);
+            if (fr.children && Array.isArray(fr.children) && fr.children.indexOf(r) == -1) fr.children.push(r);
             else fr.children = [r];
           }
         }

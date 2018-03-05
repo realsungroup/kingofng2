@@ -10,7 +10,7 @@ import { BaseHttpService } from '../base-http-service/base-http.service';
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
-  host:{
+  host: {
     '(window:resize)': 'onResize($event)'
   }
 })
@@ -20,12 +20,12 @@ export class MainComponent implements OnInit, AfterViewInit {
   breadcrumbArr: Array<any> = [];
   isCollapsed = false;
   routerArr: any;
-  _siderHeight:number = 0;
+  _siderHeight: number = 0;
   constructor(protected router: Router,
     private route: ActivatedRoute,
     private mainSev: MainService,
     private appSev: AppService,
-    private httpSev:BaseHttpService) {
+    private httpSev: BaseHttpService) {
 
   }
 
@@ -37,9 +37,10 @@ export class MainComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.routerArr = this.mainSev.fixRouteData(routeArr, 6);
       let a = []
-      for(let i = 0 ; i < 20 ; i++) a.push(this.routerArr[1]);
+      for (let i = 0; i < 20; i++) a.push(this.routerArr[1]);
       // this.routerArr = a;
-    },200);
+    }, 200);
+
     this.mainSev.getBreadArr().subscribe(
       (data: Array<any>) => {
         setTimeout(() => {
@@ -54,21 +55,21 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   //登出
-  loginOutClick(){
+  loginOutClick() {
     this.router.navigate(['/login']);
     window.app["routesArr"] = [];
-     window.app["badgeNo"] = '';
+    window.app["badgeNo"] = '';
     window.app["userInfo"] = {};
     this.httpSev.updateAppConfig();
   }
 
-  onResize(){
+  onResize() {
     this._siderHeight = window.innerHeight;
   }
 
-  ChangePassWord(){
+  ChangePassWord() {
     this.router.navigate(['/ChangeWord'])
-    
+
   }
 
 }

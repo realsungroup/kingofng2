@@ -74,7 +74,7 @@ export class ShopListComponent extends BaseComponent implements OnInit {
   }
 
   btnClick(i) {
-    alert("click index - " + i);
+    //alert("click index - " + i);
   }
 
   ngOnInit() {
