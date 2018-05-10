@@ -46,6 +46,7 @@
             <div class="custom-card">
               <h3>{{data[getTitleKey(1)]}}</h3>
               <p>{{data[getTitleKey(2)]}}</p>
+              <h3 *ngIf="isShowDate">{{data[getTitleKey(3)]}}</h3>
             </div>
             <form nz-form [nzLayout]="'inline'" style="text-align:left">
               <!-- 固定按钮组 -->

@@ -17,15 +17,15 @@ export class CommonCardComponent extends LZcommonTableComponent implements OnIni
   colSumHeight: any = [0];//每列高度数组
   _cardContainerHeight: number = 500;//卡片背景高度
   @Input() cardIndexArr: Array<number> = [];//指定字段的位置数组，第一个为图片，第二标题，第三描述
-
+  @Input() isShowDate: boolean = false;   //判断是否显示日期
   @ViewChild('cardContainer') cardContainer: ElementRef;
   @ViewChildren('card') things: QueryList<any>;//卡片dom数组
-
+  @Input() filterSelectObj: any = {};;
   constructor(_httpSev: BaseHttpService, modalSev: NzModalService, messageSev: NzMessageService, private el: ElementRef, private render2: Renderer2) {
     super(_httpSev, modalSev, messageSev);
     this.navtiveEle = this.el.nativeElement;
   }
-
+  
   ngAfterViewInit() {
     //监听卡片的变化(切换pagesize容易混乱，暂先注释掉)
     // this.things.changes.subscribe(

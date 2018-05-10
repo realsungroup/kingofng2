@@ -27,6 +27,7 @@ export class BaseComponent implements OnInit {
   _selectStartDate = null;
   _selectEndDate = null;
   _selectDateCmswhere: string = '';
+  
 
   constructor(protected injector: Injector) {
     this.mainSev = injector.get(MainService);

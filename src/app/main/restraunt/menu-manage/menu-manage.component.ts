@@ -15,7 +15,7 @@ export class MenuManageComponent extends BaseComponent implements OnInit {
   tabs: Array<any> = [];
   requestParams: any = {};
   requestDataType: number = -1;
-
+  isShowDate = false;
   constructor(private httpSev: BaseHttpService,injector:Injector) {
     super(injector);
   }

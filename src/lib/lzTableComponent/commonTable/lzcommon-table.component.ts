@@ -51,6 +51,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   @Input() requestUrl: string = '';//获取数据的url
   @Input() requestParams: any = {};//获取数据的参数(包含主表resid，cmswhere等参数)
   @Input() requestDataType: any = -1;//枚举dataType中某一个
+  @Input() filterSelectObj: any = {};;
 
   // 传入数据(所需参数)
   @Input() resid: string;//主表ID
@@ -93,6 +94,26 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     if (changes['filterDateCmswhere'] && this.isAutoData) {
       refresh = true;
     }
+    if (changes['filterSelectObj'] && this.isAutoData) {
+      this.current = this.requestParams['pageIndex'] + 1;
+      this.pageSize = this.requestParams['pageSize'];
+      this.resid = this.requestParams.resid;
+      if(this.isAttachDataModal){
+        this.resid = this.requestParams.subResid;
+      }
+      if(this.filterSelectObj==null||this.filterSelectObj==undefined||this.filterSelectObj==""){
+        this._cmswhere = this.requestParams.cmswhere || "";
+      }else{
+        if(this.filterSelectObj=="上架"){
+          this.filterSelectObj="Y";
+        }else{
+          this.filterSelectObj="N";
+        }
+       this._cmswhere = "C3_560942986614='"+this.filterSelectObj+"'";
+      }
+      refresh = true;
+    }
+
 
     if (changes['filterData'] && this.isAutoData) {
       if (this.filterData.length) {

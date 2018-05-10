@@ -9,9 +9,12 @@
     [operationOrginButton]="[true,true,false,false]"
     [tabs]="tabs"
     [addFormName]="'add'"
-    [cardIndexArr]="[13,9,10]"
+    [cardIndexArr]="[13,9,2,10]"
     [filterDateCmswhere]="_selectDateCmswhere"
-    [tableBtnStrArr]="['C3_560942986614','C3_560942996189']">
+    [tableBtnStrArr]="['C3_560942986614','C3_560942996189']"
+    [isShowDate]="isShowDate"
+    [filterString]="_selectString"
+    [filterSelectObj]="_filterSelectObj">
     <ng-container class="table-menu">
           <div nz-row nz-form-item>
               <nz-datepicker [(ngModel)]="_selectStartDate" (ngModelChange)="dateChange($event,0)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择开始日期'" ></nz-datepicker>
@@ -19,6 +22,42 @@
           <div nz-row nz-form-item>
               <nz-datepicker [(ngModel)]="_selectEndDate" (ngModelChange)="dateChange($event,1)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择结束日期'" ></nz-datepicker>
           </div>
+          <div nz-row nz-form-item>
+         
+          <!-- <nz-dropdown [nzTrigger]="'click'" [nzPlacement]="'bottomLeft'" [ngModel]="_start"  (ngModelChange)="filterClick(_start=$events)">
+              <a class="ant-dropdown-link" nz-dropdown>
+                   <i class="anticon anticon-down"></i>
+              </a>
+              <ul nz-menu *ngFor="let Datil of isPutaway">
+                <li nz-menu-item >
+                  <a target="_blank" rel="noopener noreferrer">{{Datil}}</a>
+                </li>
+              </ul>
+              
+          </nz-dropdown> -->
+          <!-- <nz-dropdown>
+            <button nz-button nz-dropdown><span>上架</span> <i class="anticon anticon-down"></i></button>
+            <ul nz-menu *ngFor="let Datil of isPutaway">
+              <li nz-menu-item >
+                <a target="_blank" rel="noopener noreferrer" (click)="refreshData(Datil)">{{Datil}}</a>
+              </li>
+             
+            </ul>
+          </nz-dropdown> -->
+          <nz-dropdown>
+            <a class="ant-dropdown-link" nz-dropdown>
+              请选择
+               <i class="anticon anticon-down"></i>
+            </a>
+            <ul nz-menu>
+              <li nz-menu-item *ngFor="let filterObj of filterData" (click)="filterClick($event,filterObj)">
+                <a target="_blank" rel="noopener noreferrer">{{filterObj}}</a>
+              </li>
+            </ul>
+          </nz-dropdown>
+         
+        </div>
+        
     </ng-container>
   </app-common-card>
 </div>
