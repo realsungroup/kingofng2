@@ -65,9 +65,14 @@ export class AddFormDataComponent extends ModalFormComponent implements OnInit {
       }
       this.httpSev.baseRequest("POST", urlStr, params, this.httpSev.dataT.AddOneDataEM).subscribe(
         data => {
-          if (data && data.error == 0) this.eventNoti.emit({ name: "update", data: this.data });//通知父组件更新数据
+          if (data && data.Error == 0)
+          {
+             this.eventNoti.emit({ name: "update", data: this.data });//通知父组件更新数据
+          }
           else if (data && data.error < 0) {
+            alert("save success" + JSON.stringify(data));
             this.messageSev.error(data['message'])
+            alert("save success" + JSON.stringify(data));
           }
         },
         err => {

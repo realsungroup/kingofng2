@@ -97,8 +97,8 @@ export class MenuPublishComponent extends BaseComponent implements OnInit {
     this.dateChangeStr = 'C3_529015275277';
 
     let urlStr: string = path.baseUrl + path.getFormDefine;
-    this.filterData.push("上架");
-    this.filterData.push("下架");
+    this.filterData.push("已上架");
+    this.filterData.push("已下架");
     
     }
   modalFormNoti() {

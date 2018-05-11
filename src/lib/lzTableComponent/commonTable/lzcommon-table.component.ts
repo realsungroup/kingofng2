@@ -101,13 +101,16 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       if(this.isAttachDataModal){
         this.resid = this.requestParams.subResid;
       }
-      if(this.filterSelectObj==null||this.filterSelectObj==undefined||this.filterSelectObj==""){
+      if(this.filterSelectObj==null||this.filterSelectObj==undefined||this.filterSelectObj==""||this.filterSelectObj=="N"){
         this._cmswhere = this.requestParams.cmswhere || "";
-      }else{
-        if(this.filterSelectObj=="上架"){
-          this.filterSelectObj="Y";
-        }else{
+      }
+      else{
+        if(this.filterSelectObj === "已上架"){
           this.filterSelectObj="N";
+          this.filterString="C3_560942986614";
+        }else{
+          this.filterSelectObj="Y";
+          this.filterString="C3_560942986614";
         }
        this._cmswhere = "C3_560942986614='"+this.filterSelectObj+"'";
       }
@@ -118,6 +121,10 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
     if (changes['filterData'] && this.isAutoData) {
       if (this.filterData.length) {
         this._filterSelectObj = this.filterData[0];
+        
+    let tmpCmswhere = this._cmswhere;
+    if (tmpCmswhere.length) tmpCmswhere += "AND";
+    tmpCmswhere += this.filterDateCmswhere;
         refresh = true;
       }
     }
@@ -135,11 +142,11 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
   getCmswhere(): string {
     let tmpCmswhere = this._cmswhere;
     if (Object.keys(this._filterSelectObj).length && this._filterSelectObj.value.length && this.filterString) {
-      if (tmpCmswhere.length) tmpCmswhere += "AND";
+      if (tmpCmswhere.length) tmpCmswhere += " AND ";
       tmpCmswhere += this.filterString + "='" + this._filterSelectObj['value'] + "'";
     }
     if (this.filterDateCmswhere.length) {
-      if (tmpCmswhere.length) tmpCmswhere += "AND";
+      if (tmpCmswhere.length) tmpCmswhere += " AND ";
       tmpCmswhere += this.filterDateCmswhere;
     }
     return tmpCmswhere;

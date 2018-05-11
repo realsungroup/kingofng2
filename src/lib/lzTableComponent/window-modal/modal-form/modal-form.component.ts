@@ -163,7 +163,7 @@ export class ModalFormComponent implements OnInit, OnDestroy {
       this.httpSev.baseRequest("POST", url, params, this.httpSev.dataT.FixOneDataEM).subscribe(
         data => {
           this.eventNoti.emit({ name: "update", data: this.data });//通知父组件更新数据
-          // alert("save success" + JSON.stringify(data));
+          //  alert("save success" + JSON.stringify(data));
         },
         err => {
           this.messageSev.error("保存错误，错误信息： " + JSON.stringify(err));
