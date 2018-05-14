@@ -117,17 +117,18 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       refresh = true;
     }
 
+//注释：这里是选择默认下拉列表的第一条数据
 
-    if (changes['filterData'] && this.isAutoData) {
-      if (this.filterData.length) {
-        this._filterSelectObj = this.filterData[0];
+    // if (changes['filterData'] && this.isAutoData) {
+    //   if (this.filterData.length) {
+    //     this._filterSelectObj = this.filterData[0];
         
-    let tmpCmswhere = this._cmswhere;
-    if (tmpCmswhere.length) tmpCmswhere += "AND";
-    tmpCmswhere += this.filterDateCmswhere;
-        refresh = true;
-      }
-    }
+    // let tmpCmswhere = this._cmswhere;
+    // if (tmpCmswhere.length) tmpCmswhere += "AND";
+    // tmpCmswhere += this.filterDateCmswhere;
+    //     refresh = true;
+    //   }
+    // }
     if (refresh) {
       this._refreshData();
       this._theModalName = 'main';
@@ -420,6 +421,37 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       content: btnObj['ConfirmMsgCn'],
       onOk: () => {
         this._loading = true;
+        if(this.filterSelectObj === 'N' || this.filterSelectObj === 'Y'){
+          
+          this.current = this.requestParams['pageIndex'] + 1;
+          this.pageSize = this.requestParams['pageSize'];
+          this.resid = this.requestParams.resid;
+          if(this.isAttachDataModal){
+            this.resid = this.requestParams.subResid;
+          }
+          if(this.filterSelectObj==null||this.filterSelectObj==undefined||this.filterSelectObj==""||this.filterSelectObj=="N"){
+            this._cmswhere = this.requestParams.cmswhere || "";
+          }
+          else{
+            if(this.filterSelectObj === "已上架"){
+              this.filterSelectObj="N";
+              this.filterString="C3_560942986614";
+            }else{
+              this.filterSelectObj="Y";
+              this.filterString="C3_560942986614";
+            }
+           this._cmswhere = "C3_560942986614='"+this.filterSelectObj+"'";
+        }
+        
+        this._httpSev.baseRequest("GET", dealBtnUrl, params, this._httpSev.dataT.UnKnow).subscribe(
+          (data: any) => {
+            if (Array.isArray(data.data) && (<Array<any>>data.data).length && data.error == 0) {
+              this.messageSev.success(btnObj['OkMsgCn']);
+              this._refreshData();
+            }
+          })
+        
+      }else{
         this._httpSev.baseRequest("GET", dealBtnUrl, params, this._httpSev.dataT.UnKnow).subscribe(
           (data: any) => {
             if (!data) return;
@@ -437,6 +469,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
             this._loading = false;
           })
       }
+    }
     })
   }
 

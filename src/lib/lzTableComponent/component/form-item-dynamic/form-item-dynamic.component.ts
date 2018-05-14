@@ -13,6 +13,7 @@ import { BaseHttpService } from '../../../../app/base-http-service/base-http.ser
 })
 
 export class FormItemDynamicComponent implements OnInit, OnChanges {
+  obj1: any;
   selectTypeEM: FormItemTypeEM;//合并后的枚举
   formItemEM = FormItemTypeEM;
   webCamera = false;//拍照
@@ -34,6 +35,7 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(change: SimpleChanges) {
+    
     if (change['data']) {
       this.initData();
     }
@@ -65,6 +67,8 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
 
     //根据枚举初始化对应的数据
     let m = this.data[this.title['ColName']];
+    let n = this.data.GcId;
+    this.obj1= n;
     // if (this.selectTypeEM == FormItemTypeEM.ImageForUrlCol) {
     //   let p = this.title['lzImgUrl'];
     //   this.obj = this.data[p];//alert(this.obj);

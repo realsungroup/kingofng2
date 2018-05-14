@@ -69,10 +69,9 @@ export class AddFormDataComponent extends ModalFormComponent implements OnInit {
           {
              this.eventNoti.emit({ name: "update", data: this.data });//通知父组件更新数据
           }
-          else if (data && data.error < 0) {
-            alert("save success" + JSON.stringify(data));
+          else if (data && data.Error < 0) {
+            alert( JSON.stringify(data.message));
             this.messageSev.error(data['message'])
-            alert("save success" + JSON.stringify(data));
           }
         },
         err => {

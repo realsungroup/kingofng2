@@ -37,12 +37,19 @@
 
   <!-- 下拉字典 -->
   <div *ngSwitchCase="formItemEM.OptionDictionary" nz-col [nzSpan]="nSpan" nz-form-control>
+     <!-- <nz-input [ngModel]="obj" name="obj"  style="width:100px;float: left;" [nzDisabled]="'true'"></nz-input> -->
     <nz-select [nzDisabled]="title.FrmReadonly" style="width: 200px;" (ngModelChange)="modelChange($event,formItemEM.OptionDictionary)"
-      [(ngModel)]="obj" [nzSize]="size">
-      <nz-option *ngFor="let olD of title.ListOfColOptions" [nzLabel]="olD.displayColValue" [nzValue]="olD.valueColValue">
+      [(ngModel)]="obj" [nzSize]="size" >
+      <nz-option *ngFor="let olD of title.ListOfColOptions"  [nzLabel]="olD.displayColValue" [nzValue]="olD.valueColValue">
       </nz-option>
     </nz-select>
-  </div>
+  </div>  
+  <!-- <div *ngSwitchCase="formItemEM.OptionDictionary" nz-col [nzSpan]="nSpan" nz-form-control>
+      <nz-select 
+      [ngModel]="singer" [nzPlaceHolder]="'绑定'" >
+     
+    </nz-select>
+  </div>  -->
 
   <!--勾选框  -->
   <div *ngSwitchCase="formItemEM.Checkbox" nz-col [nzSpan]="nSpan" nz-form-control>

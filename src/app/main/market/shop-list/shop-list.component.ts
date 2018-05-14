@@ -44,7 +44,7 @@ export class ShopListComponent extends BaseComponent implements OnInit {
     let filterRequestParams = {
       'pageSize': 10,
       'pageIndex': 0,
-      'resid': '535456813135'
+      'resid': '560949427095'
     }
 
     this.httpSev.baseRequest("GET", this.url, filterRequestParams, this.httpSev.dataT.HostTableDataEM).subscribe(
@@ -53,8 +53,8 @@ export class ShopListComponent extends BaseComponent implements OnInit {
           let filterArr = [];
           data['data'].forEach(element => {
             filterArr.push({
-              title: element['Name'],
-              value: element['GcId'] + ''
+              title: element['name'],
+              value: element['id'] + ''
             });
           });
           this.filterData = filterArr;
