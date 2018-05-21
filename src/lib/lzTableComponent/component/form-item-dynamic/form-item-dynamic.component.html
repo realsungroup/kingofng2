@@ -43,7 +43,11 @@
       <nz-option *ngFor="let olD of title.ListOfColOptions"  [nzLabel]="olD.displayColValue" [nzValue]="olD.valueColValue">
       </nz-option>
     </nz-select>
+    <!-- <nz-cascader style="width:200px" *ngFor="let olD of title.ListOfColOptions" [class.class123]="true" [nzOptions]="_options" [(ngModel)]="_value" (ngModelChange)="_console($evetnt)" (nzChange)="_console($evetnt)">
+    
+    </nz-cascader><a href="javascript:;" (click)="_changeNzOptions()" class="change-options">清空</a> -->
   </div>  
+  
   <!-- <div *ngSwitchCase="formItemEM.OptionDictionary" nz-col [nzSpan]="nSpan" nz-form-control>
       <nz-select 
       [ngModel]="singer" [nzPlaceHolder]="'绑定'" >

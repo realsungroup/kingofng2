@@ -188,7 +188,7 @@ export class BaseHttpService {
 
   updateImg(file) {
     return new Promise((resolve, reject) => {
-      let upUrlStr = this.path.uploadFileUrl + '?savepath=c:\\web\\web\\rispweb\\upfiles&httppath=' + this.path.httppath;
+      let upUrlStr = this.path.uploadFileUrl + '?savepath=d:\\web\\web\\rispweb\\upfiles&httppath=' + this.path.httppath;
 
       let fd = new FormData();
       fd.append("file", file, 'hello.png');//新建formdata提交，png格式

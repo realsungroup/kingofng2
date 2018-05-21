@@ -44,7 +44,8 @@ export class ShopListComponent extends BaseComponent implements OnInit {
     let filterRequestParams = {
       'pageSize': 10,
       'pageIndex': 0,
-      'resid': '560949427095'
+      'resid': '560949427095',
+      'cmswhere':'pid != 0'
     }
 
     this.httpSev.baseRequest("GET", this.url, filterRequestParams, this.httpSev.dataT.HostTableDataEM).subscribe(

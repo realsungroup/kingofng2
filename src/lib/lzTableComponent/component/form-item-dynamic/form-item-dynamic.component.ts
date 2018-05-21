@@ -5,6 +5,66 @@ import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChange
 import { FormItemStructEM, FormItemTypeEM, FormItemElementEM } from '../../enum/form-item.enum';
 import { LZUntilService } from '../../until/until.service';
 import { BaseHttpService } from '../../../../app/base-http-service/base-http.service';
+ const init_options = [{
+ 
+ }]
+//   value: this.title.ListOfColOptions[0].displayColValue,
+//   label: this.title.ListOfColOptions[0].displayColValue,
+//   children: [{
+//     value: 'hangzhou',
+//     label: 'Hangzhou',
+//     isLeaf: true
+//   //   children: [{
+//   //     value: 'xihu',
+//   //     label: 'West Lake',
+//   //     isLeaf: true
+//   //   }],
+//   // },
+//   //  {
+//   //   value: 'ningbo',
+//   //   label: 'Ningbo',
+//   //   isLeaf: true
+//    }
+// ],
+// }, {
+//   value: 'jiangsu',
+//   label: 'Jiangsu',
+//   children: [{
+//     value: 'nanjing',
+//     label: 'Nanjing',
+//     isLeaf: true
+//     // children: [{
+//     //   value: 'zhonghuamen',
+//     //   label: 'Zhong Hua Men',
+//     // }],
+//   }],
+// }];
+
+// const other_options = [{
+//   value: 'fujian',
+//   label: 'Fujian',
+//   children: [{
+//     value: 'xiamen',
+//     label: 'Xiamen',
+//     children: [{
+//       value: 'Kulangsu',
+//       label: 'Kulangsu',
+//       isLeaf: true
+//     }],
+//   }],
+// }, {
+//   value: 'guangxi',
+//   label: 'Guangxi',
+//   children: [{
+//     value: 'guilin',
+//     label: 'Guilin',
+//     children: [{
+//       value: 'Lijiang',
+//       label: 'Li Jiang River',
+//       isLeaf: true
+//     }],
+//   }],
+// }];
 
 @Component({
   selector: 'app-form-item-dynamic',
@@ -12,7 +72,14 @@ import { BaseHttpService } from '../../../../app/base-http-service/base-http.ser
   styleUrls: ['./form-item-dynamic.component.scss']
 })
 
+
 export class FormItemDynamicComponent implements OnInit, OnChanges {
+  _options = null;
+
+  _value: any[] = null;
+  _console(value) {
+    console.log(value);
+  }
   obj1: any;
   selectTypeEM: FormItemTypeEM;//合并后的枚举
   formItemEM = FormItemTypeEM;
@@ -42,10 +109,77 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    
+    // alert(this.data.olD.displayColValue);
+    // setTimeout(() => {
+    //   this._options = init_options;
+    // }, 100);
     // console.log("this title title.FrmReadonly" + this.title.FrmReadonly);
   }
 
+  _changeNzOptions(): void {
+    if (this._options === init_options) {
+      // this._options = other_options;
+    } else {
+      this._options = init_options;
+    }
+  }
+  
   initData() {
+    var val;
+    var i =0;
+    var aa:[1,2,3,3,3,5,6,6];
+    //var arrayObj = new Array([]);
+    var arrayObj= this.title.ListOfColOptions[0]; 
+    // var a = arrayObj;
+    // var b = a['displayColValue'];
+    // alert(b);
+    //  alert(this.title.ListOfColOptions[0].displayColValue);
+
+//     for(i = 1;i++;i<this.title.ListOfColOptions.length){
+      
+//      alert(arrayObj.displayColValue);
+//       val = arrayObj.displayColValue; 
+//       const init_options = [{
+//         value: val,
+//         label: val,
+//         children: [{
+//           value: 'hangzhou',
+//           label: 'Hangzhou',
+//           isLeaf: true
+//         }]
+//     }
+   
+//   ]
+// }
+
+      //   children: [{
+      //     value: 'xihu',
+      //     label: 'West Lake',
+      //     isLeaf: true
+      //   }],
+      // },
+      //  {
+      //   value: 'ningbo',
+      //   label: 'Ningbo',
+      //   isLeaf: true
+    // }, {
+    //   value: val,
+    //   label: val,
+    //   children: [{
+    //     value: 'nanjing',
+    //     label: 'Nanjing',
+    //     isLeaf: true
+    //     // children: [{
+    //     //   value: 'zhonghuamen',
+    //     //   label: 'Zhong Hua Men',
+    //     // }],
+    //   }],
+    // }];
+     setTimeout(() => {
+        this._options = init_options;
+      }, 100);
+    // alert(this.title.ListOfColOptions[0].displayColValue);
     this.structType = this.title.ColType;
     this.editType = this.title.ColValType;
     this.frmFieldFormType = this.title.FrmFieldFormType;
@@ -64,7 +198,6 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
     } else {
       this.selectTypeEM = this.editType;
     }
-
     //根据枚举初始化对应的数据
     let m = this.data[this.title['ColName']];
     let n = this.data.GcId;
@@ -108,7 +241,7 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
   //文件（图片)选择
   imgSelectClick(event) {
     let src, url = window.URL, files = event.target.files;
-    let upUrlStr = this.httpSev.path.uploadFileUrl + '?savepath=c:\\web\\web\\rispweb\\upfiles&httppath=' + this.httpSev.path.httppath;
+    let upUrlStr = this.httpSev.path.uploadFileUrl + '?savepath=d:\\web\\web\\rispweb\\upfiles&httppath=' + this.httpSev.path.httppath;
     for (let i = 0, len = files.length; i < len; ++i) {
       let file = files[i];
       this.httpSev.updateImg(file).then(

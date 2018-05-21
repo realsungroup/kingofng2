@@ -117,7 +117,7 @@ export class LZcommonTableComponent implements OnInit, OnChanges {
       refresh = true;
     }
 
-//注释：这里是选择默认下拉列表的第一条数据
+//注释：这里是选择默认下拉列表的第一条数据  
 
     // if (changes['filterData'] && this.isAutoData) {
     //   if (this.filterData.length) {
