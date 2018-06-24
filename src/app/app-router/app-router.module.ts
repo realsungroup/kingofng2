@@ -6,7 +6,7 @@ import { MainComponent } from '../main/main.component';
 import { LoginComponent } from '../main/login/login.component';
 
 import { ShopCategoryComponent } from '../main/market/shop-category/shop-category.component';
-import { ShopListComponent } from '../main/market/shop-list/shop-list.component'; 
+import { ShopListComponent } from '../main/market/shop-list/shop-list.component';
 import { ShopOrderComponent } from '../main/market/shop-order/shop-order-send/shop-order.component';
 import { ShopOrderSendedComponent } from '../main/market/shop-order/shop-order-sended/shop-order-sended.component';
 import { ShopOrderDetailComponent } from '../main/market/shop-order-detail/shop-order-detail.component';
@@ -17,7 +17,7 @@ import { MenuManageComponent } from '../main/restraunt/menu-manage/menu-manage.c
 import { MenuPublishComponent } from "../main/restraunt/menu-publish/menu-publish.component";
 import { MenuOrderStatisticsComponent } from '../main/restraunt/menu-order-statistics/menu-order-statistics.component';
 import { RestrauntOrderComponent } from '../main/restraunt/restraunt-order/restraunt-order.component';
-
+import { MenuOrderTongjiComponent } from '../main/restraunt/menu-order-tongji/menu-order-tongji.component';
 import { CompanyBalanceTableComponent } from '../main/company-balance/company-balance-table/company-balance-table.component';
 import { SupplierBalanceTableComponent } from '../main/company-balance/supplier-balance-table/supplier-balance-table.component';
 
@@ -35,6 +35,7 @@ const childRouts:Array<any> = [
   { path: 'menuManage',component:MenuManageComponent,link:'/main/menuManage'},
   { path: 'menuPublish',component:MenuPublishComponent,link:'/main/menuPublish'},
   { path: 'menuOrderStatistics',component:MenuOrderStatisticsComponent,link:'/main/menuOrderStatistics'},
+  { path: 'menuOrderTongji',component:MenuOrderTongjiComponent,link:'/main/menuOrderTongji'},
   { path: 'restrauntOrder',component:RestrauntOrderComponent,link:'/main/restrauntOrder'},
 
   { path: 'companyBalanceTable',component:CompanyBalanceTableComponent,link:'/main/companyBalanceTable'},

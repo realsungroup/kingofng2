@@ -1,7 +1,7 @@
 {
     "path": {
-        "baseUrl": "https://kingofmall.realsun.me:8096/",
-        "loginBaseUrl": "https://kingofmall.realsun.me:8096/",
+        "baseUrl": "https://finisar.realsun.me:9092/",
+        "loginBaseUrl": "https://finisar.realsun.me:9092/",
         "getData": "api/100/table/Retrieve",
         "getSubData": "api/100/table/RetrieveRelTableByHostRecord",
         "saveData": "api/100/table/Save",
