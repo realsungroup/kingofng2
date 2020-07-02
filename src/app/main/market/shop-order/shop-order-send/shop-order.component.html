@@ -1,7 +1,7 @@
 <div [class.hidden]="isSendModalShow">
   <app-lzcommon-table
     [isAutoData]="true"
-    [operationOrginButton]="[true,false,false,false]"
+    [operationOrginButton]="[true, false, false, false]"
     [tabs]="tabs"
     [isEditCustomPosition]="false"
     [operationButton]="operationButton"
@@ -10,36 +10,52 @@
     [requestUrl]="url"
     [requestParams]="requestParams"
     [requestDataType]="requestDataType"
-    [filterDateCmswhere]="_selectDateCmswhere">
+    [filterDateCmswhere]="_selectDateCmswhere"
+    [extraColumn]="[
+      { text: '快递单号', id: 'C3_580293339106', inputComponent: 'Input' }
+    ]"
+  >
     <ng-container class="table-menu">
-        <div nz-row nz-form-item>
-            <nz-datepicker [(ngModel)]="_selectStartDate" (ngModelChange)="dateChange($event,0)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择开始日期'" ></nz-datepicker>
-        </div>
-        <div nz-row nz-form-item>
-            <nz-datepicker [(ngModel)]="_selectEndDate" (ngModelChange)="dateChange($event,1)" [ngModelOptions]="{standalone: true}" [nzFormat]="'YYYYMMDD'" [nzPlaceHolder]="'请选择结束日期'" ></nz-datepicker>
-        </div>
+      <div nz-row nz-form-item>
+        <nz-datepicker
+          [(ngModel)]="_selectStartDate"
+          (ngModelChange)="dateChange($event, 0)"
+          [ngModelOptions]="{ standalone: true }"
+          [nzFormat]="'YYYYMMDD'"
+          [nzPlaceHolder]="'请选择开始日期'"
+        ></nz-datepicker>
+      </div>
+      <div nz-row nz-form-item>
+        <nz-datepicker
+          [(ngModel)]="_selectEndDate"
+          (ngModelChange)="dateChange($event, 1)"
+          [ngModelOptions]="{ standalone: true }"
+          [nzFormat]="'YYYYMMDD'"
+          [nzPlaceHolder]="'请选择结束日期'"
+        ></nz-datepicker>
+      </div>
     </ng-container>
   </app-lzcommon-table>
 </div>
 
-  <ng-container *ngIf="isSendModalShow">
-    <app-modal-form 
-      [tabs]="orderTabs" 
-      [resid]="resid"
-      [isMainData]="true" 
-      [data]="_selectData" 
-      [isCustomPosition]="false"
-      (eventNoti)="modalFormNoti($event)">
-
-        <app-lzcommon-table
-          [isAttachDataModal]="true"
-          [isAutoData]="true"
-          [operationOrginButton]="[false,false,false,false]"
-          [requestType]="'GET'"
-          [requestUrl]="attachRequestUrl"
-          [requestParams]="attachParams"
-          [requestDataType]="attachRequestDataType">
-        </app-lzcommon-table>
-
-    </app-modal-form>
-  </ng-container>
+<ng-container *ngIf="isSendModalShow">
+  <app-modal-form
+    [tabs]="orderTabs"
+    [resid]="resid"
+    [isMainData]="true"
+    [data]="_selectData"
+    [isCustomPosition]="false"
+    (eventNoti)="modalFormNoti($event)"
+  >
+    <app-lzcommon-table
+      [isAttachDataModal]="true"
+      [isAutoData]="true"
+      [operationOrginButton]="[false, false, false, false]"
+      [requestType]="'GET'"
+      [requestUrl]="attachRequestUrl"
+      [requestParams]="attachParams"
+      [requestDataType]="attachRequestDataType"
+    >
+    </app-lzcommon-table>
+  </app-modal-form>
+</ng-container>

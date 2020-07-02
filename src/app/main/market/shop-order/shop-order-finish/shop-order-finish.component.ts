@@ -7,11 +7,11 @@ import { MainService } from "../../../main.service";
 import { LZUntilService } from "../../../../../lib/lzTableComponent/until/until.service";
 
 @Component({
-  selector: "app-shop-order-sended",
-  templateUrl: "./shop-order-sended.component.html",
-  styleUrls: ["./shop-order-sended.component.scss"],
+  selector: "app-shop-order-finish",
+  templateUrl: "./shop-order-finish.component.html",
+  styleUrls: ["./shop-order-finish.component.scss"],
 })
-export class ShopOrderSendedComponent extends BaseComponent implements OnInit {
+export class ShopOrderFinishComponent extends BaseComponent implements OnInit {
   url: string = "";
   requestParams: any = {};
   requestDataType: number = -1;
@@ -26,7 +26,7 @@ export class ShopOrderSendedComponent extends BaseComponent implements OnInit {
     let path = this.httpSev.path;
     this.url = path.baseUrl + path.getData;
     this.requestParams = {
-      resid: 580293598310,
+      resid: 580816827924,
       pageIndex: 0,
       pageSize: 10,
       getcolumninfo: 1,

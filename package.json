@@ -29,6 +29,7 @@
     "core-js": "^2.4.1",
     "ng-tree-antd": "^1.0.0-bate",
     "ng-zorro-antd": "^0.5.1",
+    "node-sass": "^4.14.1",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },

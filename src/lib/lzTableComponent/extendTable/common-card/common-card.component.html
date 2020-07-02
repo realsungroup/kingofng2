@@ -1,28 +1,39 @@
 <div [class.hidden]="_theModalName != 'main'">
-
   <div class="components-table-demo-control-bar">
     <form nz-form [nzLayout]="'inline'">
       <div nz-row nz-form-item *ngIf="addFormName">
         <button nz-button (click)="addDataClick()" [nzType]="'primary'">
-              <span>添加</span>
-          </button>
+          <span>添加</span>
+        </button>
       </div>
       <div nz-row nz-form-item *ngIf="filterData.length">
         <nz-dropdown>
           <a class="ant-dropdown-link" nz-dropdown>
-            请选择：{{_filterSelectObj?.title}}
-             <i class="anticon anticon-down"></i>
+            请选择：{{ _filterSelectObj?.title }}
+            <i class="anticon anticon-down"></i>
           </a>
           <ul nz-menu>
-            <li nz-menu-item *ngFor="let filterObj of filterData" (click)="filterClick($event,filterObj)">
-              <a target="_blank" rel="noopener noreferrer">{{filterObj.title}}</a>
+            <li
+              nz-menu-item
+              *ngFor="let filterObj of filterData"
+              (click)="filterClick($event, filterObj)"
+            >
+              <a target="_blank" rel="noopener noreferrer">{{
+                filterObj.title
+              }}</a>
             </li>
           </ul>
         </nz-dropdown>
       </div>
 
       <div nz-form-item nz-row>
-        <nz-input *ngIf="isAutoData" name="serach" [(ngModel)]="searchValue" [nzPlaceHolder]="'搜索'" (ngModelChange)="searchChange($event)">
+        <nz-input
+          *ngIf="isAutoData"
+          name="serach"
+          [(ngModel)]="searchValue"
+          [nzPlaceHolder]="'搜索'"
+          (ngModelChange)="searchChange($event)"
+        >
         </nz-input>
       </div>
 
@@ -32,84 +43,202 @@
   </div>
 
   <nz-spin [nzSpinning]="_loading">
-
     <div #cardContainer [style.height.px]="_cardContainerHeight">
       <!-- (window:resize)="onResize($event)"> -->
 
-      <ng-container *ngFor="let data of _dataSet;let dataIndex = index;">
-
-
+      <ng-container *ngFor="let data of _dataSet; let dataIndex = index">
         <nz-card [nzNoHovering]="true" #card class="card">
           <ng-template #body>
             <div class="custom-image">
-              <img width="100%" [src]="data[getTitleKey(0)]" (load)="imgLoad()" />
+              <img
+                width="100%"
+                [src]="data[getTitleKey(0)]"
+                (load)="imgLoad()"
+              />
             </div>
             <div class="custom-card">
-              <h3>{{data[getTitleKey(1)]}}</h3>
-              <p>{{data[getTitleKey(2)]}}</p>
-              <h3 *ngIf="isShowDate">{{data[getTitleKey(3)]}}</h3>
+              <h3>{{ data[getTitleKey(1)] }}</h3>
+              <p>{{ data[getTitleKey(2)] }}</p>
+              <h3 *ngIf="isShowDate">{{ data[getTitleKey(3)] }}</h3>
             </div>
-            <form nz-form [nzLayout]="'inline'" style="text-align:left">
+            <form nz-form [nzLayout]="'inline'" style="text-align: left;">
               <!-- 固定按钮组 -->
               <div nz-row nz-form-item *ngIf="operationOrginButton[0]">
                 <div nz-form-control>
-                  <button nz-button [nzType]="'primary'" (click)="detailClick($event,data,dataIndex)"><span>详情</span></button>
+                  <button
+                    nz-button
+                    [nzType]="'primary'"
+                    (click)="detailClick($event, data, dataIndex)"
+                  >
+                    <span>详情</span>
+                  </button>
                 </div>
               </div>
               <div nz-row nz-form-item *ngIf="operationOrginButton[1]">
                 <div nz-form-control>
-                  <button nz-button [nzType]="'default'" (click)="operationClick($event,data,dataIndex)"><span>操作</span></button>
+                  <button
+                    nz-button
+                    [nzType]="'default'"
+                    (click)="operationClick($event, data, dataIndex)"
+                  >
+                    <span>操作</span>
+                  </button>
                 </div>
               </div>
               <div nz-row nz-form-item *ngIf="operationOrginButton[2]">
                 <div nz-form-control>
-                  <button nz-button [nzType]="'default'" (click)="attachTableClick($event,data,dataIndex)"><span>附表</span></button>
+                  <button
+                    nz-button
+                    [nzType]="'default'"
+                    (click)="attachTableClick($event, data, dataIndex)"
+                  >
+                    <span>{{ subTableBtnText }}</span>
+                  </button>
                 </div>
               </div>
               <div nz-row nz-form-item *ngIf="operationOrginButton[3]">
                 <div nz-form-control>
-                  <button nz-button [nzType]="'danger'" (click)="deleteClick(data)"><span>删除</span></button>
+                  <button
+                    nz-button
+                    [nzType]="'danger'"
+                    (click)="deleteClick(data)"
+                  >
+                    <span>删除</span>
+                  </button>
                 </div>
               </div>
               <!-- 自定义按钮组 -->
-              <ng-container nz-td *ngFor="let btn of operationButton;let i = index">
+              <ng-container
+                nz-td
+                *ngFor="let btn of operationButton; let i = index"
+              >
                 <div nz-row nz-form-item>
                   <div nz-form-control>
-                    <button nz-button [nzType]="btn.type" [nzLoading]="btn.loading" (click)="btnClick($event,i,data)"><span>{{btn.title}}</span></button>
+                    <button
+                      nz-button
+                      [nzType]="btn.type"
+                      [nzLoading]="btn.loading"
+                      (click)="btnClick($event, i, data)"
+                    >
+                      <span>{{ btn.title }}</span>
+                    </button>
                   </div>
                 </div>
               </ng-container>
               <!-- 表格自定义按钮组 -->
-              <ng-container nz-td *ngFor="let btn of _tableBtnArr;let btnI = index;let last = last">
-                <div [appRepeatLoadOver]="[btnLoadOver,last]" nz-row nz-form-item *ngIf="btn.Show && btn.Type == 1 && tableBtnStrArr[btnI] && data[tableBtnStrArr[btnI]] == 'Y'">
+              <ng-container
+                nz-td
+                *ngFor="
+                  let btn of _tableBtnArr;
+                  let btnI = index;
+                  let last = last
+                "
+              >
+                <div
+                  [appRepeatLoadOver]="[btnLoadOver, last]"
+                  nz-row
+                  nz-form-item
+                  *ngIf="
+                    btn.Show &&
+                    btn.Type == 1 &&
+                    tableBtnStrArr[btnI] &&
+                    data[tableBtnStrArr[btnI]] == 'Y'
+                  "
+                >
                   <div nz-form-control>
-                    <button nz-button (click)="tableBtnMenuClick($event,btnI,btn,dataIndex)"><span>{{btn.Name1}}</span></button>
+                    <button
+                      nz-button
+                      (click)="tableBtnMenuClick($event, btnI, btn, dataIndex)"
+                    >
+                      <span>{{ btn.Name1 }}</span>
+                    </button>
                   </div>
+                </div> </ng-container
+              ><ng-container *ngIf="hasModifyPrice">
+                <div style="color: #e76867;" *ngIf="!data.modifingPrice">
+                  ￥：<span style="font-size: 1.3em;">{{ data.Price }}</span>
+                  <button
+                    nz-button
+                    [nzType]="'primary'"
+                    (click)="changeModifyStatus($event, data, dataIndex)"
+                    [nzSize]="'small'"
+                  >
+                    <span>修改</span>
+                  </button>
+                </div>
+                <div *ngIf="data.modifingPrice">
+                  <nz-input-number
+                    [(ngModel)]="data.priceForModify"
+                    [nzSize]="'small'"
+                    [nzMin]="0"
+                    [nzMax]="1000000"
+                    [nzStep]="1"
+                    name="modify-price"
+                  ></nz-input-number>
+                  <button
+                    nz-button
+                    [nzType]="'primary'"
+                    (click)="handleModifyPrice(data)"
+                    [nzSize]="'small'"
+                  >
+                    <span>保存</span>
+                  </button>
+                  <button
+                    nz-button
+                    [nzType]="'danger'"
+                    (click)="changeModifyStatus($event, data, dataIndex)"
+                    [nzSize]="'small'"
+                  >
+                    <span>取消</span>
+                  </button>
                 </div>
               </ng-container>
             </form>
-          </ng-template> 
+          </ng-template>
         </nz-card>
       </ng-container>
     </div>
 
-    <nz-pagination class="card-pagination" [(nzPageIndex)]="current" [nzTotal]="_total" [(nzPageSize)]="pageSize" (nzPageIndexChange)="_refreshData()"
-      (nzPageSizeChange)="_refreshData()" nzShowTotal nzShowQuickJumper nzShowSizeChanger>
+    <nz-pagination
+      class="card-pagination"
+      [(nzPageIndex)]="current"
+      [nzTotal]="_total"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="_refreshData()"
+      (nzPageSizeChange)="_refreshData()"
+      nzShowTotal
+      nzShowQuickJumper
+      nzShowSizeChanger
+    >
     </nz-pagination>
-
   </nz-spin>
-
 </div>
 
 <ng-container *ngIf="_theModalName == 'form-readonly'">
-  <app-window-modal [tabs]="tabs" [resid]="resid" [data]="_selectData" (closeNoti)="windowModalNoti($event)"></app-window-modal>
+  <app-window-modal
+    [tabs]="tabs"
+    [resid]="resid"
+    [data]="_selectData"
+    (closeNoti)="windowModalNoti($event)"
+  ></app-window-modal>
 </ng-container>
 
 <ng-container *ngIf="_theModalName == 'form'">
-  <app-modal-form [tabs]="tabs" [resid]="resid" [isMainData]="isMainData" [data]="_selectData" [isCustomPosition]="isEditCustomPosition"
-    (eventNoti)="modalFormNoti($event)"></app-modal-form>
+  <app-modal-form
+    [tabs]="tabs"
+    [resid]="resid"
+    [isMainData]="isMainData"
+    [data]="_selectData"
+    [isCustomPosition]="isEditCustomPosition"
+    (eventNoti)="modalFormNoti($event)"
+  ></app-modal-form>
 </ng-container>
 
 <ng-container *ngIf="_theModalName == 'addDataForm'">
-  <app-add-form-data [addFormName]="addFormName" [resid]="resid" [isCustomPosition]="isAddCustomPosition" (eventNoti)="modalFormNoti($event)"></app-add-form-data>
+  <app-add-form-data
+    [addFormName]="addFormName"
+    [resid]="resid"
+    [isCustomPosition]="isAddCustomPosition"
+    (eventNoti)="modalFormNoti($event)"
+  ></app-add-form-data>
 </ng-container>
