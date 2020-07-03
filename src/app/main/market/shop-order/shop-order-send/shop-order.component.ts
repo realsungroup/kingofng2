@@ -57,6 +57,11 @@ export class ShopOrderComponent extends BaseComponent implements OnInit {
         title: "发货",
         loading: false,
       },
+      {
+        title: "详情",
+        type: "default",
+        loading: false,
+      },
     ];
 
     let path = this.httpSev.path;
@@ -103,36 +108,28 @@ export class ShopOrderComponent extends BaseComponent implements OnInit {
       } else {
         this.messageSev.error("请输入快递单号 ");
       }
-    }
-    // if (!note.i) {
-    //   this.isSendModalShow = true;
-    //   this.resid = this.requestParams["resid"];
-    //   this._selectData = note.data;
-    //   this.orderTabs = [
-    //     {
-    //       isSubForm: false,
-    //       formName: "send",
-    //     },
-    //   ];
+    } else if (note.i === 1) {
+      this.isSendModalShow = true;
+      this.resid = this.requestParams["resid"];
+      this._selectData = note.data;
+      this.orderTabs = [
+        {
+          isSubForm: false,
+          formName: "send",
+        },
+      ];
 
-    //   this.attachRequestUrl =
-    //     this.httpSev.path.baseUrl + this.httpSev.path.getSubData;
-    //   this.attachParams = {
-    //     resid: 580235999126,
-    //     pageIndex: 0,
-    //     pageSize: 10,
-    //     subResid: 559049368638,
-    //     hostrecid: note.data["REC_ID"],
-    //   };
-    //   this.attachRequestDataType = this.httpSev.dataT.AttachTableDataEM;
-    // } else if (note.i === 1) {
-    //   const { i, data } = note;
-    //   if (data.C3_580293339106) {
-    //     alert(data.C3_580293339106);
-    //   } else {
-    //     alert("请输入快递单号");
-    //   }
-    // }
+      this.attachRequestUrl =
+        this.httpSev.path.baseUrl + this.httpSev.path.getSubData;
+      this.attachParams = {
+        resid: 580235999126,
+        pageIndex: 0,
+        pageSize: 10,
+        subResid: 559049368638,
+        hostrecid: note.data["REC_ID"],
+      };
+      this.attachRequestDataType = this.httpSev.dataT.AttachTableDataEM;
+    }
   }
 
   modalFormNoti() {
