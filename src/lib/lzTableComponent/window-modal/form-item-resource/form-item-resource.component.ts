@@ -61,7 +61,7 @@ export class FormItemResourceComponent implements OnInit {
     }
     let params = {
       resid: resid2,
-      pageIndex:this.current,
+      pageIndex:(this.current - 1)>0?this.current -1:0,
       pageSize:10,
       cmswhere: cmswhere,
       key: this.searchValue
