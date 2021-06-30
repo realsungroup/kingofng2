@@ -241,7 +241,7 @@ export class FormItemDynamicComponent implements OnInit, OnChanges {
   //文件（图片)选择
   imgSelectClick(event) {
     let src, url = window.URL, files = event.target.files;
-    let upUrlStr = this.httpSev.path.uploadFileUrl + '?savepath=d:\\web\\web\\rispweb\\upfiles&httppath=' + this.httpSev.path.httppath;
+    let upUrlStr = this.httpSev.path.uploadFileUrl + '?savepath=C:\\web\\web\\rispweb\\upfiles&httppath=' + this.httpSev.path.httppath;
     for (let i = 0, len = files.length; i < len; ++i) {
       let file = files[i];
       this.httpSev.updateImg(file).then(
